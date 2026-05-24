@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /api/confirm
+Disallow: /api/
+Disallow: /obrigado
+Disallow: /cancelar
+
+Sitemap: https://editus.com.br/sitemap.xml

@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-editus-950 text-editus-900 font-sans;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-editus-600 text-white rounded-lg font-medium text-sm transition-all duration-200 hover:bg-editus-700 hover:-translate-y-px hover:shadow-lg hover:shadow-editus-600/25 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-lg font-medium text-sm border border-white/20 transition-all duration-200 hover:bg-white/20 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent text-editus-600 rounded-lg font-medium text-sm border border-editus-200 transition-all duration-200 hover:bg-editus-50 hover:border-editus-300;
+  }
+
+  .section-label {
+    @apply text-xs font-medium tracking-widest uppercase text-editus-600;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-semibold text-editus-900 tracking-tight leading-tight;
+  }
+
+  .section-sub {
+    @apply text-lg text-editus-900/60 leading-relaxed max-w-2xl;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-editus-100 p-6 transition-all duration-200 hover:border-editus-200 hover:shadow-lg hover:shadow-editus-900/5 hover:-translate-y-0.5;
+  }
+}
