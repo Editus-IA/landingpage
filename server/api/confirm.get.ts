@@ -4,6 +4,7 @@
  * Redireciona para /obrigado?confirmado=1 ou /obrigado?erro=1.
  */
 import { createHmac, timingSafeEqual } from 'node:crypto'
+import { checkRateLimit } from '../utils/rateLimit'
 
 const TOKEN_TTL_DAYS = 7
 
@@ -24,6 +25,11 @@ function verifyConfirmToken(token: string, email: string, salt: string): boolean
 }
 
 export default defineEventHandler(async (event) => {
+  const ip = event.node.req.socket?.remoteAddress || '0.0.0.0'
+  if (!await checkRateLimit(ip, { key: 'confirm', windowSecs: 60, max: 10 })) {
+    throw createError({ statusCode: 429, message: 'Muitas tentativas. Aguarde 1 minuto.' })
+  }
+
   const query = getQuery(event)
   const email = typeof query.email === 'string' ? query.email.trim().toLowerCase() : ''
   const token = typeof query.token === 'string' ? query.token.trim() : ''

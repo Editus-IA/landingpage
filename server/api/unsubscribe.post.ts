@@ -8,6 +8,7 @@
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto'
+import { checkRateLimit } from '../utils/rateLimit'
 
 // Verifica token com expiração: formato "hmac.expiry_timestamp"
 function verifyToken(token: string, email: string, salt: string): boolean {
@@ -30,6 +31,11 @@ function verifyToken(token: string, email: string, salt: string): boolean {
 }
 
 export default defineEventHandler(async (event) => {
+  const ip = event.node.req.socket?.remoteAddress || '0.0.0.0'
+  if (!await checkRateLimit(ip, { key: 'unsubscribe', windowSecs: 60, max: 10 })) {
+    throw createError({ statusCode: 429, message: 'Muitas tentativas. Aguarde 1 minuto.' })
+  }
+
   const body  = await readBody<{ email?: string; token?: string }>(event).catch(() => ({}))
   const token = typeof body?.token === 'string' ? body.token.trim() : ''
   const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : ''

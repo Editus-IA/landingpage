@@ -12,6 +12,7 @@
  */
 
 import { createHash } from 'node:crypto'
+import { checkRateLimit } from '../utils/rateLimit'
 import { sendWelcomeEmail } from '../utils/sendWelcomeEmail'
 
 interface WaitlistPayload {
@@ -31,53 +32,6 @@ interface WaitlistPayload {
 // SEC-08: fonte origem validada contra whitelist
 const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer'] as const
 
-// Rate limiting: Upstash Redis via REST API (persiste entre instâncias serverless)
-// Fallback para Map em memória quando UPSTASH_REDIS_REST_URL não estiver configurado.
-const memAttempts = new Map<string, { count: number; reset: number }>()
-setInterval(() => {
-  const now = Date.now()
-  for (const [key, val] of memAttempts.entries()) {
-    if (val.reset < now) memAttempts.delete(key)
-  }
-}, 300_000).unref()
-
-async function checkRateLimit(ip: string): Promise<boolean> {
-  const WINDOW = 60   // segundos
-  const MAX    = 3    // submissões por janela por IP
-  const key    = `rl:waitlist:${ip}`
-
-  const upstashUrl   = process.env.UPSTASH_REDIS_REST_URL
-  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN
-
-  // Upstash REST: INCR + EXPIRE atômico via pipeline
-  if (upstashUrl && upstashToken) {
-    try {
-      const res = await fetch(`${upstashUrl}/pipeline`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${upstashToken}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify([['INCR', key], ['EXPIRE', key, WINDOW, 'NX']]),
-        signal: AbortSignal.timeout(2000),
-      })
-      if (res.ok) {
-        const [[, count]] = await res.json() as [[string, number], unknown]
-        return count <= MAX
-      }
-    } catch {
-      // Upstash indisponível → cai no fallback em memória
-    }
-  }
-
-  // Fallback em memória (single-instance / dev)
-  const now   = Date.now()
-  const entry = memAttempts.get(key)
-  if (!entry || entry.reset < now) {
-    memAttempts.set(key, { count: 1, reset: now + WINDOW * 1000 })
-    return true
-  }
-  if (entry.count >= MAX) return false
-  entry.count++
-  return true
-}
 
 // SEC-07: SHA-256 truncado com salt secreto — garante anonimização real dos IPs (LGPD)
 function hashIp(ip: string, salt: string): string {
@@ -88,13 +42,13 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
 }
 
-// Resolve o IP real do cliente respeitando a plataforma de deploy.
-// Ordem de confiança: header do proxy de borda (imutável pelo cliente) → socket TCP.
-// x-real-ip e x-forwarded-for são OMITIDOS pois podem ser forjados pelo cliente.
+// Resolve o IP real do cliente.
+// cf-connecting-ip: injetado pela Cloudflare, não forjável pelo cliente.
+// Fallback direto para socket TCP — omite x-vercel-forwarded-for e similares,
+// que podem ser forjados por um proxy intermediário fora da borda confiável.
 function resolveIp(event: any): string {
   return (
     getRequestHeader(event, 'cf-connecting-ip') ||
-    getRequestHeader(event, 'x-vercel-forwarded-for')?.split(',')[0].trim() ||
     event.node.req.socket?.remoteAddress ||
     '0.0.0.0'
   )
@@ -115,7 +69,7 @@ export default defineEventHandler(async (event) => {
 
   const ip = resolveIp(event)
 
-  if (!await checkRateLimit(ip)) {
+  if (!await checkRateLimit(ip, { key: 'waitlist', windowSecs: 60, max: 3 })) {
     console.warn('[waitlist] rate limit hit', { ip_hash: hashIp(ip, 'log') })
     throw createError({ statusCode: 429, message: 'Muitas tentativas. Aguarde 1 minuto.' })
   }
