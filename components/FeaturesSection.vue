@@ -1,8 +1,13 @@
 <template>
-  <section id="features" class="py-24 bg-editus-50">
+  <section
+    id="features"
+    class="py-24 bg-editus-50"
+  >
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <p class="section-label mb-3">Funcionalidades</p>
+        <p class="section-label mb-3">
+          Funcionalidades
+        </p>
         <h2 class="section-title mb-4">
           O que o Editus analisa<br>antes de você decidir
         </h2>
@@ -31,11 +36,20 @@
               </div>
             </div>
             <div class="bg-editus-800/50 border border-editus-700/30 rounded-2xl p-6">
-              <div class="text-xs font-medium text-editus-400 mb-4 uppercase tracking-wider">Relatório de precificação</div>
+              <div class="text-xs font-medium text-editus-400 mb-4 uppercase tracking-wider">
+                Relatório de precificação
+              </div>
               <div class="space-y-3">
-                <div v-for="row in pricingRows" :key="row.label" class="flex items-center justify-between py-2 border-b border-editus-700/30 last:border-0">
+                <div
+                  v-for="row in pricingRows"
+                  :key="row.label"
+                  class="flex items-center justify-between py-2 border-b border-editus-700/30 last:border-0"
+                >
                   <span class="text-sm text-white/60">{{ row.label }}</span>
-                  <span class="text-sm font-medium" :class="row.highlight ? 'text-victory-400' : 'text-white'">{{ row.value }}</span>
+                  <span
+                    class="text-sm font-medium"
+                    :class="row.highlight ? 'text-victory-400' : 'text-white'"
+                  >{{ row.value }}</span>
                 </div>
               </div>
             </div>
@@ -43,24 +57,55 @@
         </div>
 
         <!-- Features regulares -->
-        <div v-for="feature in features" :key="feature.title" class="card">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" :class="feature.iconBg">
+        <div
+          v-for="feature in features"
+          :key="feature.title"
+          class="card"
+        >
+          <div
+            class="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+            :class="feature.iconBg"
+          >
             <component :is="feature.icon" />
           </div>
-          <h3 class="text-base font-semibold text-editus-900 mb-2">{{ feature.title }}</h3>
-          <p class="text-sm text-editus-900/55 leading-relaxed">{{ feature.desc }}</p>
+          <h3 class="text-base font-semibold text-editus-900 mb-2">
+            {{ feature.title }}
+          </h3>
+          <p class="text-sm text-editus-900/55 leading-relaxed">
+            {{ feature.desc }}
+          </p>
         </div>
       </div>
       <!-- CTA mid-page -->
       <div class="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 bg-editus-50 border border-editus-100 rounded-2xl px-8 py-7">
         <div>
-          <p class="font-semibold text-editus-900 text-lg">Quer ver o relatório completo na prática?</p>
-          <p class="text-sm text-editus-900/55 mt-1">Entre na lista de acesso antecipado e seja um dos primeiros a testar.</p>
+          <p class="font-semibold text-editus-900 text-lg">
+            Quer ver o relatório completo na prática?
+          </p>
+          <p class="text-sm text-editus-900/55 mt-1">
+            Entre na lista de acesso antecipado e seja um dos primeiros a testar.
+          </p>
         </div>
-        <a href="#waitlist" :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'" class="whitespace-nowrap flex-shrink-0 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0" @click="onCTAClick">
+        <a
+          href="#waitlist"
+          :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'"
+          class="whitespace-nowrap flex-shrink-0 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0"
+          @click="onCTAClick"
+        >
           {{ midPageCTAText }}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 7h8M8 4.5L10.5 7 8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M3 7h8M8 4.5L10.5 7 8 9.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       </div>
@@ -85,7 +130,7 @@ onMounted(() => {
 
 const midPageCTAText = computed(() => {
   if (props.ctaCopyVariant === 'benefit') return 'Quero analisar editais'
-  if (props.ctaCopyVariant === 'action')  return 'Reservar minha vaga'
+  if (props.ctaCopyVariant === 'action') return 'Reservar minha vaga'
   return 'Garantir meu acesso'
 })
 
@@ -98,23 +143,23 @@ function onCTAClick() {
 }
 
 const IconStar = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2l1.5 4.5H16l-3.5 2.5 1.5 4.5L10 11 6.5 13.5 8 9 4.5 6.5H9L10 2z', stroke: '#6459C8', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M10 2l1.5 4.5H16l-3.5 2.5 1.5 4.5L10 11 6.5 13.5 8 9 4.5 6.5H9L10 2z', 'stroke': '#6459C8', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
 ]))
 
 const IconCheck = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2a8 8 0 100 16A8 8 0 0010 2z', stroke: '#1D9E75', 'stroke-width': 1.3 }),
-  h('path', { d: 'M7 10l2 2 4-4', stroke: '#1D9E75', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M10 2a8 8 0 100 16A8 8 0 0010 2z', 'stroke': '#1D9E75', 'stroke-width': 1.3 }),
+  h('path', { 'd': 'M7 10l2 2 4-4', 'stroke': '#1D9E75', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]))
 
 const IconAlert = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2.5C6.5 2.5 3.5 5 3.5 8.5c0 2 .9 3.7 2.3 4.9L7 17.5h6l1.2-4.1c1.4-1.2 2.3-2.9 2.3-4.9 0-3.5-3-6-6.5-6z', stroke: '#A32D2D', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M10 7v3.5M10 12.5v.5', stroke: '#A32D2D', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
+  h('path', { 'd': 'M10 2.5C6.5 2.5 3.5 5 3.5 8.5c0 2 .9 3.7 2.3 4.9L7 17.5h6l1.2-4.1c1.4-1.2 2.3-2.9 2.3-4.9 0-3.5-3-6-6.5-6z', 'stroke': '#A32D2D', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M10 7v3.5M10 12.5v.5', 'stroke': '#A32D2D', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
 ]))
 
 const IconDoc = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M5 2h7l4 4v12a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1z', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M12 2v4h4', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M7 9h6M7 12h4', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
+  h('path', { 'd': 'M5 2h7l4 4v12a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1z', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M12 2v4h4', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M7 9h6M7 12h4', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
 ]))
 
 const pricingRows = [
@@ -141,13 +186,13 @@ const outcomeTitles = [
 ]
 
 const featureCardTitles = computed(() =>
-  featuresCopyVariant.value === 'outcome' ? outcomeTitles : controlTitles
+  featuresCopyVariant.value === 'outcome' ? outcomeTitles : controlTitles,
 )
 
 const features = computed(() => [
-  { iconBg: 'bg-editus-100', icon: IconStar,  title: featureCardTitles.value[0], desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
+  { iconBg: 'bg-editus-100', icon: IconStar, title: featureCardTitles.value[0], desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
   { iconBg: 'bg-victory-100', icon: IconCheck, title: featureCardTitles.value[1], desc: 'Checklist automático com SIASG, CEIS, CNEP e CEPIM. Sabe exatamente quais certidões estão válidas e quais precisam de renovação.' },
-  { iconBg: 'bg-red-50',      icon: IconAlert, title: featureCardTitles.value[2], desc: 'Identifica cláusulas leoninas, penalidades desproporcionais e obrigações ocultas que a maioria não lê, antes de ser tarde.' },
-  { iconBg: 'bg-amber-50',    icon: IconDoc,   title: featureCardTitles.value[3], desc: 'Documento profissional com todos os resultados dos agentes, pronto para apresentar para a diretoria ou arquivar como registro formal de auditoria.' },
+  { iconBg: 'bg-red-50', icon: IconAlert, title: featureCardTitles.value[2], desc: 'Identifica cláusulas leoninas, penalidades desproporcionais e obrigações ocultas que a maioria não lê, antes de ser tarde.' },
+  { iconBg: 'bg-amber-50', icon: IconDoc, title: featureCardTitles.value[3], desc: 'Documento profissional com todos os resultados dos agentes, pronto para apresentar para a diretoria ou arquivar como registro formal de auditoria.' },
 ])
 </script>

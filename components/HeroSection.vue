@@ -1,5 +1,10 @@
 <template>
-  <section ref="sectionRef" class="relative min-h-screen bg-editus-900 flex items-center overflow-hidden" @mousemove="onMouseMove" @mouseleave="resetTilt">
+  <section
+    ref="sectionRef"
+    class="relative min-h-screen bg-editus-900 flex items-center overflow-hidden"
+    @mousemove="onMouseMove"
+    @mouseleave="resetTilt"
+  >
     <!-- Canvas particle network -->
     <HeroBackground />
 
@@ -9,7 +14,11 @@
     <!-- Glow -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-editus-600/20 rounded-full blur-[120px] pointer-events-none" />
 
-    <div ref="contentRef" :style="tiltStyle" class="relative max-w-6xl mx-auto px-6 pt-28 pb-20 w-full will-change-transform transition-transform duration-100 ease-out">
+    <div
+      ref="contentRef"
+      :style="tiltStyle"
+      class="relative max-w-6xl mx-auto px-6 pt-28 pb-20 w-full will-change-transform transition-transform duration-100 ease-out"
+    >
       <div class="max-w-3xl">
         <!-- Badge de urgência (A/B: urgency-badge) -->
         <UrgencyBadge :variant="urgencyVariant" />
@@ -54,30 +63,74 @@
         </p>
 
         <!-- Waitlist inline form -->
-        <WaitlistForm :inline="true" :cta-copy-variant="ctaCopyVariant" :button-color-variant="buttonColorVariant" :urgency-copy-variant="urgencyCopyVariant" />
+        <WaitlistForm
+          :inline="true"
+          :cta-copy-variant="ctaCopyVariant"
+          :button-color-variant="buttonColorVariant"
+          :urgency-copy-variant="urgencyCopyVariant"
+        />
 
         <!-- Social proof -->
         <div class="mt-10 flex items-center gap-6 flex-wrap">
           <div class="flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-victory-500">
-              <path d="M13.5 4L6.5 11 3 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              class="text-victory-500"
+            >
+              <path
+                d="M13.5 4L6.5 11 3 7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <span class="text-sm text-white/50">Monitora PNCP pelo perfil da empresa</span>
           </div>
           <div class="flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-victory-500">
-              <path d="M13.5 4L6.5 11 3 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              class="text-victory-500"
+            >
+              <path
+                d="M13.5 4L6.5 11 3 7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <span class="text-sm text-white/50">Proposta gerada, você só aprova</span>
           </div>
           <div class="flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-victory-500">
-              <path d="M13.5 4L6.5 11 3 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              class="text-victory-500"
+            >
+              <path
+                d="M13.5 4L6.5 11 3 7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <span class="text-sm text-white/50">Lei 14.133/2021 coberta</span>
           </div>
-          <div v-if="count" class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-victory-400 rounded-full"></span>
+          <div
+            v-if="count"
+            class="flex items-center gap-2"
+          >
+            <span class="w-2 h-2 bg-victory-400 rounded-full" />
             <span class="text-sm text-white/50"><strong class="text-white/70">{{ count }}</strong> empresas já na lista</span>
           </div>
         </div>
@@ -85,9 +138,16 @@
 
       <!-- Stats row -->
       <div class="mt-20 pt-10 border-t border-editus-800 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div v-for="stat in stats" :key="stat.label">
-          <div class="text-2xl md:text-3xl font-semibold text-white tracking-tight">{{ stat.value }}</div>
-          <div class="text-sm text-white/40 mt-1">{{ stat.label }}</div>
+        <div
+          v-for="stat in stats"
+          :key="stat.label"
+        >
+          <div class="text-2xl md:text-3xl font-semibold text-white tracking-tight">
+            {{ stat.value }}
+          </div>
+          <div class="text-sm text-white/40 mt-1">
+            {{ stat.label }}
+          </div>
         </div>
       </div>
     </div>
@@ -96,31 +156,32 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useABTest } from '../composables/useABTest';
+import { useABTest } from '../composables/useABTest'
 
-const props = defineProps<{
+defineProps<{
   buttonColorVariant: 'control' | 'green'
 }>()
 
 const { track } = useUmami()
 
 // A/B tests
-const headlineVariant     = useABTest('hero-headline',    ['control', 'benefit', 'loss', 'process'])
-const ctaCopyVariant      = useABTest('cta-copy',         ['control', 'benefit', 'action'])
-const urgencyVariant      = useABTest('urgency-badge',    ['control', 'count', 'countdown'])
-const subheadlineVariant  = useABTest('hero-subheadline', ['control', 'short', 'pain'])
-const urgencyCopyVariant  = useABTest('urgency-copy',     ['control', 'consequence'])
+const headlineVariant = useABTest('hero-headline', ['control', 'benefit', 'loss', 'process'])
+const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
+const urgencyVariant = useABTest('urgency-badge', ['control', 'count', 'countdown'])
+const subheadlineVariant = useABTest('hero-subheadline', ['control', 'short', 'pain'])
+const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
 const count = ref<number | null>(null)
 onMounted(async () => {
   track('page_view', {
     ab_hero_subheadline: subheadlineVariant.value,
-    ab_urgency_copy:     urgencyCopyVariant.value,
+    ab_urgency_copy: urgencyCopyVariant.value,
   })
   try {
     const data = await $fetch<{ count: number | null }>('/api/waitlist-count')
     if (data?.count && data.count > 0) count.value = data.count
-  } catch { /* silencioso */ }
+  }
+  catch { /* silencioso */ }
 })
 
 const stats = [
@@ -132,15 +193,15 @@ const stats = [
 
 const sectionRef = ref<HTMLElement | null>(null)
 const contentRef = ref<HTMLElement | null>(null)
-const tiltStyle  = ref('')
+const tiltStyle = ref('')
 
 const MAX_TILT = 4
 
 function onMouseMove(e: MouseEvent) {
   if (!sectionRef.value) return
   const { left, top, width, height } = sectionRef.value.getBoundingClientRect()
-  const nx = ((e.clientX - left)  / width  - 0.5) * 2
-  const ny = ((e.clientY - top)   / height - 0.5) * 2
+  const nx = ((e.clientX - left) / width - 0.5) * 2
+  const ny = ((e.clientY - top) / height - 0.5) * 2
   tiltStyle.value = `perspective(1200px) rotateX(${-ny * MAX_TILT}deg) rotateY(${nx * MAX_TILT}deg)`
 }
 

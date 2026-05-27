@@ -1,5 +1,8 @@
 <template>
-  <canvas ref="canvas" class="absolute inset-0 w-full h-full pointer-events-none" />
+  <canvas
+    ref="canvas"
+    class="absolute inset-0 w-full h-full pointer-events-none"
+  />
 </template>
 
 <script setup>
@@ -21,14 +24,14 @@ onMounted(() => {
   if (!ctx) return
 
   const CONNECT_DIST = 130
-  const MOUSE_DIST   = 100
-  const SPEED        = 0.35
+  const MOUSE_DIST = 100
+  const SPEED = 0.35
 
   let W = 0, H = 0, dots = []
-  let mouse = { x: -9999, y: -9999 }
+  const mouse = { x: -9999, y: -9999 }
 
   function init(w, h) {
-    W = c.width  = w
+    W = c.width = w
     H = c.height = h
     const count = Math.floor((W * H) / 14000)
     dots = Array.from({ length: count }, () => ({
@@ -45,7 +48,7 @@ onMounted(() => {
     const h = Math.round(rect.height)
     if (w === 0 || h === 0 || (w === W && h === H)) return
     const prevW = W, prevH = H
-    W = c.width  = w
+    W = c.width = w
     H = c.height = h
     const count = Math.floor((W * H) / 14000)
     // Scale existing dot positions to new size, preserve velocities
@@ -85,7 +88,10 @@ onMounted(() => {
       d.y += d.vy
 
       const spd = Math.sqrt(d.vx * d.vx + d.vy * d.vy)
-      if (spd > SPEED * 3) { d.vx *= 0.9; d.vy *= 0.9 }
+      if (spd > SPEED * 3) {
+        d.vx *= 0.9
+        d.vy *= 0.9
+      }
 
       if (d.x < 0 || d.x > W) d.vx *= -1
       if (d.y < 0 || d.y > H) d.vy *= -1
@@ -151,7 +157,10 @@ onMounted(() => {
     mouse.x = e.clientX - rect.left
     mouse.y = e.clientY - rect.top
   }
-  const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999 }
+  const onMouseLeave = () => {
+    mouse.x = -9999
+    mouse.y = -9999
+  }
 
   if (section) {
     section.addEventListener('mousemove', onMouseMove)
@@ -168,7 +177,8 @@ onMounted(() => {
     if (W === 0) {
       init(w, h)
       draw()
-    } else {
+    }
+    else {
       resize()
     }
   })
@@ -188,7 +198,10 @@ onMounted(() => {
 
   _cleanup = () => {
     cancelAnimationFrame(raf)
-    if (_ro) { _ro.disconnect(); _ro = null }
+    if (_ro) {
+      _ro.disconnect()
+      _ro = null
+    }
     if (section) {
       section.removeEventListener('mousemove', onMouseMove)
       section.removeEventListener('mouseleave', onMouseLeave)

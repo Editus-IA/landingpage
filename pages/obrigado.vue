@@ -2,8 +2,20 @@
   <div class="min-h-screen bg-editus-900 flex flex-col items-center justify-center px-6 py-24">
     <div class="max-w-lg w-full text-center">
       <div class="w-16 h-16 bg-victory-700/30 border border-victory-600/30 rounded-2xl flex items-center justify-center mx-auto mb-8">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="text-victory-400">
-          <path d="M5 14l6 6 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          class="text-victory-400"
+        >
+          <path
+            d="M5 14l6 6 12-12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </div>
 
@@ -34,13 +46,18 @@
       </template>
 
       <!-- Badge de posição na fila -->
-      <div v-if="position" class="inline-flex items-center gap-2 bg-editus-700/40 border border-editus-600/40 rounded-full px-4 py-2 mb-8">
+      <div
+        v-if="position"
+        class="inline-flex items-center gap-2 bg-editus-700/40 border border-editus-600/40 rounded-full px-4 py-2 mb-8"
+      >
         <span class="text-editus-400 text-xs font-medium tracking-widest uppercase">Sua posição</span>
         <span class="text-white font-semibold text-sm">#{{ position }}</span>
       </div>
 
       <div class="bg-editus-800/40 border border-editus-700/40 rounded-xl p-6 mb-10 text-left">
-        <p class="text-xs font-medium tracking-widest uppercase text-editus-400 mb-4">O que acontece agora?</p>
+        <p class="text-xs font-medium tracking-widest uppercase text-editus-400 mb-4">
+          O que acontece agora?
+        </p>
         <ul class="space-y-3">
           <li class="flex items-start gap-3 text-sm text-white/60">
             <span class="mt-0.5 w-5 h-5 rounded-full bg-editus-700/60 flex items-center justify-center shrink-0 text-editus-400 text-xs font-medium">1</span>
@@ -58,15 +75,29 @@
       </div>
 
       <button
-        @click="share"
         class="btn-primary justify-center w-full py-3 text-sm mb-4"
+        @click="share"
       >
         {{ shareLabel }}
       </button>
 
-      <NuxtLink to="/" class="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <NuxtLink
+        to="/"
+        class="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+        >
+          <path
+            d="M9 11L5 7l4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         Voltar ao início
       </NuxtLink>
@@ -79,12 +110,12 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 })
 
-const route       = useRoute()
-const router      = useRouter()
+const route = useRoute()
+const router = useRouter()
 const isDuplicate = computed(() => route.query.duplicado === '1')
 const isConfirmed = computed(() => route.query.confirmado === '1')
-const position    = useWaitlistPosition()
-const shareLabel  = ref('Compartilhar com colegas')
+const position = useWaitlistPosition()
+const shareLabel = ref('Compartilhar com colegas')
 
 // Bloqueia acesso direto: só permite se veio de um submit válido
 // useWaitlistPosition é estado em memória (perde no refresh), então usamos
@@ -105,16 +136,19 @@ onUnmounted(() => {
 })
 
 async function share() {
-  const url   = 'https://editus.com.br'
+  const url = 'https://editus.com.br'
   const title = 'Editus — IA para análise de editais e licitações'
-  const text  = 'Acabei de entrar na lista de acesso antecipado do Editus, plataforma de IA para licitações. Vale conhecer!'
+  const text = 'Acabei de entrar na lista de acesso antecipado do Editus, plataforma de IA para licitações. Vale conhecer!'
 
   try {
     await navigator.share({ url, title, text })
-  } catch {
+  }
+  catch {
     await navigator.clipboard.writeText(url)
     shareLabel.value = 'Copiado!'
-    setTimeout(() => { shareLabel.value = 'Compartilhar com colegas' }, 2500)
+    setTimeout(() => {
+      shareLabel.value = 'Compartilhar com colegas'
+    }, 2500)
   }
 }
 </script>

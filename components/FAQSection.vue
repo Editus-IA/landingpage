@@ -1,9 +1,16 @@
 <template>
-  <section id="faq" class="py-24 bg-white">
+  <section
+    id="faq"
+    class="py-24 bg-white"
+  >
     <div class="max-w-3xl mx-auto px-6">
       <div class="text-center mb-14">
-        <p class="section-label mb-3">Perguntas frequentes</p>
-        <h2 class="section-title mb-4">Tudo o que você quer saber<br>antes de entrar na lista</h2>
+        <p class="section-label mb-3">
+          Perguntas frequentes
+        </p>
+        <h2 class="section-title mb-4">
+          Tudo o que você quer saber<br>antes de entrar na lista
+        </h2>
         <p class="section-sub mx-auto">
           Respostas diretas para as dúvidas mais comuns de quem lida com licitações todos os dias.
         </p>
@@ -19,26 +26,49 @@
           <button
             class="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors"
             :class="open === i ? 'bg-editus-50' : 'bg-white hover:bg-editus-50/50'"
-            @click="toggle(i)"
             :aria-expanded="open === i"
             :aria-controls="`faq-panel-${i}`"
+            @click="toggle(i)"
           >
             <span class="font-semibold text-editus-900 text-base leading-snug">{{ item.q }}</span>
             <span
               class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all"
               :class="open === i ? 'bg-editus-600 text-white rotate-45' : 'bg-editus-100 text-editus-600'"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+              >
+                <path
+                  d="M6 1v10M1 6h10"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
               </svg>
             </span>
           </button>
           <Transition name="faq-expand">
-            <div v-if="open === i" :id="`faq-panel-${i}`" class="px-6 pb-5 bg-white" role="region">
+            <div
+              v-if="open === i"
+              :id="`faq-panel-${i}`"
+              class="px-6 pb-5 bg-white"
+              role="region"
+            >
               <p class="text-editus-900/60 text-sm leading-relaxed">
-                <template v-for="(part, pi) in item.parts" :key="pi">
-                  <strong v-if="part.bold" class="font-semibold text-editus-900/80">{{ part.text }}</strong>
-                  <template v-else>{{ part.text }}</template>
+                <template
+                  v-for="(part, pi) in item.parts"
+                  :key="pi"
+                >
+                  <strong
+                    v-if="part.bold"
+                    class="font-semibold text-editus-900/80"
+                  >{{ part.text }}</strong>
+                  <template v-else>
+                    {{ part.text }}
+                  </template>
                 </template>
               </p>
             </div>
@@ -48,11 +78,29 @@
 
       <!-- CTA inline -->
       <div class="mt-12 text-center">
-        <p class="text-editus-900/50 text-sm mb-4">Ainda tem dúvidas? Entre na lista e respondo pessoalmente.</p>
-        <a href="#waitlist" :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'" class="text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0" @click="onCTAClick">
+        <p class="text-editus-900/50 text-sm mb-4">
+          Ainda tem dúvidas? Entre na lista e respondo pessoalmente.
+        </p>
+        <a
+          href="#waitlist"
+          :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'"
+          class="text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0"
+          @click="onCTAClick"
+        >
           {{ faqCTAText }}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 7h8M8 4.5L10.5 7 8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M3 7h8M8 4.5L10.5 7 8 9.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       </div>
@@ -63,8 +111,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-type Part = { text: string; bold?: true }
-type Faq  = { q: string; parts: Part[] }
+type Part = { text: string, bold?: true }
+type Faq = { q: string, parts: Part[] }
 
 const props = defineProps<{
   ctaCopyVariant?: 'control' | 'benefit' | 'action'
@@ -75,7 +123,7 @@ const { track } = useUmami()
 
 const faqCTAText = computed(() => {
   if (props.ctaCopyVariant === 'benefit') return 'Começar agora, é grátis'
-  if (props.ctaCopyVariant === 'action')  return 'Reservar minha vaga'
+  if (props.ctaCopyVariant === 'action') return 'Reservar minha vaga'
   return 'Entrar na lista de acesso'
 })
 
@@ -148,12 +196,12 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: faqs.map(f => ({
+        'mainEntity': faqs.map(f => ({
           '@type': 'Question',
-          name: f.q,
-          acceptedAnswer: {
+          'name': f.q,
+          'acceptedAnswer': {
             '@type': 'Answer',
-            text: f.parts.map(p => p.text).join(''),
+            'text': f.parts.map(p => p.text).join(''),
           },
         })),
       }),

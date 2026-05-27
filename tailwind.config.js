@@ -22,7 +22,7 @@ export default {
           300: '#B8B3EB',
           200: '#D4D1F5',
           100: '#EEEDFE',
-          50:  '#F5F4FD',
+          50: '#F5F4FD',
         },
         victory: {
           900: '#04342C',

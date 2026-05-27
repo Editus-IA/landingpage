@@ -1,8 +1,13 @@
 <template>
-  <section id="problema" class="py-24 bg-editus-50">
+  <section
+    id="problema"
+    class="py-24 bg-editus-50"
+  >
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <p class="section-label mb-3">O problema</p>
+        <p class="section-label mb-3">
+          O problema
+        </p>
         <h2 class="section-title mb-4">
           Por que PMEs perdem licitações<br>que deveriam ganhar?
         </h2>
@@ -12,17 +17,27 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div v-for="problem in problems" :key="problem.title" class="card">
+        <div
+          v-for="problem in problems"
+          :key="problem.title"
+          class="card"
+        >
           <div
             class="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
             :class="problem.iconBg"
           >
             <component :is="problem.icon" />
           </div>
-          <h3 class="text-lg font-semibold text-editus-900 mb-2">{{ problem.title }}</h3>
-          <p class="text-sm text-editus-900/55 leading-relaxed">{{ problem.desc }}</p>
+          <h3 class="text-lg font-semibold text-editus-900 mb-2">
+            {{ problem.title }}
+          </h3>
+          <p class="text-sm text-editus-900/55 leading-relaxed">
+            {{ problem.desc }}
+          </p>
           <div class="mt-5 pt-5 border-t border-editus-100">
-            <p class="text-xs font-medium text-editus-600/80">{{ problem.stat }}</p>
+            <p class="text-xs font-medium text-editus-600/80">
+              {{ problem.stat }}
+            </p>
           </div>
         </div>
       </div>
@@ -34,19 +49,19 @@
 import { defineComponent, h } from 'vue'
 
 const IconClock = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('circle', { cx: 10, cy: 10, r: 8, stroke: '#A32D2D', 'stroke-width': 1.5 }),
-  h('path', { d: 'M10 6v4.5l3 1.5', stroke: '#A32D2D', 'stroke-width': 1.5, 'stroke-linecap': 'round' }),
+  h('circle', { 'cx': 10, 'cy': 10, 'r': 8, 'stroke': '#A32D2D', 'stroke-width': 1.5 }),
+  h('path', { 'd': 'M10 6v4.5l3 1.5', 'stroke': '#A32D2D', 'stroke-width': 1.5, 'stroke-linecap': 'round' }),
 ]))
 
 const IconCompliance = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2L3 5.5v5c0 3.8 3 7 7 7.5 4-.5 7-3.7 7-7.5v-5L10 2z', stroke: '#854F0B', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M7.5 10l2 2 3-3.5', stroke: '#854F0B', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M10 2L3 5.5v5c0 3.8 3 7 7 7.5 4-.5 7-3.7 7-7.5v-5L10 2z', 'stroke': '#854F0B', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M7.5 10l2 2 3-3.5', 'stroke': '#854F0B', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]))
 
 const IconMoney = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('circle', { cx: 10, cy: 9, r: 6.5, stroke: '#3B6D11', 'stroke-width': 1.4 }),
-  h('path', { d: 'M10 6v6M8.2 7.5h2.3a1.5 1.5 0 010 3H9a1.5 1.5 0 000 3H11.8', stroke: '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
-  h('path', { d: 'M10 15.5v2M13 17l-3-1.5-3 1.5', stroke: '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
+  h('circle', { 'cx': 10, 'cy': 9, 'r': 6.5, 'stroke': '#3B6D11', 'stroke-width': 1.4 }),
+  h('path', { 'd': 'M10 6v6M8.2 7.5h2.3a1.5 1.5 0 010 3H9a1.5 1.5 0 000 3H11.8', 'stroke': '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
+  h('path', { 'd': 'M10 15.5v2M13 17l-3-1.5-3 1.5', 'stroke': '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]))
 
 const problems = [

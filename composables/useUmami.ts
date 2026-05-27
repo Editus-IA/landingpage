@@ -6,7 +6,8 @@ export function useUmami() {
     const w = window as typeof window & { umami?: { track: (name: string, props?: UmamiProps) => void } }
     if (w.umami?.track) {
       w.umami.track(eventName, props)
-    } else {
+    }
+    else {
       // Script ainda carregando (defer) — aguarda e tenta uma vez
       window.addEventListener('load', () => {
         w.umami?.track(eventName, props)

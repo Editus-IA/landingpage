@@ -22,7 +22,10 @@
       </p>
 
       <!-- Inline email capture -->
-      <form @submit.prevent="onSubmit" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-10">
+      <form
+        class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-10"
+        @submit.prevent="onSubmit"
+      >
         <input
           v-model="email"
           type="email"
@@ -30,11 +33,27 @@
           placeholder="seu@email.com.br"
           aria-label="Seu email para acesso antecipado"
           class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/35 text-sm focus:outline-none focus:border-editus-400 focus:bg-white/15 transition-all"
-        />
-        <button type="submit" :disabled="submitting" :class="btnClass" class="whitespace-nowrap text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50">
+        >
+        <button
+          type="submit"
+          :disabled="submitting"
+          :class="btnClass"
+          class="whitespace-nowrap text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50"
+        >
           Garantir acesso
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 7h8M8 4.5L10.5 7 8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              d="M3 7h8M8 4.5L10.5 7 8 9.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
       </form>
@@ -42,20 +61,56 @@
       <!-- Benefícios rápidos -->
       <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
         <div class="flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-victory-400 flex-shrink-0">
-            <path d="M12 3.5L5.5 10 2 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            class="text-victory-400 flex-shrink-0"
+          >
+            <path
+              d="M12 3.5L5.5 10 2 6.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span class="text-sm text-white/60">Sem custo no beta</span>
         </div>
         <div class="flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-victory-400 flex-shrink-0">
-            <path d="M12 3.5L5.5 10 2 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            class="text-victory-400 flex-shrink-0"
+          >
+            <path
+              d="M12 3.5L5.5 10 2 6.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span class="text-sm text-white/60">Sem compromisso</span>
         </div>
         <div class="flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-victory-400 flex-shrink-0">
-            <path d="M12 3.5L5.5 10 2 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            class="text-victory-400 flex-shrink-0"
+          >
+            <path
+              d="M12 3.5L5.5 10 2 6.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <span class="text-sm text-white/60">Selecionamos PMEs que lidam com licitações</span>
         </div>
@@ -95,6 +150,8 @@ function onSubmit() {
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
-  setTimeout(() => { submitting.value = false }, 700)
+  setTimeout(() => {
+    submitting.value = false
+  }, 700)
 }
 </script>

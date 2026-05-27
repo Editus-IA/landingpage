@@ -17,8 +17,8 @@ if (config.public.umamiScriptUrl && config.public.umamiWebsiteId) {
   useHead({
     script: [
       {
-        src: config.public.umamiScriptUrl,
-        defer: true,
+        'src': config.public.umamiScriptUrl,
+        'defer': true,
         'data-website-id': config.public.umamiWebsiteId,
         // Umami Cloud ignora localhost por padrão — este atributo força o tracking em dev
         'data-host-url': 'https://cloud.umami.is',
