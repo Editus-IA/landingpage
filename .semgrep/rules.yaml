@@ -1,0 +1,183 @@
+rules:
+  # ─────────────────────────────────────────────
+  # OWASP A01 – Broken Access Control
+  # ─────────────────────────────────────────────
+  - id: nuxt-api-missing-auth-check
+    patterns:
+      - pattern: |
+          export default defineEventHandler(async ($EVENT) => {
+            ...
+          })
+      - pattern-not: |
+          export default defineEventHandler(async ($EVENT) => {
+            ...
+            getHeader($EVENT, ...)
+            ...
+          })
+      - pattern-not: |
+          export default defineEventHandler(async ($EVENT) => {
+            ...
+            requireAuth(...)
+            ...
+          })
+    paths:
+      include:
+        - server/api/**
+    message: |
+      Rota de API sem verificação de autenticação detectada.
+      Verifique se este endpoint requer autenticação (OWASP A01).
+    languages: [typescript]
+    severity: WARNING
+
+  # ─────────────────────────────────────────────
+  # OWASP A02 – Cryptographic Failures
+  # ─────────────────────────────────────────────
+  - id: weak-hash-algorithm
+    patterns:
+      - pattern: crypto.createHash("md5")
+    message: |
+      MD5 é criptograficamente fraco. Use SHA-256 ou superior (OWASP A02).
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  - id: weak-hash-sha1
+    patterns:
+      - pattern: crypto.createHash("sha1")
+    message: |
+      SHA-1 é criptograficamente fraco. Use SHA-256 ou superior (OWASP A02).
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  - id: hardcoded-secret-pattern
+    patterns:
+      - pattern: |
+          const $KEY = "..."
+      - metavariable-regex:
+          metavariable: $KEY
+          regex: (password|secret|token|api_key|apikey|passwd|pwd|auth)
+      - metavariable-regex:
+          metavariable: '"..."'
+          regex: .{8,}
+    message: |
+      Possível secret hardcoded detectado na variável '$KEY' (OWASP A02).
+      Use variáveis de ambiente via process.env ou runtimeConfig.
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  # ─────────────────────────────────────────────
+  # OWASP A03 – Injection
+  # ─────────────────────────────────────────────
+  - id: no-eval-injection
+    patterns:
+      - pattern: eval(...)
+    message: |
+      Uso de eval() é extremamente perigoso e permite injeção de código (OWASP A03).
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  - id: no-dynamic-require
+    patterns:
+      - pattern: require($VAR)
+      - pattern-not: require("...")
+    message: |
+      require() dinâmico pode permitir path traversal e injeção de módulo (OWASP A03).
+    languages: [javascript, typescript]
+    severity: ERROR
+
+  - id: sql-injection-template-literal
+    patterns:
+      - pattern: |
+          `... ${$INPUT} ...`
+      - pattern-either:
+          - pattern-inside: |
+              $DB.query(...)
+          - pattern-inside: |
+              $DB.from(...)
+    message: |
+      Template literal em query de banco de dados pode ser SQL injection (OWASP A03).
+      Use queries parametrizadas ou o ORM do Supabase.
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  # ─────────────────────────────────────────────
+  # OWASP A05 – Security Misconfiguration
+  # ─────────────────────────────────────────────
+  - id: cors-allow-all-origins
+    patterns:
+      - pattern: |
+          Access-Control-Allow-Origin: "*"
+      - pattern-inside: setResponseHeader(...)
+    message: |
+      CORS wildcard '*' permite requisições de qualquer origem (OWASP A05).
+      Defina origens específicas na whitelist.
+    languages: [typescript, javascript]
+    severity: WARNING
+
+  - id: nuxt-devtools-production
+    patterns:
+      - pattern: |
+          devtools: { enabled: true }
+    paths:
+      include:
+        - nuxt.config.ts
+    message: |
+      DevTools habilitado hardcoded — pode expor informações sensíveis em produção (OWASP A05).
+      Use: `enabled: process.env.NODE_ENV === 'development'`
+    languages: [typescript]
+    severity: ERROR
+
+  # ─────────────────────────────────────────────
+  # OWASP A07 – Identification and Authentication Failures
+  # ─────────────────────────────────────────────
+  - id: jwt-verify-missing
+    patterns:
+      - pattern: |
+          $JWT.decode($TOKEN)
+      - pattern-not: |
+          $JWT.verify($TOKEN, ...)
+    message: |
+      JWT decodificado sem verificação de assinatura (OWASP A07).
+      Use jwt.verify() para validar a assinatura.
+    languages: [typescript, javascript]
+    severity: ERROR
+
+  - id: timing-safe-comparison
+    patterns:
+      - pattern: $A === $B
+      - metavariable-regex:
+          metavariable: $A
+          regex: (token|hash|signature|hmac|secret)
+    message: |
+      Comparação direta de tokens/hashes é vulnerável a timing attacks (OWASP A07).
+      Use crypto.timingSafeEqual() para comparações de segurança.
+    languages: [typescript, javascript]
+    severity: WARNING
+
+  # ─────────────────────────────────────────────
+  # OWASP A09 – Security Logging and Monitoring Failures
+  # ─────────────────────────────────────────────
+  - id: no-sensitive-data-in-logs
+    patterns:
+      - pattern-either:
+          - pattern: console.log(..., $X, ...)
+          - pattern: console.info(..., $X, ...)
+      - metavariable-regex:
+          metavariable: $X
+          regex: (password|token|secret|key|auth|credential)
+    message: |
+      Possível dado sensível sendo logado (OWASP A09).
+      Nunca logue passwords, tokens ou credentials diretamente.
+    languages: [typescript, javascript]
+    severity: WARNING
+
+  # ─────────────────────────────────────────────
+  # Supply Chain / OWASP A06 – Vulnerable Components
+  # ─────────────────────────────────────────────
+  - id: no-http-external-requests
+    patterns:
+      - pattern: fetch("http://...")
+    message: |
+      Requisição HTTP não criptografada para endpoint externo.
+      Use HTTPS para todas as chamadas externas (Supply Chain / A06).
+    languages: [typescript, javascript]
+    severity: ERROR

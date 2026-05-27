@@ -7,9 +7,19 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "nuxt prepare && husky",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:security": "vitest run --reporter=verbose tests/",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint",
+    "audit": "npx better-npm-audit audit --level moderate",
+    "audit:critical": "npx better-npm-audit audit --level critical",
+    "security:scan": "semgrep scan --config .semgrep/rules.yaml --error --exclude node_modules --exclude .nuxt",
+    "prepare": "husky"
   },
   "dependencies": {
     "@sentry/nuxt": "^10.53.1",
@@ -19,11 +29,23 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@nuxt/eslint-config": "^1.4.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/sitemap": "^8.0.15",
     "@nuxtjs/tailwindcss": "^6.12.0",
+    "eslint": "^9.28.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3",
     "sharp": "^0.34.5",
     "tailwindcss": "^3.4.3",
     "vitest": "^2.0.0"
-  }
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@sentry/cli",
+    "unrs-resolver"
+  ]
 }

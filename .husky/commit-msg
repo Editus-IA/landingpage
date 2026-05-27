@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Valida formato Conventional Commits
+# Garante rastreabilidade e changelog automático
+bun run commitlint --edit "$1"

@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+
+# ─────────────────────────────────────────────────────────────
+# PRE-COMMIT SECURITY HOOK
+# Executa antes de cada commit local para garantir que código
+# inseguro nunca chegue ao repositório
+# ─────────────────────────────────────────────────────────────
+
+echo "🔒 Security pre-commit checks starting..."
+
+# 1. Secrets scan nos arquivos staged (rápido, só mudanças)
+if command -v gitleaks &> /dev/null; then
+  echo "  [1/4] Scanning for secrets (Gitleaks)..."
+  gitleaks protect --staged --config=.gitleaks.toml --verbose
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "BLOCKED: Secrets detected in staged files."
+    echo "   Remove os secrets e use variaveis de ambiente."
+    exit 1
+  fi
+  echo "  OK: No secrets found"
+else
+  echo "  [1/4] WARN: Gitleaks not installed -- skipping secrets scan"
+  echo "        Install: https://github.com/gitleaks/gitleaks#installing"
+fi
+
+# 2. Lint + formatação nos arquivos staged
+echo "  [2/4] Running lint-staged (ESLint + Prettier)..."
+bun run lint-staged
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "BLOCKED: Lint/format errors found."
+  echo "   Execute 'bun run lint:fix' para corrigir automaticamente."
+  exit 1
+fi
+echo "  OK: Lint passed"
+
+# 3. TypeScript type check
+echo "  [3/4] TypeScript type check..."
+bun run typecheck 2>&1 | tail -5
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "BLOCKED: TypeScript errors found."
+  exit 1
+fi
+echo "  OK: Types OK"
+
+# 4. Testes unitários de segurança (rápidos)
+echo "  [4/4] Running security unit tests..."
+bun run test 2>&1 | tail -10
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "BLOCKED: Security tests failed."
+  exit 1
+fi
+echo "  OK: Tests passed"
+
+echo ""
+echo "All pre-commit security checks passed. Committing..."

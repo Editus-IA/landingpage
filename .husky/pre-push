@@ -1,0 +1,40 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# ─────────────────────────────────────────────────────────────
+# PRE-PUSH SECURITY HOOK
+# Última barreira local antes de enviar ao repositório remoto
+# Mais pesado que o pre-commit — verifica o histórico completo
+# ─────────────────────────────────────────────────────────────
+
+echo "🔒 Pre-push security checks..."
+
+# 1. Secrets scan no histórico completo do branch
+if command -v gitleaks &> /dev/null; then
+  echo "  [1/2] Full history secrets scan..."
+  gitleaks detect --config=.gitleaks.toml --no-banner
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ BLOCKED: Secrets found in commit history."
+    echo "   Use 'git filter-repo' ou BFG Repo Cleaner para remover."
+    echo "   Depois revogue as credenciais comprometidas IMEDIATAMENTE."
+    exit 1
+  fi
+  echo "  ✓ History clean"
+fi
+
+# 2. Auditoria rápida de dependências críticas
+echo "  [2/2] Critical dependency audit..."
+if command -v npx &> /dev/null; then
+  npx better-npm-audit audit --level critical 2>/dev/null
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ BLOCKED: Critical CVEs in dependencies."
+    echo "   Execute 'bun update' para atualizar as dependências afetadas."
+    exit 1
+  fi
+fi
+echo "  ✓ No critical CVEs"
+
+echo ""
+echo "✅ Pre-push checks passed. Pushing..."

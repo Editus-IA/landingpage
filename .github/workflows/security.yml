@@ -1,0 +1,292 @@
+name: Security Pipeline
+
+on:
+  push:
+    branches: [main, develop, 'feat/**', 'fix/**']
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Auditoria semanal toda segunda-feira às 08:00 UTC (mesmo sem push)
+    - cron: '0 8 * * 1'
+
+permissions:
+  contents: read
+  security-events: write # Para upload de SARIF ao GitHub Security tab
+  actions: read
+  pull-requests: write # Para comentar no PR com resultados
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB 1: Secrets Scanning
+  # Primeira barreira — bloqueia antes de qualquer coisa
+  # ─────────────────────────────────────────────
+  secrets-scan:
+    name: Secrets Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history para detectar secrets em commits antigos
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Opcional: versão pro
+        with:
+          config-path: .gitleaks.toml
+
+  # ─────────────────────────────────────────────
+  # JOB 2: SCA — Auditoria de Dependências
+  # OWASP A06: Vulnerable and Outdated Components
+  # ─────────────────────────────────────────────
+  dependency-audit:
+    name: SCA — Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: npm audit (via bun)
+        run: |
+          # Converte bun.lock para package-lock para auditoria npm
+          bun pm ls --json > /tmp/deps.json 2>/dev/null || true
+          # Executa audit diretamente
+          npx better-npm-audit audit --level moderate --production || {
+            echo "::error::Vulnerabilidades críticas encontradas nas dependências"
+            exit 1
+          }
+
+      - name: OSV Scanner (Google — OWASP A06)
+        uses: google/osv-scanner-action@v2
+        with:
+          scan-args: |-
+            --lockfile=bun.lock
+            --format=sarif
+            --output=osv-results.sarif
+        continue-on-error: true
+
+      - name: Upload OSV results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: osv-results.sarif
+          category: osv-scanner
+
+      - name: Check for critical CVEs
+        run: |
+          if [ -f osv-results.sarif ]; then
+            CRITICAL=$(cat osv-results.sarif | jq '[.runs[].results[] | select(.level == "error")] | length')
+            if [ "$CRITICAL" -gt "0" ]; then
+              echo "::error::$CRITICAL vulnerabilidade(s) CRÍTICA(s) encontrada(s). Atualize as dependências antes do merge."
+              exit 1
+            fi
+          fi
+
+  # ─────────────────────────────────────────────
+  # JOB 3: SAST — Análise Estática
+  # OWASP A03, A02, A07 etc.
+  # ─────────────────────────────────────────────
+  sast-semgrep:
+    name: SAST — Semgrep
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Semgrep — OWASP Top 10 rules
+        # Semgrep OSS (LGPL-2.1) — roda 100% local, sem token necessário.
+        # SEMGREP_APP_TOKEN é opcional: só envia resultados ao dashboard semgrep.dev se configurado.
+        run: |
+          semgrep scan \
+            --config "p/owasp-top-ten" \
+            --config "p/typescript" \
+            --config "p/vue" \
+            --config "p/secrets" \
+            --config ".semgrep/rules.yaml" \
+            --sarif \
+            --output semgrep-results.sarif \
+            --error \
+            --severity ERROR \
+            --exclude "node_modules" \
+            --exclude ".nuxt" \
+            --exclude ".output"
+        env:
+          # Opcional: envia ao dashboard semgrep.dev se o secret estiver configurado
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN || '' }}
+
+      - name: Upload Semgrep SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: semgrep-results.sarif
+          category: semgrep
+
+  # ─────────────────────────────────────────────
+  # JOB 4: SAST — CodeQL (GitHub nativo)
+  # Análise profunda de fluxo de dados
+  # ─────────────────────────────────────────────
+  sast-codeql:
+    name: SAST — CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended,security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: codeql-${{ matrix.language }}
+
+  # ─────────────────────────────────────────────
+  # JOB 5: Lint + TypeScript strict check
+  # ─────────────────────────────────────────────
+  lint:
+    name: Lint + Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: ESLint
+        run: bun run lint
+
+      - name: TypeScript type check
+        run: bun run typecheck
+
+  # ─────────────────────────────────────────────
+  # JOB 6: Testes de segurança unitários
+  # ─────────────────────────────────────────────
+  security-tests:
+    name: Security Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run tests
+        run: bun run test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  # ─────────────────────────────────────────────
+  # JOB 7: SBOM — Software Bill of Materials
+  # Rastreabilidade de supply chain
+  # ─────────────────────────────────────────────
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM (CycloneDX)
+        uses: anchore/sbom-action@v0
+        with:
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+
+      - name: Upload SBOM as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.cyclonedx.json
+          retention-days: 90
+
+  # ─────────────────────────────────────────────
+  # JOB 8: Security Gate — bloqueia PR se falhas
+  # ─────────────────────────────────────────────
+  security-gate:
+    name: Security Gate
+    runs-on: ubuntu-latest
+    needs:
+      - secrets-scan
+      - dependency-audit
+      - sast-semgrep
+      - sast-codeql
+      - lint
+      - security-tests
+    if: always()
+    steps:
+      - name: Evaluate security gate
+        run: |
+          echo "Results:"
+          echo "  secrets-scan:     ${{ needs.secrets-scan.result }}"
+          echo "  dependency-audit: ${{ needs.dependency-audit.result }}"
+          echo "  sast-semgrep:     ${{ needs.sast-semgrep.result }}"
+          echo "  sast-codeql:      ${{ needs.sast-codeql.result }}"
+          echo "  lint:             ${{ needs.lint.result }}"
+          echo "  security-tests:   ${{ needs.security-tests.result }}"
+
+          FAILED=0
+          for result in \
+            "${{ needs.secrets-scan.result }}" \
+            "${{ needs.dependency-audit.result }}" \
+            "${{ needs.sast-semgrep.result }}" \
+            "${{ needs.lint.result }}" \
+            "${{ needs.security-tests.result }}"; do
+            if [[ "$result" == "failure" ]]; then
+              FAILED=1
+            fi
+          done
+
+          if [ "$FAILED" -eq "1" ]; then
+            echo "::error::Security Gate FALHOU. Corrija todos os problemas de segurança antes de fazer merge."
+            exit 1
+          fi
+
+          echo "Security Gate APROVADO. Todos os checks de segurança passaram."

@@ -1,0 +1,61 @@
+version: 2
+
+updates:
+  # ─────────────────────────────────────────────
+  # Dependências npm/bun — atualização semanal
+  # Prioridade: patches e minors automáticos
+  # ─────────────────────────────────────────────
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '08:00'
+      timezone: 'America/Sao_Paulo'
+    open-pull-requests-limit: 10
+    reviewers:
+      - Editus-IA
+    labels:
+      - dependencies
+      - security
+    commit-message:
+      prefix: 'fix(deps)'
+      prefix-development: 'chore(deps-dev)'
+      include: scope
+    ignore:
+      # Ignora major bumps que podem quebrar (requer revisão manual)
+      - dependency-name: 'nuxt'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'vue'
+        update-types: ['version-update:semver-major']
+    groups:
+      # Agrupa atualizações de segurança para review rápido
+      security-patches:
+        patterns:
+          - '*'
+        update-types:
+          - patch
+      # Agrupa devDeps para não poluir o feed
+      dev-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+  # ─────────────────────────────────────────────
+  # GitHub Actions — mantém actions atualizadas
+  # Versões pinadas por SHA são mais seguras
+  # ─────────────────────────────────────────────
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '08:00'
+      timezone: 'America/Sao_Paulo'
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: 'chore(actions)'

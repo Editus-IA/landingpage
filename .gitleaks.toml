@@ -1,0 +1,47 @@
+[extend]
+# Estende as regras padrão do Gitleaks com regras customizadas para o projeto
+useDefault = true
+
+[[rules]]
+id = "supabase-service-key"
+description = "Supabase service_role JWT key"
+regex = '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+'''
+tags = ["supabase", "jwt", "key"]
+severity = "CRITICAL"
+
+[[rules]]
+id = "resend-api-key"
+description = "Resend API Key"
+regex = '''re_[a-zA-Z0-9_]{32,}'''
+tags = ["resend", "api-key"]
+severity = "CRITICAL"
+
+[[rules]]
+id = "upstash-token"
+description = "Upstash Redis REST Token"
+regex = '''AX[a-zA-Z0-9_-]{40,}'''
+tags = ["upstash", "redis"]
+severity = "HIGH"
+
+[[rules]]
+id = "ip-hash-salt"
+description = "IP hash salt (hex 64 chars)"
+regex = '''IP_HASH_SALT\s*=\s*[0-9a-fA-F]{64}'''
+tags = ["salt", "privacy"]
+severity = "HIGH"
+
+[allowlist]
+description = "Ignorar arquivos de exemplo e template"
+paths = [
+  '''.env.example''',
+  '''\.env\.example$''',
+  '''CHANGELOG\.md''',
+]
+regexes = [
+  # Ignora placeholders de exemplo (não são secrets reais)
+  '''your[_-]?api[_-]?key''',
+  '''<your[_-]?token>''',
+  '''CHANGE[_-]?ME''',
+  '''placeholder''',
+  '''example''',
+]
