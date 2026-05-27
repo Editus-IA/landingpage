@@ -9,16 +9,26 @@
           O problema
         </p>
         <h2 class="section-title mb-4">
-          Por que PMEs perdem licitações<br>que deveriam ganhar?
+          <template v-if="problemVariant === 'veteran'">
+            Você analisa 5 editais por mês.<br>Passa por 40.
+          </template>
+          <template v-else>
+            Por que PMEs perdem licitações<br>que deveriam ganhar?
+          </template>
         </h2>
         <p class="section-sub mx-auto">
-          Não é falta de capacidade técnica. É falta de tempo e ferramentas para analisar editais com profundidade.
+          <template v-if="problemVariant === 'veteran'">
+            Não é falta de capacidade. É falta de pessoal: os editais certos passam batido enquanto seu time está enterrado no que já entrou.
+          </template>
+          <template v-else>
+            Não é falta de capacidade técnica. É falta de tempo e ferramentas para analisar editais com profundidade.
+          </template>
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         <div
-          v-for="problem in problems"
+          v-for="problem in activeProblems"
           :key="problem.title"
           class="card"
         >
@@ -46,7 +56,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, computed } from 'vue'
+
+const problemVariant = useABTest('problem-section', ['control', 'veteran'])
+const { track } = useUmami()
+
+onMounted(() => {
+  track('section_view', { section: 'problem', ab_problem_section: problemVariant.value })
+})
 
 const IconClock = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
   h('circle', { 'cx': 10, 'cy': 10, 'r': 8, 'stroke': '#A32D2D', 'stroke-width': 1.5 }),
@@ -87,4 +104,32 @@ const problems = [
     stat: 'Custo de até 3% da margem ignorado por edital',
   },
 ]
+
+const veteranProblems = [
+  {
+    icon: IconClock,
+    iconBg: 'bg-red-50',
+    title: 'Volume maior do que a capacidade de análise',
+    desc: 'Empresas ativas no PNCP recebem dezenas de alertas por semana. Seu time consegue analisar com profundidade 4 ou 5. Os outros 35 passam sem avaliação — e alguns eram oportunidades reais.',
+    stat: 'Média de 40+ editais compatíveis por semana para PMEs ativas',
+  },
+  {
+    icon: IconCompliance,
+    iconBg: 'bg-amber-50',
+    title: 'Habilitação descoberta na abertura, não antes',
+    desc: 'A certidão venceu. O CNPJ tem restrição no CEIS. O porte não se enquadra na cota reservada. Você só descobre na abertura do envelope — depois de dias de trabalho e custo de proposta.',
+    stat: 'Desclassificação por habilitação é o erro mais frequente em pregões',
+  },
+  {
+    icon: IconMoney,
+    iconBg: 'bg-green-50',
+    title: 'Custo de oportunidade da proposta errada',
+    desc: 'Você entra, vence, e descobre que o prazo de 90 dias corroeu a margem que parecia boa. Ou precifica alto demais e perde para quem calculou o custo financeiro direito.',
+    stat: 'Até R$ 9k de custo financeiro em contrato de R$ 300k / 60 dias',
+  },
+]
+
+const activeProblems = computed(() =>
+  problemVariant.value === 'veteran' ? veteranProblems : problems,
+)
 </script>

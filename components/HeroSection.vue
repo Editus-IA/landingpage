@@ -40,6 +40,11 @@
             <span class="text-editus-400">verifica habilitação</span><br>
             e escreve a proposta. Você só assina.
           </template>
+          <template v-else-if="headlineVariant === 'veteran'">
+            Quantos editais bons você<br>
+            <span class="text-editus-400">deixou passar esse mês</span><br>
+            por falta de profissional para analisar?
+          </template>
           <template v-else>
             Análise mais precisa.<br>
             <span class="text-editus-400">Proposta mais elaborada.</span><br>
@@ -54,6 +59,9 @@
           </template>
           <template v-else-if="subheadlineVariant === 'pain'">
             Você gasta 3 dias lendo edital e ainda pode errar na habilitação. O Editus analisa em minutos e entrega a proposta pronta. Acesso antecipado gratuito para PMEs.
+          </template>
+          <template v-else-if="subheadlineVariant === 'veteran'">
+            Você já tem processo. O problema é volume: editais demais para analisar com profundidade, tempo de menos. O Editus analisa os que você não conseguiria: habilitação, risco, custo financeiro e entrega o relatório pronto.
           </template>
           <template v-else>
             Editus monitora o PNCP, filtra editais pelo perfil da sua empresa e entrega
@@ -165,10 +173,10 @@ defineProps<{
 const { track } = useUmami()
 
 // A/B tests
-const headlineVariant = useABTest('hero-headline', ['control', 'benefit', 'loss', 'process'])
+const headlineVariant = useABTest('hero-headline', ['control', 'benefit', 'loss', 'process', 'veteran'])
 const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
 const urgencyVariant = useABTest('urgency-badge', ['control', 'count', 'countdown'])
-const subheadlineVariant = useABTest('hero-subheadline', ['control', 'short', 'pain'])
+const subheadlineVariant = useABTest('hero-subheadline', ['control', 'short', 'pain', 'veteran'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
 const count = ref<number | null>(null)
