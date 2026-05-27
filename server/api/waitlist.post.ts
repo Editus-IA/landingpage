@@ -91,17 +91,24 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 422, message: 'E-mail inválido.' })
   }
 
+  const VALID_VOLUMES = ['1-5', '6-20', '20+'] as const
+  if (!VALID_VOLUMES.includes(body.volume as typeof VALID_VOLUMES[number])) {
+    throw createError({ statusCode: 422, message: 'Selecione o volume de editais.' })
+  }
+
+  const VALID_SEGMENTS = ['ti', 'construcao', 'saude', 'limpeza', 'alimentacao', 'outro'] as const
+  if (!VALID_SEGMENTS.includes(body.segment as typeof VALID_SEGMENTS[number])) {
+    throw createError({ statusCode: 422, message: 'Selecione o segmento de atuação.' })
+  }
+
   const email = body.email.trim().toLowerCase().slice(0, 254)
   const name = body.name?.trim().slice(0, 100) || null
   const company = body.company?.trim().slice(0, 100) || null
-  const volume = ['1-5', '6-20', '20+'].includes(body.volume ?? '')
-    ? body.volume
-    : null
-
-  const VALID_SEGMENTS = ['ti', 'construcao', 'saude', 'limpeza', 'alimentacao', 'outro'] as const
-  const segment = VALID_SEGMENTS.includes(body.segment as typeof VALID_SEGMENTS[number])
-    ? body.segment
-    : null
+  if (!company) {
+    throw createError({ statusCode: 422, message: 'Nome da empresa obrigatório.' })
+  }
+  const volume = body.volume
+  const segment = body.segment
 
   // SEC-08: source validado contra whitelist (evita strings arbitrárias no banco)
   const source = VALID_SOURCES.includes(body.source as typeof VALID_SOURCES[number])
