@@ -186,6 +186,30 @@ const faqs: Faq[] = [
     q: 'O que é o PNCP e por que ele é importante?',
     parts: [{ text: 'O Portal Nacional de Compras Públicas (PNCP) é o repositório oficial de licitações da União, estados e municípios após a Lei 14.133/2021 (Nova Lei de Licitações). Todos os órgãos públicos são obrigados a publicar seus editais lá. Monitorar o PNCP sistematicamente é a forma mais completa de não perder oportunidades, e é o que o agente Prospector do Editus faz de forma contínua.' }],
   },
+  {
+    q: 'Funciona para pregão de serviço com critério de pontuação técnica?',
+    parts: [
+      { text: 'Sim, com ressalvas importantes. Para pregões de menor preço e maior desconto, a análise é completa: habilitação, compliance, custo financeiro e proposta de preços gerada automaticamente. Para licitações com ' },
+      { text: 'julgamento por técnica e preço', bold: true },
+      { text: ' (RDC, concorrências com envelope técnico), o Editus analisa habilitação, compliance e risco, mas a elaboração do envelope técnico exige input humano especializado — o sistema prepara o briefing e identifica os critérios de pontuação, mas não escreve o memorial técnico.' },
+    ],
+  },
+  {
+    q: 'O edital exige planilha de BDI ou composição de custo unitário. O Editus resolve?',
+    parts: [
+      { text: 'O agente Precificador identifica quando o edital exige BDI, composição de custo unitário ou planilha SINAPI e sinaliza isso no relatório. Para contratos de obras e serviços de engenharia, ' },
+      { text: 'a geração automática da planilha de preços requer os dados de custo da empresa', bold: true },
+      { text: ' — o Editus estrutura o modelo e preenche os campos a partir das suas informações, mas não tem acesso aos seus custos internos. Na prática: você fornece os insumos, o Editus formata conforme exigência do edital.' },
+    ],
+  },
+  {
+    q: 'Se a proposta gerada tiver erro, quem é responsável?',
+    parts: [
+      { text: 'A responsabilidade pela proposta submetida é sempre da empresa. O Editus deixa isso explícito no fluxo: ' },
+      { text: 'nenhum documento é submetido sem revisão e aprovação humana.', bold: true },
+      { text: ' O sistema gera a proposta como rascunho qualificado — com base nos dados do edital e do perfil da empresa —, mas a revisão final, os valores e a assinatura digital são sempre do responsável legal. O relatório de análise serve como registro de auditoria do processo de decisão.' },
+    ],
+  },
 ]
 
 // Injeta FAQPage JSON-LD no <head> via useHead (forma correta no Nuxt)
