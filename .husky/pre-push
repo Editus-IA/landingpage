@@ -1,12 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-# ─────────────────────────────────────────────────────────────
-# PRE-PUSH SECURITY HOOK
-# Última barreira local antes de enviar ao repositório remoto
-# Mais pesado que o pre-commit — verifica o histórico completo
-# ─────────────────────────────────────────────────────────────
-
 echo "🔒 Pre-push security checks..."
 
 # 1. Secrets scan no histórico completo do branch
@@ -23,16 +14,15 @@ if command -v gitleaks &> /dev/null; then
   echo "  ✓ History clean"
 fi
 
-# 2. Auditoria rápida de dependências críticas
+# 2. Auditoria rápida de dependências críticas (usa bun — sem package-lock.json)
 echo "  [2/2] Critical dependency audit..."
-if command -v npx &> /dev/null; then
-  npx better-npm-audit audit --level critical 2>/dev/null
-  if [ $? -ne 0 ]; then
+if command -v bun &> /dev/null; then
+  bun audit 2>/dev/null | grep -q "critical:" && {
     echo ""
     echo "❌ BLOCKED: Critical CVEs in dependencies."
     echo "   Execute 'bun update' para atualizar as dependências afetadas."
     exit 1
-  fi
+  }
 fi
 echo "  ✓ No critical CVEs"
 
