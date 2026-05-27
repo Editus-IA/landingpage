@@ -11,28 +11,50 @@
 
     <div ref="contentRef" :style="tiltStyle" class="relative max-w-6xl mx-auto px-6 pt-28 pb-20 w-full will-change-transform transition-transform duration-100 ease-out">
       <div class="max-w-3xl">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-editus-800/60 border border-editus-700/50 rounded-full px-4 py-1.5 mb-8">
-          <span class="w-2 h-2 bg-victory-400 rounded-full animate-pulse" />
-          <span class="text-xs text-white/80 font-medium">Vagas limitadas · acesso antecipado aberto</span>
-        </div>
+        <!-- Badge de urgência (A/B: urgency-badge) -->
+        <UrgencyBadge :variant="urgencyVariant" />
 
-        <!-- Headline -->
+        <!-- Headline (A/B: hero-headline) -->
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6">
-          Análise mais precisa.<br>
-          <span class="text-editus-400">Proposta mais elaborada.</span><br>
-          Decisão sempre sua.
+          <template v-if="headlineVariant === 'benefit'">
+            Analise editais em minutos,<br>
+            <span class="text-editus-400">não em dias.</span><br>
+            A IA faz o trabalho, você decide.
+          </template>
+          <template v-else-if="headlineVariant === 'loss'">
+            Quanto você está perdendo<br>
+            <span class="text-editus-400">por não analisar o custo</span><br>
+            financeiro do prazo?
+          </template>
+          <template v-else-if="headlineVariant === 'process'">
+            IA que lê o edital,<br>
+            <span class="text-editus-400">verifica habilitação</span><br>
+            e escreve a proposta. Você só assina.
+          </template>
+          <template v-else>
+            Análise mais precisa.<br>
+            <span class="text-editus-400">Proposta mais elaborada.</span><br>
+            Decisão sempre sua.
+          </template>
         </h1>
 
-        <!-- Sub -->
+        <!-- Sub (A/B: hero-subheadline) -->
         <p class="text-lg md:text-xl text-white/55 leading-relaxed mb-10 max-w-xl">
-          Editus monitora o PNCP, filtra editais pelo perfil da sua empresa e entrega
-          análise completa de habilitação, compliance e precificação com a proposta
-          redigida e pronta para você revisar e submeter no Comprasnet.
+          <template v-if="subheadlineVariant === 'short'">
+            IA especializada em licitações: verifica habilitação, checa compliance com a Lei 14.133 e entrega a proposta pronta para você revisar. Acesso antecipado gratuito.
+          </template>
+          <template v-else-if="subheadlineVariant === 'pain'">
+            Você gasta 3 dias lendo edital e ainda pode errar na habilitação. O Editus analisa em minutos e entrega a proposta pronta. Acesso antecipado gratuito para PMEs.
+          </template>
+          <template v-else>
+            Editus monitora o PNCP, filtra editais pelo perfil da sua empresa e entrega
+            análise completa de habilitação, compliance e precificação com a proposta
+            redigida e pronta para você revisar e submeter no Comprasnet.
+          </template>
         </p>
 
         <!-- Waitlist inline form -->
-        <WaitlistForm :inline="true" />
+        <WaitlistForm :inline="true" :cta-copy-variant="ctaCopyVariant" :button-color-variant="buttonColorVariant" :urgency-copy-variant="urgencyCopyVariant" />
 
         <!-- Social proof -->
         <div class="mt-10 flex items-center gap-6 flex-wrap">
@@ -73,10 +95,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useABTest } from '../composables/useABTest';
+
+const props = defineProps<{
+  buttonColorVariant: 'control' | 'green'
+}>()
+
+const { track } = useUmami()
+
+// A/B tests
+const headlineVariant     = useABTest('hero-headline',    ['control', 'benefit', 'loss', 'process'])
+const ctaCopyVariant      = useABTest('cta-copy',         ['control', 'benefit', 'action'])
+const urgencyVariant      = useABTest('urgency-badge',    ['control', 'count', 'countdown'])
+const subheadlineVariant  = useABTest('hero-subheadline', ['control', 'short', 'pain'])
+const urgencyCopyVariant  = useABTest('urgency-copy',     ['control', 'consequence'])
 
 const count = ref<number | null>(null)
 onMounted(async () => {
+  track('page_view', {
+    ab_hero_subheadline: subheadlineVariant.value,
+    ab_urgency_copy:     urgencyCopyVariant.value,
+  })
   try {
     const data = await $fetch<{ count: number | null }>('/api/waitlist-count')
     if (data?.count && data.count > 0) count.value = data.count
@@ -90,13 +130,13 @@ const stats = [
   { value: '24/7', label: 'monitoramento do PNCP pelo perfil da empresa' },
 ]
 
-const sectionRef = ref(null)
-const contentRef = ref(null)
+const sectionRef = ref<HTMLElement | null>(null)
+const contentRef = ref<HTMLElement | null>(null)
 const tiltStyle  = ref('')
 
 const MAX_TILT = 4
 
-function onMouseMove(e) {
+function onMouseMove(e: MouseEvent) {
   if (!sectionRef.value) return
   const { left, top, width, height } = sectionRef.value.getBoundingClientRect()
   const nx = ((e.clientX - left)  / width  - 0.5) * 2

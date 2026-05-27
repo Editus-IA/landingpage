@@ -79,11 +79,30 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 })
 
-const route        = useRoute()
-const isDuplicate  = computed(() => route.query.duplicado === '1')
-const isConfirmed  = computed(() => route.query.confirmado === '1')
-const position     = useWaitlistPosition()
+const route       = useRoute()
+const router      = useRouter()
+const isDuplicate = computed(() => route.query.duplicado === '1')
+const isConfirmed = computed(() => route.query.confirmado === '1')
+const position    = useWaitlistPosition()
 const shareLabel  = ref('Compartilhar com colegas')
+
+// Bloqueia acesso direto: só permite se veio de um submit válido
+// useWaitlistPosition é estado em memória (perde no refresh), então usamos
+// sessionStorage como fallback para o caso do browser recarregar a página
+onMounted(() => {
+  const fromSubmit = position.value !== null || sessionStorage.getItem('waitlist_submitted') === '1' || isDuplicate.value || isConfirmed.value
+  if (!fromSubmit) {
+    router.replace('/')
+    return
+  }
+  // Marca sessão para sobreviver a reloads manuais desta página
+  sessionStorage.setItem('waitlist_submitted', '1')
+})
+
+onUnmounted(() => {
+  // Limpa ao sair da página para que o próximo acesso direto seja bloqueado
+  sessionStorage.removeItem('waitlist_submitted')
+})
 
 async function share() {
   const url   = 'https://editus.com.br'

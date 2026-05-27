@@ -39,8 +39,11 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { track } = useUmami()
+
+const ctaCopyVariant    = useABTest('cta-copy',     ['control', 'benefit', 'action'])
+const buttonColorVariant = useABTest('button-color', ['control', 'green'])
 
 const scrolled = ref(false)
 
@@ -54,6 +57,10 @@ onUnmounted(() => {
 })
 
 function onCtaClick() {
-  track('cta_click', { location: 'navbar' })
+  track('cta_click', {
+    location: 'navbar',
+    ab_cta_copy: ctaCopyVariant.value,
+    ab_button_color: buttonColorVariant.value,
+  })
 }
 </script>
