@@ -176,76 +176,37 @@
               >
             </div>
           </div>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div>
-              <label
-                for="waitlist-company"
-                class="block text-xs font-medium text-white/50 mb-1.5"
-              >Empresa</label>
-              <input
-                id="waitlist-company"
-                v-model="form.company"
-                type="text"
-                placeholder="Nome da empresa"
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
-              >
-            </div>
-            <div>
-              <label
-                for="waitlist-segment"
-                class="block text-xs font-medium text-white/50 mb-1.5"
-              >Segmento de atuação</label>
-              <div class="relative">
-                <select
-                  id="waitlist-segment"
-                  v-model="form.segment"
-                  class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
-                >
-                  <option
-                    value=""
-                    disabled
-                    selected
-                  >
-                    Selecione
-                  </option>
-                  <option value="ti">
-                    TI e Tecnologia
-                  </option>
-                  <option value="construcao">
-                    Construção e Engenharia
-                  </option>
-                  <option value="saude">
-                    Saúde e Farmácia
-                  </option>
-                  <option value="limpeza">
-                    Limpeza e Conservação
-                  </option>
-                  <option value="alimentacao">
-                    Alimentação e Nutrição
-                  </option>
-                  <option value="outro">
-                    Outro
-                  </option>
-                </select>
-                <svg
-                  class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/30"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
-                  <path
-                    d="M3 5l4 4 4-4"
-                    stroke="currentColor"
-                    stroke-width="1.4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
+          <div>
+            <label
+              for="waitlist-company"
+              class="block text-xs font-medium text-white/50 mb-1.5"
+            >Empresa</label>
+            <input
+              id="waitlist-company"
+              v-model="form.company"
+              type="text"
+              required
+              placeholder="Nome da empresa"
+              class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+            >
           </div>
         </template>
+
+        <!-- Empresa visível apenas na variante two-field (nas demais fica no bloco condicional acima) -->
+        <div v-if="formVariant === 'two-field'">
+          <label
+            for="waitlist-company-tf"
+            class="block text-xs font-medium text-white/50 mb-1.5"
+          >Empresa</label>
+          <input
+            id="waitlist-company-tf"
+            v-model="form.company"
+            type="text"
+            required
+            placeholder="Nome da empresa"
+            class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+          >
+        </div>
 
         <!-- Email visível apenas na variante two-field -->
         <div v-if="formVariant === 'two-field'">
@@ -263,8 +224,8 @@
           >
         </div>
 
-        <!-- Volume: presente em todas as variantes -->
-        <div :class="formVariant === 'two-field' ? '' : 'grid md:grid-cols-2 gap-4'">
+        <!-- Volume + Segment: presente em todas as variantes -->
+        <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label
               for="waitlist-volume"
@@ -274,6 +235,7 @@
               <select
                 id="waitlist-volume"
                 v-model="form.volume"
+                required
                 class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
               >
                 <option
@@ -291,6 +253,63 @@
                 </option>
                 <option value="20+">
                   Mais de 20 por mês
+                </option>
+              </select>
+              <svg
+                class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/30"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <path
+                  d="M3 5l4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Segment: presente em todas as variantes -->
+          <div>
+            <label
+              for="waitlist-segment-tf"
+              class="block text-xs font-medium text-white/50 mb-1.5"
+            >Segmento de atuação</label>
+            <div class="relative">
+              <select
+                id="waitlist-segment-tf"
+                v-model="form.segment"
+                required
+                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                >
+                  Selecione
+                </option>
+                <option value="ti">
+                  TI e Tecnologia
+                </option>
+                <option value="construcao">
+                  Construção e Engenharia
+                </option>
+                <option value="saude">
+                  Saúde e Farmácia
+                </option>
+                <option value="limpeza">
+                  Limpeza e Conservação
+                </option>
+                <option value="alimentacao">
+                  Alimentação e Nutrição
+                </option>
+                <option value="outro">
+                  Outro
                 </option>
               </select>
               <svg
@@ -334,8 +353,8 @@
 
         <button
           type="submit"
-          :disabled="!form.consent || loading"
-          :aria-disabled="!form.consent || loading"
+          :disabled="!form.consent || !form.volume || !form.segment || !form.company || loading"
+          :aria-disabled="!form.consent || !form.volume || !form.segment || !form.company || loading"
           :class="btnClass"
           class="btn-ab w-full justify-center py-4 text-base"
         >
