@@ -107,13 +107,14 @@ const IconCheck = defineComponent(() => () => h('svg', { width: 20, height: 20, 
 ]))
 
 const IconAlert = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 3L2 17h16L10 3z', stroke: '#A32D2D', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M10 9v3M10 14v.5', stroke: '#A32D2D', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
+  h('path', { d: 'M10 2.5C6.5 2.5 3.5 5 3.5 8.5c0 2 .9 3.7 2.3 4.9L7 17.5h6l1.2-4.1c1.4-1.2 2.3-2.9 2.3-4.9 0-3.5-3-6-6.5-6z', stroke: '#A32D2D', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { d: 'M10 7v3.5M10 12.5v.5', stroke: '#A32D2D', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
 ]))
 
 const IconDoc = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('rect', { x: 3, y: 3, width: 14, height: 14, rx: 2, stroke: '#BA7517', 'stroke-width': 1.3 }),
-  h('path', { d: 'M7 10h6M7 7h4M7 13h2', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
+  h('path', { d: 'M5 2h7l4 4v12a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1z', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { d: 'M12 2v4h4', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
+  h('path', { d: 'M7 9h6M7 12h4', stroke: '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
 ]))
 
 const pricingRows = [

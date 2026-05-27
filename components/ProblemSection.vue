@@ -39,12 +39,14 @@ const IconClock = defineComponent(() => () => h('svg', { width: 20, height: 20, 
 ]))
 
 const IconCompliance = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2L2 7v6l8 5 8-5V7L10 2z', stroke: '#854F0B', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }),
-  h('path', { d: 'M10 12v-3M10 15.5v-.5', stroke: '#854F0B', 'stroke-width': 1.5, 'stroke-linecap': 'round' }),
+  h('path', { d: 'M10 2L3 5.5v5c0 3.8 3 7 7 7.5 4-.5 7-3.7 7-7.5v-5L10 2z', stroke: '#854F0B', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }),
+  h('path', { d: 'M7.5 10l2 2 3-3.5', stroke: '#854F0B', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]))
 
 const IconMoney = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { d: 'M10 2v16M6 6h5.5a2.5 2.5 0 010 5H6M6 11h6a2.5 2.5 0 010 5H6', stroke: '#3B6D11', 'stroke-width': 1.5, 'stroke-linecap': 'round' }),
+  h('circle', { cx: 10, cy: 9, r: 6.5, stroke: '#3B6D11', 'stroke-width': 1.4 }),
+  h('path', { d: 'M10 6v6M8.2 7.5h2.3a1.5 1.5 0 010 3H9a1.5 1.5 0 000 3H11.8', stroke: '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
+  h('path', { d: 'M10 15.5v2M13 17l-3-1.5-3 1.5', stroke: '#3B6D11', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]))
 
 const problems = [
