@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/config-conventional": "^21.0.1",
     "@nuxt/eslint-config": "^1.4.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/sitemap": "^8.0.15",
