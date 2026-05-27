@@ -49,8 +49,8 @@
       <!-- CTA inline -->
       <div class="mt-12 text-center">
         <p class="text-editus-900/50 text-sm mb-4">Ainda tem dúvidas? Entre na lista e respondo pessoalmente.</p>
-        <a href="#waitlist" class="btn-primary">
-          Entrar na lista de acesso
+        <a href="#waitlist" :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'" class="text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0" @click="onCTAClick">
+          {{ faqCTAText }}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M3 7h8M8 4.5L10.5 7 8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -61,8 +61,31 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 type Part = { text: string; bold?: true }
 type Faq  = { q: string; parts: Part[] }
+
+const props = defineProps<{
+  ctaCopyVariant?: 'control' | 'benefit' | 'action'
+  buttonColorVariant?: 'control' | 'green'
+}>()
+
+const { track } = useUmami()
+
+const faqCTAText = computed(() => {
+  if (props.ctaCopyVariant === 'benefit') return 'Começar agora, é grátis'
+  if (props.ctaCopyVariant === 'action')  return 'Reservar minha vaga'
+  return 'Entrar na lista de acesso'
+})
+
+function onCTAClick() {
+  track('cta_click', {
+    location: 'faq',
+    ab_cta_copy: props.ctaCopyVariant ?? 'control',
+    ab_button_color: props.buttonColorVariant ?? 'control',
+  })
+}
 
 const open = ref<number | null>(0)
 
@@ -71,6 +94,14 @@ function toggle(i: number) {
 }
 
 const faqs: Faq[] = [
+  {
+    q: 'Funciona para qualquer tipo de licitação?',
+    parts: [
+      { text: 'Sim. O Editus foi desenhado para os principais modelos previstos na Lei 14.133/2021: ' },
+      { text: 'pregão eletrônico, concorrência, tomada de preços e dispensa eletrônica.', bold: true },
+      { text: ' O agente Compliance identifica automaticamente a modalidade do edital e aplica os critérios específicos de cada uma. Para editais de credenciamento e chamamento público, a análise é parcial — cobrindo habilitação e compliance, mas sem geração de proposta.' },
+    ],
+  },
   {
     q: 'O que é o Editus?',
     parts: [{ text: 'Editus é uma plataforma de inteligência artificial para PMEs brasileiras que participam de licitações públicas. Ela monitora o PNCP pelo perfil da sua empresa, analisa os editais relevantes com 12 agentes de IA especializados (habilitação, compliance, risco, custo financeiro) e entrega a proposta redigida e o relatório completo para você revisar antes de submeter no Comprasnet.' }],

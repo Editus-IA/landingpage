@@ -57,8 +57,8 @@
           <p class="font-semibold text-editus-900 text-lg">Quer ver o relatório completo na prática?</p>
           <p class="text-sm text-editus-900/55 mt-1">Entre na lista de acesso antecipado e seja um dos primeiros a testar.</p>
         </div>
-        <a href="#waitlist" class="btn-primary whitespace-nowrap flex-shrink-0">
-          Garantir meu acesso
+        <a href="#waitlist" :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'" class="whitespace-nowrap flex-shrink-0 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0" @click="onCTAClick">
+          {{ midPageCTAText }}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M3 7h8M8 4.5L10.5 7 8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -69,7 +69,33 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, computed } from 'vue'
+
+const props = defineProps<{
+  ctaCopyVariant?: 'control' | 'benefit' | 'action'
+  buttonColorVariant?: 'control' | 'green'
+}>()
+
+const { track } = useUmami()
+const featuresCopyVariant = useABTest('features-copy', ['control', 'outcome'])
+
+onMounted(() => {
+  track('section_view', { section: 'features', ab_features_copy: featuresCopyVariant.value })
+})
+
+const midPageCTAText = computed(() => {
+  if (props.ctaCopyVariant === 'benefit') return 'Quero analisar editais'
+  if (props.ctaCopyVariant === 'action')  return 'Reservar minha vaga'
+  return 'Garantir meu acesso'
+})
+
+function onCTAClick() {
+  track('cta_click', {
+    location: 'features',
+    ab_cta_copy: props.ctaCopyVariant ?? 'control',
+    ab_button_color: props.buttonColorVariant ?? 'control',
+  })
+}
 
 const IconStar = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
   h('path', { d: 'M10 2l1.5 4.5H16l-3.5 2.5 1.5 4.5L10 11 6.5 13.5 8 9 4.5 6.5H9L10 2z', stroke: '#6459C8', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
@@ -99,10 +125,28 @@ const pricingRows = [
   { label: 'Recomendação', value: '✓ Participar c/ ajuste', highlight: true },
 ]
 
-const features = [
-  { iconBg: 'bg-editus-100', icon: IconStar,  title: 'Score de compliance automático',  desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
-  { iconBg: 'bg-victory-100', icon: IconCheck, title: 'Verificação de habilitação',        desc: 'Checklist automático com SIASG, CEIS, CNEP e CEPIM. Sabe exatamente quais certidões estão válidas e quais precisam de renovação.' },
-  { iconBg: 'bg-red-50',      icon: IconAlert, title: 'Análise de risco por cláusula',    desc: 'Identifica cláusulas leoninas, penalidades desproporcionais e obrigações ocultas que a maioria não lê, antes de ser tarde.' },
-  { iconBg: 'bg-amber-50',    icon: IconDoc,   title: 'Relatório PDF completo',            desc: 'Documento profissional com todos os resultados dos agentes, pronto para apresentar para a diretoria ou arquivar como registro formal de auditoria.' },
+const controlTitles = [
+  'Score de compliance automático',
+  'Verificação de habilitação',
+  'Análise de risco por cláusula',
+  'Relatório PDF completo',
 ]
+
+const outcomeTitles = [
+  'Saiba se está habilitado antes de se inscrever — sem surpresas na abertura',
+  'Identifique cláusulas leoninas e penalidades antes de assinar',
+  'Score de 0 a 100: saiba o risco do edital em segundos',
+  'Relatório pronto para apresentar à diretoria ou arquivar como due diligence',
+]
+
+const featureCardTitles = computed(() =>
+  featuresCopyVariant.value === 'outcome' ? outcomeTitles : controlTitles
+)
+
+const features = computed(() => [
+  { iconBg: 'bg-editus-100', icon: IconStar,  title: featureCardTitles.value[0], desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
+  { iconBg: 'bg-victory-100', icon: IconCheck, title: featureCardTitles.value[1], desc: 'Checklist automático com SIASG, CEIS, CNEP e CEPIM. Sabe exatamente quais certidões estão válidas e quais precisam de renovação.' },
+  { iconBg: 'bg-red-50',      icon: IconAlert, title: featureCardTitles.value[2], desc: 'Identifica cláusulas leoninas, penalidades desproporcionais e obrigações ocultas que a maioria não lê, antes de ser tarde.' },
+  { iconBg: 'bg-amber-50',    icon: IconDoc,   title: featureCardTitles.value[3], desc: 'Documento profissional com todos os resultados dos agentes, pronto para apresentar para a diretoria ou arquivar como registro formal de auditoria.' },
+])
 </script>

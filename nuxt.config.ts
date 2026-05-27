@@ -39,12 +39,12 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Editus monitora o PNCP, analisa editais com 12 agentes de IA e gera propostas completas para PMEs brasileiras. Habilitação, compliance com Lei 14.133 e custo financeiro automatizados.',
+            'Analise editais de licitação em minutos, não em dias. O Editus verifica habilitação, compliance com a Lei 14.133 e gera a proposta pronta para PMEs. Acesso antecipado aberto.',
         },
         {
           name: 'keywords',
           content:
-            'análise de edital, software licitação, IA para licitações, PNCP, Lei 14133, compliance licitação, habilitação licitação, PME licitação, proposta automática, Comprasnet',
+            'análise de edital, software licitação, IA para licitações, PNCP, Lei 14133, compliance licitação, habilitação licitação, PME licitação, proposta automática, Comprasnet, como analisar edital de licitação, verificação habilitação licitação, custo financeiro edital pagamento, análise edital PNCP automática',
         },
         // Open Graph
         { property: 'og:title', content: 'Editus — IA para análise de editais e licitações públicas' },
@@ -80,14 +80,7 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://editus.com.br' },
       ],
       script: [
-        // Umami analytics — carregado apenas quando WEBSITE_ID estiver configurado
-        ...(process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL && process.env.NUXT_PUBLIC_UMAMI_WEBSITE_ID
-          ? [{
-              src: process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL,
-              defer: true,
-              'data-website-id': process.env.NUXT_PUBLIC_UMAMI_WEBSITE_ID,
-            }]
-          : []),
+        // Umami: injetado em app.vue via useRuntimeConfig (runtime-safe)
         // JSON-LD: SoftwareApplication
         {
           type: 'application/ld+json',
