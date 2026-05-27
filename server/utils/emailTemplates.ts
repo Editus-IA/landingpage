@@ -59,7 +59,8 @@ export function welcomeEmailHtml(name: string, unsubscribeUrl: string, confirmUr
                 </tr>
               </table>
               <!-- CTA de confirmação (double opt-in) -->
-              ${confirmUrl ? `
+              ${confirmUrl
+                ? `
               <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
               <p style="margin:0 0 16px;font-size:15px;color:#374151;line-height:1.6;">
                 Para garantir sua vaga e confirmar o e-mail, clique no botão abaixo:
@@ -68,7 +69,8 @@ export function welcomeEmailHtml(name: string, unsubscribeUrl: string, confirmUr
                 Confirmar minha inscrição
               </a>
               <p style="margin:12px 0 0;font-size:12px;color:#9ca3af;">O link expira em 7 dias.</p>
-              ` : ''}
+              `
+                : ''}
               <!-- Divider -->
               <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
               <p style="margin:0;font-size:15px;color:#374151;line-height:1.6;">

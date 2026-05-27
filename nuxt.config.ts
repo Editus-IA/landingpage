@@ -1,33 +1,12 @@
 export default defineNuxtConfig({
   // SEC-06: devtools apenas em desenvolvimento — nunca em produção
-  devtools: { enabled: process.env.NODE_ENV === 'development' },
 
   modules: [
     '@sentry/nuxt/module',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     '@nuxtjs/sitemap',
-  ],
-
-  sentry: {
-    dsn: process.env.SENTRY_DSN || '',
-  },
-
-  site: {
-    url: 'https://editus.com.br',
-  },
-
-  sitemap: {
-    exclude: ['/api/**', '/obrigado', '/cancelar', '/privacidade'],
-  },
-
-  googleFonts: {
-    families: {
-      Inter: [400, 500, 600],
-    },
-    display: 'swap',
-    preload: true,
-  },
+  ], devtools: { enabled: process.env.NODE_ENV === 'development' },
 
   app: {
     head: {
@@ -87,23 +66,23 @@ export default defineNuxtConfig({
           innerHTML: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
-            name: 'Editus',
-            applicationCategory: 'BusinessApplication',
-            operatingSystem: 'Web',
-            url: 'https://editus.com.br',
-            description:
+            'name': 'Editus',
+            'applicationCategory': 'BusinessApplication',
+            'operatingSystem': 'Web',
+            'url': 'https://editus.com.br',
+            'description':
               'Plataforma de inteligência artificial para PMEs brasileiras que competem em licitações públicas. Monitora o PNCP, analisa editais com 12 agentes de IA especializados, verifica habilitação e gera propostas completas com base no perfil da empresa.',
-            offers: {
+            'offers': {
               '@type': 'Offer',
-              availability: 'https://schema.org/PreOrder',
-              priceCurrency: 'BRL',
+              'availability': 'https://schema.org/PreOrder',
+              'priceCurrency': 'BRL',
             },
-            publisher: {
+            'publisher': {
               '@type': 'Organization',
-              name: 'Editus',
-              url: 'https://editus.com.br',
+              'name': 'Editus',
+              'url': 'https://editus.com.br',
             },
-            featureList: [
+            'featureList': [
               'Monitoramento contínuo do PNCP',
               'Análise de edital com 12 agentes de IA',
               'Verificação de habilitação e certidões',
@@ -114,9 +93,9 @@ export default defineNuxtConfig({
               'Geração automática de proposta',
               'Relatório PDF completo',
             ],
-            audience: {
+            'audience': {
               '@type': 'BusinessAudience',
-              audienceType:
+              'audienceType':
                 'Pequenas e médias empresas brasileiras que participam de licitações públicas',
             },
           }),
@@ -127,16 +106,16 @@ export default defineNuxtConfig({
           innerHTML: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Editus',
-            url: 'https://editus.com.br',
-            description:
+            'name': 'Editus',
+            'url': 'https://editus.com.br',
+            'description':
               'Empresa de tecnologia especializada em inteligência artificial para o mercado de licitações públicas brasileiras.',
-            foundingDate: '2026',
-            contactPoint: {
+            'foundingDate': '2026',
+            'contactPoint': {
               '@type': 'ContactPoint',
-              contactType: 'customer support',
-              email: 'contato@editus.com.br',
-              availableLanguage: 'Portuguese',
+              'contactType': 'customer support',
+              'email': 'contato@editus.com.br',
+              'availableLanguage': 'Portuguese',
             },
           }),
         },
@@ -145,6 +124,23 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
+
+  site: {
+    url: 'https://editus.com.br',
+  },
+
+  // Variáveis privadas — disponíveis APENAS no servidor (nunca no browser)
+  runtimeConfig: {
+    supabaseUrl: process.env.SUPABASE_URL || '',
+    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY || '',
+    ipHashSalt: process.env.IP_HASH_SALT || '',
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    public: {
+      umamiScriptUrl: process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL || '',
+      umamiWebsiteId: process.env.NUXT_PUBLIC_UMAMI_WEBSITE_ID || '',
+      sentryDsn: process.env.SENTRY_DSN || '',
+    },
+  },
 
   // SEC-01: HTTP Security Headers — protege contra XSS, clickjacking e MITM
   routeRules: {
@@ -166,43 +162,49 @@ export default defineNuxtConfig({
           const umamiUrl = process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL
           let umamiOrigin = ''
           if (umamiUrl) {
-            try { umamiOrigin = ' ' + new URL(umamiUrl).origin } catch { /* URL inválida — ignora */ }
+            try {
+              umamiOrigin = ' ' + new URL(umamiUrl).origin
+            }
+            catch { /* URL inválida — ignora */ }
           }
           const supabaseOrigin = process.env.SUPABASE_URL || 'https://*.supabase.co'
           return [
-            "default-src 'self'",
+            'default-src \'self\'',
             `script-src 'self' 'unsafe-inline'${umamiOrigin}`,
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "font-src 'self' data: https://fonts.gstatic.com",
-            "img-src 'self' data: https:",
+            'style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com',
+            'font-src \'self\' data: https://fonts.gstatic.com',
+            'img-src \'self\' data: https:',
             `connect-src 'self' ${supabaseOrigin} https://*.ingest.sentry.io${umamiOrigin}`,
-            process.env.NODE_ENV === 'development' ? "worker-src blob:" : "worker-src 'none'",
-            "manifest-src 'self'",
-            process.env.NODE_ENV === 'development' ? "frame-src 'self' data:" : "frame-src 'none'",
-            "frame-ancestors 'none'",
-            "base-uri 'self'",
-            "form-action 'self'",
-            "report-uri /api/csp-report",
+            process.env.NODE_ENV === 'development' ? 'worker-src blob:' : 'worker-src \'none\'',
+            'manifest-src \'self\'',
+            process.env.NODE_ENV === 'development' ? 'frame-src \'self\' data:' : 'frame-src \'none\'',
+            'frame-ancestors \'none\'',
+            'base-uri \'self\'',
+            'form-action \'self\'',
+            'report-uri /api/csp-report',
           ].join('; ')
         })(),
       },
     },
   },
 
-  // Variáveis privadas — disponíveis APENAS no servidor (nunca no browser)
-  runtimeConfig: {
-    supabaseUrl:        process.env.SUPABASE_URL        || '',
-    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY || '',
-    ipHashSalt:         process.env.IP_HASH_SALT         || '',
-    resendApiKey:       process.env.RESEND_API_KEY       || '',
-    public: {
-      umamiScriptUrl:  process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL  || '',
-      umamiWebsiteId:  process.env.NUXT_PUBLIC_UMAMI_WEBSITE_ID  || '',
-      sentryDsn:       process.env.SENTRY_DSN                    || '',
-    },
-  },
+  compatibilityDate: '2024-04-03',
 
   telemetry: false,
 
-  compatibilityDate: '2024-04-03',
+  googleFonts: {
+    families: {
+      Inter: [400, 500, 600],
+    },
+    display: 'swap',
+    preload: true,
+  },
+
+  sentry: {
+    dsn: process.env.SENTRY_DSN || '',
+  },
+
+  sitemap: {
+    exclude: ['/api/**', '/obrigado', '/cancelar', '/privacidade'],
+  },
 })

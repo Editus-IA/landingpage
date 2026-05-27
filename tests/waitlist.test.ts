@@ -10,7 +10,7 @@ import { describe, it, expect } from 'vitest'
 // ── Funções extraídas do endpoint (mesma lógica) ──────────────────────────────
 
 function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
+  return /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]{2,}$/.test(email.trim())
 }
 
 const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer'] as const
@@ -123,16 +123,20 @@ describe('honeypot logic', () => {
   })
 })
 
+function isValidConsent(value: unknown): boolean {
+  return value === true
+}
+
 describe('consent validation', () => {
   it('aceita consent=true', () => {
-    expect(true === true).toBe(true)
+    expect(isValidConsent(true)).toBe(true)
   })
 
   it('rejeita consent=false', () => {
-    expect(false !== true).toBe(true)
+    expect(isValidConsent(false)).toBe(false)
   })
 
   it('rejeita consent=undefined', () => {
-    expect(undefined !== true).toBe(true)
+    expect(isValidConsent(undefined)).toBe(false)
   })
 })

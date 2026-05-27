@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 
 // In-memory fallback: limpa entradas expiradas a cada 5 min
-const memAttempts = new Map<string, { count: number; reset: number }>()
+const memAttempts = new Map<string, { count: number, reset: number }>()
 setInterval(() => {
   const now = Date.now()
   for (const [key, val] of memAttempts.entries()) {
@@ -21,19 +21,19 @@ export function hashIpForLog(ip: string): string {
  */
 export async function checkRateLimit(
   identifier: string,
-  opts: { key: string; windowSecs: number; max: number },
+  opts: { key: string, windowSecs: number, max: number },
 ): Promise<boolean> {
   const { key, windowSecs, max } = opts
   const rlKey = `rl:${key}:${identifier}`
 
-  const upstashUrl   = process.env.UPSTASH_REDIS_REST_URL
+  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL
   const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN
 
   if (upstashUrl && upstashToken) {
     try {
       const res = await fetch(`${upstashUrl}/pipeline`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${upstashToken}`, 'Content-Type': 'application/json' },
+        headers: { 'Authorization': `Bearer ${upstashToken}`, 'Content-Type': 'application/json' },
         body: JSON.stringify([['INCR', rlKey], ['EXPIRE', rlKey, windowSecs, 'NX']]),
         signal: AbortSignal.timeout(2000),
       })
@@ -41,12 +41,13 @@ export async function checkRateLimit(
         const [[, count]] = await res.json() as [[string, number], unknown]
         return count <= max
       }
-    } catch {
+    }
+    catch {
       // Upstash indisponível → fallback em memória
     }
   }
 
-  const now   = Date.now()
+  const now = Date.now()
   const entry = memAttempts.get(rlKey)
   if (!entry || entry.reset < now) {
     memAttempts.set(rlKey, { count: 1, reset: now + windowSecs * 1000 })

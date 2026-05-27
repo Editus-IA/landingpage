@@ -6,20 +6,19 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import { checkRateLimit } from '../utils/rateLimit'
 
-const TOKEN_TTL_DAYS = 7
-
 function verifyConfirmToken(token: string, email: string, salt: string): boolean {
   try {
     const dotIdx = token.lastIndexOf('.')
     if (dotIdx === -1) return false
-    const hmacPart   = token.slice(0, dotIdx)
+    const hmacPart = token.slice(0, dotIdx)
     const expiryPart = token.slice(dotIdx + 1)
-    const expiry     = parseInt(expiryPart, 10)
-    if (isNaN(expiry) || Date.now() / 1000 > expiry) return false
-    const payload  = `confirm|${email}|${expiry}`
+    const expiry = Number.parseInt(expiryPart, 10)
+    if (Number.isNaN(expiry) || Date.now() / 1000 > expiry) return false
+    const payload = `confirm|${email}|${expiry}`
     const expected = createHmac('sha256', salt).update(payload).digest('hex')
     return timingSafeEqual(Buffer.from(hmacPart, 'hex'), Buffer.from(expected, 'hex'))
-  } catch {
+  }
+  catch {
     return false
   }
 }
@@ -47,13 +46,13 @@ export default defineEventHandler(async (event) => {
       {
         method: 'PATCH',
         headers: {
-          'Content-Type':  'application/json',
-          'apikey':        supabaseServiceKey,
+          'Content-Type': 'application/json',
+          'apikey': supabaseServiceKey,
           'Authorization': `Bearer ${supabaseServiceKey}`,
         },
         body: JSON.stringify({ confirmed: true }),
         signal: AbortSignal.timeout(5000),
-      }
+      },
     ).catch(() => null)
   }
 

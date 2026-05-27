@@ -2,22 +2,22 @@ import { createHmac } from 'node:crypto'
 import { Resend } from 'resend'
 import { welcomeEmailHtml, welcomeEmailText } from './emailTemplates'
 
-const UNSUB_TTL_DAYS   = 30
+const UNSUB_TTL_DAYS = 30
 const CONFIRM_TTL_DAYS = 7
 
 function signToken(payload: string, salt: string, ttlDays: number): string {
-  const expiry  = Math.floor(Date.now() / 1000) + ttlDays * 86400
-  const data    = `${payload}|${expiry}`
-  const hmac    = createHmac('sha256', salt).update(data).digest('hex')
+  const expiry = Math.floor(Date.now() / 1000) + ttlDays * 86400
+  const data = `${payload}|${expiry}`
+  const hmac = createHmac('sha256', salt).update(data).digest('hex')
   return `${hmac}.${expiry}`
 }
 
-export async function sendWelcomeEmail({ name, email }: { name: string; email: string }): Promise<void> {
+export async function sendWelcomeEmail({ name, email }: { name: string, email: string }): Promise<void> {
   const config = useRuntimeConfig()
   const resend = new Resend(config.resendApiKey)
-  const salt   = config.ipHashSalt
+  const salt = config.ipHashSalt
 
-  const unsubToken   = salt ? signToken(email, salt, UNSUB_TTL_DAYS) : ''
+  const unsubToken = salt ? signToken(email, salt, UNSUB_TTL_DAYS) : ''
   const confirmToken = salt ? signToken(`confirm|${email}`, salt, CONFIRM_TTL_DAYS) : ''
 
   const unsubscribeUrl = unsubToken
@@ -45,5 +45,5 @@ export async function sendWelcomeEmail({ name, email }: { name: string; email: s
     throw new Error(`Resend error: ${result.error.message}`)
   }
 
-  console.info('[email] boas-vindas enviado', { id: result.data?.id, email_hash: email.slice(0, 3) + '***' })
+  console.warn('[email] boas-vindas enviado', { id: result.data?.id, email_hash: email.slice(0, 3) + '***' })
 }

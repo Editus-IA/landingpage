@@ -23,7 +23,7 @@ interface WaitlistPayload {
   segment?: string
   source?: string
   consent?: boolean
-  _trap?: string  // honeypot — bots preenchem, humanos não
+  _trap?: string // honeypot — bots preenchem, humanos não
   utm_source?: string | null
   utm_medium?: string | null
   utm_campaign?: string | null
@@ -32,25 +32,24 @@ interface WaitlistPayload {
 // SEC-08: fonte origem validada contra whitelist
 const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer'] as const
 
-
 // SEC-07: SHA-256 truncado com salt secreto — garante anonimização real dos IPs (LGPD)
 function hashIp(ip: string, salt: string): string {
   return createHash('sha256').update(salt + ip).digest('hex').slice(0, 16)
 }
 
 function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
+  return /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]{2,}$/.test(email.trim())
 }
 
 // Resolve o IP real do cliente.
 // cf-connecting-ip: injetado pela Cloudflare, não forjável pelo cliente.
 // Fallback direto para socket TCP — omite x-vercel-forwarded-for e similares,
 // que podem ser forjados por um proxy intermediário fora da borda confiável.
-function resolveIp(event: any): string {
+function resolveIp(event: Parameters<Parameters<typeof defineEventHandler>[0]>[0]): string {
   return (
-    getRequestHeader(event, 'cf-connecting-ip') ||
-    event.node.req.socket?.remoteAddress ||
-    '0.0.0.0'
+    getRequestHeader(event, 'cf-connecting-ip')
+    || event.node.req.socket?.remoteAddress
+    || '0.0.0.0'
   )
 }
 
@@ -92,10 +91,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 422, message: 'E-mail inválido.' })
   }
 
-  const email   = body.email.trim().toLowerCase().slice(0, 254)
-  const name    = body.name?.trim().slice(0, 100) || null
+  const email = body.email.trim().toLowerCase().slice(0, 254)
+  const name = body.name?.trim().slice(0, 100) || null
   const company = body.company?.trim().slice(0, 100) || null
-  const volume  = ['1-5', '6-20', '20+'].includes(body.volume ?? '')
+  const volume = ['1-5', '6-20', '20+'].includes(body.volume ?? '')
     ? body.volume
     : null
 
@@ -109,15 +108,15 @@ export default defineEventHandler(async (event) => {
     ? body.source
     : 'landing'
 
-  const utm_source   = body.utm_source?.trim().slice(0, 100) || null
-  const utm_medium   = body.utm_medium?.trim().slice(0, 100) || null
+  const utm_source = body.utm_source?.trim().slice(0, 100) || null
+  const utm_medium = body.utm_medium?.trim().slice(0, 100) || null
   const utm_campaign = body.utm_campaign?.trim().slice(0, 100) || null
 
   // ── Credenciais e secrets (servidor apenas) ────────────────────────────────
   const config = useRuntimeConfig()
   const supabaseUrl = config.supabaseUrl
   const supabaseKey = config.supabaseServiceKey
-  const ipSalt      = config.ipHashSalt
+  const ipSalt = config.ipHashSalt
 
   if (!supabaseUrl || !supabaseKey) {
     console.error('[waitlist] Supabase não configurado — verifique .env')
@@ -133,10 +132,10 @@ export default defineEventHandler(async (event) => {
   const response = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads`, {
     method: 'POST',
     headers: {
-      'Content-Type':  'application/json',
-      'apikey':        supabaseKey,
+      'Content-Type': 'application/json',
+      'apikey': supabaseKey,
       'Authorization': `Bearer ${supabaseKey}`,
-      'Prefer':        'return=minimal,resolution=ignore-duplicates',
+      'Prefer': 'return=minimal,resolution=ignore-duplicates',
     },
     body: JSON.stringify({
       email,
@@ -176,8 +175,8 @@ export default defineEventHandler(async (event) => {
       const posRes = await fetch(`${supabaseUrl}/rest/v1/rpc/waitlist_position`, {
         method: 'POST',
         headers: {
-          'Content-Type':  'application/json',
-          'apikey':        supabaseKey,
+          'Content-Type': 'application/json',
+          'apikey': supabaseKey,
           'Authorization': `Bearer ${supabaseKey}`,
         },
         body: JSON.stringify({ p_email: email }),
@@ -187,7 +186,8 @@ export default defineEventHandler(async (event) => {
         const val = await posRes.json() as number | null
         if (typeof val === 'number' && val > 0) position = val
       }
-    } catch {
+    }
+    catch {
       // Posição indisponível — não bloqueia a resposta
     }
 

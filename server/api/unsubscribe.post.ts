@@ -16,16 +16,17 @@ function verifyToken(token: string, email: string, salt: string): boolean {
     const dotIdx = token.lastIndexOf('.')
     if (dotIdx === -1) return false
 
-    const hmacPart   = token.slice(0, dotIdx)
+    const hmacPart = token.slice(0, dotIdx)
     const expiryPart = token.slice(dotIdx + 1)
-    const expiry     = parseInt(expiryPart, 10)
+    const expiry = Number.parseInt(expiryPart, 10)
 
-    if (isNaN(expiry) || Date.now() / 1000 > expiry) return false
+    if (Number.isNaN(expiry) || Date.now() / 1000 > expiry) return false
 
-    const payload  = `${email}|${expiry}`
+    const payload = `${email}|${expiry}`
     const expected = createHmac('sha256', salt).update(payload).digest('hex')
     return timingSafeEqual(Buffer.from(hmacPart, 'hex'), Buffer.from(expected, 'hex'))
-  } catch {
+  }
+  catch {
     return false
   }
 }
@@ -36,7 +37,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 429, message: 'Muitas tentativas. Aguarde 1 minuto.' })
   }
 
-  const body  = await readBody<{ email?: string; token?: string }>(event).catch(() => ({}))
+  const body = await readBody<{ email?: string, token?: string }>(event).catch(() => ({}))
   const token = typeof body?.token === 'string' ? body.token.trim() : ''
   const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : ''
 
@@ -53,11 +54,11 @@ export default defineEventHandler(async (event) => {
       {
         method: 'DELETE',
         headers: {
-          'apikey':        supabaseServiceKey,
-          'Authorization': `Bearer ${supabaseServiceKey}`,
+          apikey: supabaseServiceKey,
+          Authorization: `Bearer ${supabaseServiceKey}`,
         },
         signal: AbortSignal.timeout(5000),
-      }
+      },
     ).catch(() => null)
   }
 
