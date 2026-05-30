@@ -139,6 +139,14 @@ export default defineNuxtConfig({
       umamiScriptUrl: process.env.NUXT_PUBLIC_UMAMI_SCRIPT_URL || '',
       umamiWebsiteId: process.env.NUXT_PUBLIC_UMAMI_WEBSITE_ID || '',
       sentryDsn: process.env.SENTRY_DSN || '',
+      // Vagas do lote de acesso antecipado — quando esgotadas, o cadastro é bloqueado.
+      // Aceita 0 (fecha o lote); só cai para o padrão 20 se a env estiver ausente/vazia/inválida.
+      maxVagas: (() => {
+        const raw = process.env.NUXT_PUBLIC_MAX_VAGAS?.trim()
+        if (!raw) return 20
+        const n = Number(raw)
+        return Number.isFinite(n) && n >= 0 ? n : 20
+      })(),
     },
   },
 

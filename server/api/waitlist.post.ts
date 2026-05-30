@@ -14,6 +14,7 @@
 import { createHash } from 'node:crypto'
 import { checkRateLimit } from '../utils/rateLimit'
 import { sendWelcomeEmail } from '../utils/sendWelcomeEmail'
+import { invalidateCachedCount } from '../utils/waitlistCount'
 
 interface WaitlistPayload {
   name?: string
@@ -135,6 +136,37 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, message: 'Serviço temporariamente indisponível.' })
   }
 
+  // ── Capacidade do lote ─────────────────────────────────────────────────────
+  // Bloqueia novos cadastros quando as vagas se esgotam. Defesa em profundidade:
+  // o frontend já desabilita o form, mas isso impede burlar via request direto.
+  // Nota: contar+inserir não é atômico, então sob concorrência extrema o total
+  // pode ultrapassar o limite por 1-2 linhas — aceitável para este volume.
+  const maxVagas = config.public.maxVagas
+  try {
+    const countRes = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads?select=count`, {
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'count=exact',
+        Range: '0-0',
+      },
+      signal: AbortSignal.timeout(3000),
+    })
+    const contentRange = countRes.headers.get('content-range') // "0-0/19"
+    const total = contentRange ? Number.parseInt(contentRange.split('/')[1], 10) : null
+    if (typeof total === 'number' && !Number.isNaN(total) && total >= maxVagas) {
+      throw createError({ statusCode: 403, message: 'Vagas esgotadas neste lote.' })
+    }
+  }
+  catch (err: unknown) {
+    // Repassa o 403 de capacidade. Falha de rede na contagem é fail-open
+    // (não bloqueia o cadastro), mas registramos para ter visibilidade.
+    if ((err as { statusCode?: number })?.statusCode === 403) throw err
+    console.warn('[waitlist] falha ao verificar capacidade do lote — cadastro liberado', {
+      error: String(err),
+    })
+  }
+
   // ── Insert via REST API do Supabase (sem SDK extra) ────────────────────────
   const response = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads`, {
     method: 'POST',
@@ -171,6 +203,10 @@ export default defineEventHandler(async (event) => {
   }
 
   if (response.ok) {
+    // Novo lead inserido → invalida o cache de contagem para a UI refletir na hora
+    // (badge de vagas restantes / bloqueio do form ao esgotar).
+    invalidateCachedCount().catch(() => { /* não bloqueia o cadastro */ })
+
     // fire-and-forget: falha no email não impede o cadastro
     sendWelcomeEmail({ name: name ?? email, email }).catch((err: unknown) => {
       console.error('[email] falha ao enviar boas-vindas', { error: String(err) })

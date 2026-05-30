@@ -92,9 +92,23 @@
         :value="form.utm_campaign"
       >
 
+      <!-- Lote esgotado — substitui o formulário -->
+      <div
+        v-if="waitlistFull"
+        class="rounded-2xl border border-editus-700/50 bg-editus-800/40 p-8 text-center"
+      >
+        <div class="text-victory-400 text-lg font-semibold mb-2">
+          Vagas esgotadas neste lote
+        </div>
+        <p class="text-white/50 text-sm leading-relaxed">
+          Todas as vagas do acesso antecipado foram preenchidas.
+          Em breve abriremos um novo lote — acompanhe nossas comunicações.
+        </p>
+      </div>
+
       <!-- Variante: two-step — Passo 1 -->
       <form
-        v-if="formVariant === 'two-step' && step === 1"
+        v-else-if="formVariant === 'two-step' && step === 1"
         class="space-y-4 text-left"
         @submit.prevent="advanceStep"
       >
@@ -400,7 +414,9 @@ const props = defineProps<{
 const resolvedUrgencyCopy = computed(() => props.urgencyCopyVariant ?? 'control')
 
 const sharedEmail = useWaitlistEmail()
+const sharedSegment = useWaitlistSegment()
 const sharedPosition = useWaitlistPosition()
+const waitlistFull = useWaitlistFull()
 
 const email = ref('')
 const loading = ref(false)
@@ -439,6 +455,8 @@ onMounted(() => {
       ab_form_context: props.formContextVariant ?? 'control',
       ab_urgency_copy: resolvedUrgencyCopy.value,
     })
+    // Verifica se o lote esgotou para desabilitar o formulário
+    useWaitlistCapacity()
   }
 })
 
@@ -448,7 +466,17 @@ const stopWatchingEmail = watch(sharedEmail, (val) => {
   }
 }, { immediate: true })
 
-onUnmounted(() => stopWatchingEmail())
+// Pré-preenche o segmento capturado pelo ScrollPopup
+const stopWatchingSegment = watch(sharedSegment, (val) => {
+  if (!props.inline && val) {
+    form.segment = val
+  }
+}, { immediate: true })
+
+onUnmounted(() => {
+  stopWatchingEmail()
+  stopWatchingSegment()
+})
 
 // CTA copy por variante
 const heroCTAText = computed(() => {
@@ -496,6 +524,34 @@ function submitInline() {
 }
 
 async function submitFull() {
+  if (waitlistFull.value) {
+    errorMsg.value = 'Vagas esgotadas neste lote.'
+    return
+  }
+  // Guarda no cliente: o botão fica :disabled, mas Enter num input de texto
+  // dispara o submit mesmo assim — e @submit.prevent ignora a validação nativa
+  // dos <select required>, deixando passar volume/segment/empresa vazios (422).
+  if (!form.email) {
+    errorMsg.value = 'Informe seu e-mail.'
+    return
+  }
+  if (!form.company?.trim()) {
+    errorMsg.value = 'Informe o nome da empresa.'
+    return
+  }
+  if (!form.volume) {
+    errorMsg.value = 'Selecione o volume de editais.'
+    return
+  }
+  if (!form.segment) {
+    errorMsg.value = 'Selecione o segmento de atuação.'
+    return
+  }
+  if (!form.consent) {
+    errorMsg.value = 'É necessário aceitar a Política de Privacidade.'
+    return
+  }
+
   loading.value = true
   errorMsg.value = ''
   try {
@@ -527,7 +583,12 @@ async function submitFull() {
     const e = err as { statusCode?: number, data?: { statusCode?: number, message?: string }, message?: string }
     const status = e?.statusCode ?? e?.data?.statusCode
     const msg = e?.data?.message || e?.message || ''
-    if (status === 429 || msg.includes('429')) {
+    if (status === 403 && msg.includes('esgotad')) {
+      // Lote lotou entre o carregamento e o envio → troca o form pelo aviso
+      waitlistFull.value = true
+      errorMsg.value = 'Vagas esgotadas neste lote.'
+    }
+    else if (status === 429 || msg.includes('429')) {
       errorMsg.value = 'Muitas tentativas. Aguarde um momento.'
     }
     else if (status === 503) {

@@ -10,7 +10,6 @@ import { computed, onMounted, onUnmounted } from 'vue'
 
 // Próximo fechamento de lote — ajustar conforme calendário do produto
 const LOTE_CLOSE_DATE = new Date('2026-06-30T23:59:59-03:00')
-const MAX_VAGAS = 500
 
 const props = defineProps<{
   variant: 'control' | 'count' | 'countdown'
@@ -52,12 +51,8 @@ onMounted(async () => {
   track('urgency_badge_impression', { ab_urgency_badge: props.variant })
 
   if (props.variant === 'count') {
-    try {
-      const data = await $fetch<{ count: number | null }>('/api/waitlist-count')
-      const current = data?.count ?? 0
-      remainingCount.value = Math.max(0, MAX_VAGAS - current)
-    }
-    catch { /* silencioso */ }
+    const data = await useWaitlistCapacity()
+    if (data) remainingCount.value = data.remaining
   }
 
   if (props.variant === 'countdown') {

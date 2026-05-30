@@ -48,24 +48,10 @@
             Garanta sua vaga antes de fechar
           </h3>
           <p class="text-sm text-white/50 mb-6 leading-relaxed">
-            Deixe seu e-mail e segmento. Leva 30 segundos.
+            Comece pelo e-mail e segmento — você finaliza o cadastro em seguida.
           </p>
 
-          <!-- Confirmação inline -->
-          <div
-            v-if="success"
-            class="text-center py-4"
-          >
-            <div class="text-victory-400 text-lg font-semibold mb-1">
-              Você está na lista!
-            </div>
-            <p class="text-white/50 text-sm">
-              Avisaremos quando o acesso abrir.
-            </p>
-          </div>
-
           <form
-            v-else
             class="space-y-4"
             @submit.prevent="onSubmit"
           >
@@ -180,13 +166,10 @@
 
             <button
               type="submit"
-              :disabled="loading || !popupConsent"
+              :disabled="!popupConsent"
               class="w-full bg-editus-600 hover:bg-editus-700 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span v-if="loading">Enviando...</span>
-              <span v-else>
-                Garantir acesso →
-              </span>
+              Continuar cadastro →
             </button>
           </form>
         </div>
@@ -197,11 +180,11 @@
 
 <script setup lang="ts">
 const { track } = useUmami()
-const route = useRoute()
+
+const sharedEmail = useWaitlistEmail()
+const sharedSegment = useWaitlistSegment()
 
 const visible = ref(false)
-const success = ref(false)
-const loading = ref(false)
 const mounted = ref(false)
 const trap = ref('')
 const popupEmail = ref('')
@@ -228,9 +211,12 @@ function triggerPopup() {
   window.removeEventListener('scroll', onScroll)
 }
 
-onMounted(() => {
+onMounted(async () => {
   mounted.value = true
   if (sessionStorage.getItem('popup_shown')) return
+  // Lote esgotado → não captura para um formulário que está bloqueado
+  const data = await useWaitlistCapacity()
+  if (data?.full) return
   window.addEventListener('scroll', onScroll, { passive: true })
 })
 
@@ -243,47 +229,31 @@ function close() {
   sessionStorage.setItem('popup_shown', '1')
 }
 
-async function onSubmit() {
+// O pop-up apenas captura e-mail + segmento e leva o usuário ao formulário
+// completo (#waitlist) com esses campos pré-preenchidos — quem conclui o
+// cadastro (empresa + volume obrigatórios) é o WaitlistForm. Isso evita o 422
+// que ocorria ao enviar direto sem volume.
+function onSubmit() {
   if (trap.value) return // honeypot
-  loading.value = true
   errorMsg.value = ''
 
-  const utmSource = (route.query.utm_source as string) || null
-  const utmMedium = (route.query.utm_medium as string) || null
-  const utmCampaign = (route.query.utm_campaign as string) || null
+  if (!popupEmail.value) {
+    errorMsg.value = 'Informe seu e-mail.'
+    return
+  }
+  if (!popupSegment.value) {
+    errorMsg.value = 'Selecione o segmento de atuação.'
+    return
+  }
 
-  try {
-    const res = await $fetch<{ ok: boolean }>('/api/waitlist', {
-      method: 'POST',
-      body: {
-        email: popupEmail.value,
-        segment: popupSegment.value,
-        consent: popupConsent.value,
-        _trap: trap.value,
-        source: 'scroll-popup',
-        utm_source: utmSource,
-        utm_medium: utmMedium,
-        utm_campaign: utmCampaign,
-      },
-    })
-    if (res?.ok) {
-      success.value = true
-      sessionStorage.setItem('waitlist_submitted', '1')
-      track('waitlist_signup', { source: 'scroll-popup', ab_scroll_popup: 'popup' })
-    }
-  }
-  catch (err: unknown) {
-    const status = (err as { statusCode?: number, data?: { statusCode?: number } })?.statusCode ?? (err as { data?: { statusCode?: number } })?.data?.statusCode
-    if (status === 429) {
-      errorMsg.value = 'Muitas tentativas. Aguarde um momento.'
-    }
-    else {
-      errorMsg.value = 'Erro ao salvar. Tente novamente.'
-    }
-  }
-  finally {
-    loading.value = false
-  }
+  // Propaga para o WaitlistForm via estado compartilhado
+  sharedEmail.value = popupEmail.value
+  sharedSegment.value = popupSegment.value
+
+  track('scroll_popup_capture', { source: 'scroll-popup', ab_scroll_popup: 'popup' })
+
+  visible.value = false
+  document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 </script>
 
