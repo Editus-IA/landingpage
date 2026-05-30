@@ -1,69 +1,32 @@
 /**
  * GET /api/waitlist-count
- * Retorna o total de inscritos na waitlist para exibição pública como social proof.
+ * Retorna o total de inscritos na waitlist e o status do lote (vagas restantes / esgotado)
+ * para exibição pública como social proof e bloqueio do formulário.
  *
- * Cache de 5 minutos — evita consulta ao Supabase a cada page load.
- * Em multi-instância (serverless), usa Upstash Redis como cache compartilhado.
- * Fallback para cache em memória por instância quando Upstash não está configurado.
+ * Usa cache compartilhado (ver server/utils/waitlistCount.ts), invalidado a cada
+ * cadastro pelo POST /api/waitlist — assim a UI reflete "esgotado" na hora.
  */
 
-const CACHE_TTL_SECS = 5 * 60
-const CACHE_KEY = 'waitlist:count'
+import { getCachedCount, setCachedCount } from '../utils/waitlistCount'
 
-// Fallback em memória para dev / quando Upstash não está configurado
-let memCached: { count: number, at: number } | null = null
-
-async function getCachedCount(): Promise<number | null> {
-  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL
-  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN
-
-  if (upstashUrl && upstashToken) {
-    try {
-      const res = await fetch(`${upstashUrl}/get/${CACHE_KEY}`, {
-        headers: { Authorization: `Bearer ${upstashToken}` },
-        signal: AbortSignal.timeout(2000),
-      })
-      if (res.ok) {
-        const { result } = await res.json() as { result: string | null }
-        if (result !== null) return Number.parseInt(result, 10)
-      }
-    }
-    catch { /* Upstash indisponível → cai para memória */ }
-  }
-
-  if (memCached && Date.now() - memCached.at < CACHE_TTL_SECS * 1000) {
-    return memCached.count
-  }
-  return null
-}
-
-async function setCachedCount(count: number): Promise<void> {
-  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL
-  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN
-
-  if (upstashUrl && upstashToken) {
-    try {
-      await fetch(`${upstashUrl}/set/${CACHE_KEY}/${count}/ex/${CACHE_TTL_SECS}`, {
-        headers: { Authorization: `Bearer ${upstashToken}` },
-        signal: AbortSignal.timeout(2000),
-      })
-      return
-    }
-    catch { /* Upstash indisponível → cai para memória */ }
-  }
-
-  memCached = { count, at: Date.now() }
+// Monta a resposta pública: total, vagas restantes e se o lote esgotou.
+function buildResponse(count: number | null, maxVagas: number) {
+  if (count === null) return { count: null, max: maxVagas, remaining: null, full: false }
+  const remaining = Math.max(0, maxVagas - count)
+  return { count, max: maxVagas, remaining, full: remaining <= 0 }
 }
 
 export default defineEventHandler(async () => {
-  const cached = await getCachedCount()
-  if (cached !== null) return { count: cached }
-
   const config = useRuntimeConfig()
+  const maxVagas = config.public.maxVagas
+
+  const cached = await getCachedCount()
+  if (cached !== null) return buildResponse(cached, maxVagas)
+
   const { supabaseUrl, supabaseServiceKey } = config
 
   if (!supabaseUrl || !supabaseServiceKey) {
-    return { count: null }
+    return buildResponse(null, maxVagas)
   }
 
   try {
@@ -82,12 +45,12 @@ export default defineEventHandler(async () => {
 
     if (typeof total === 'number' && !Number.isNaN(total)) {
       await setCachedCount(total)
-      return { count: total }
+      return buildResponse(total, maxVagas)
     }
   }
   catch {
     // Supabase indisponível — retorna null sem quebrar a página
   }
 
-  return { count: null }
+  return buildResponse(null, maxVagas)
 })
