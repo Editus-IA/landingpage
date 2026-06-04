@@ -202,7 +202,9 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Inter: [400, 500, 600],
+      'Space Grotesk': [700],
+      'IBM Plex Sans': [400, 500, 600],
+      'IBM Plex Mono': [500, 600],
     },
     display: 'swap',
     preload: true,

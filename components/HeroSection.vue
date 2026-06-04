@@ -1,7 +1,7 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative min-h-screen bg-editus-900 flex items-center overflow-hidden"
+    class="relative min-h-screen bg-indigo-900 flex items-center overflow-hidden"
     @mousemove="onMouseMove"
     @mouseleave="resetTilt"
   >
@@ -9,10 +9,10 @@
     <HeroBackground />
 
     <!-- Background grid -->
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(100,89,200,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(100,89,200,0.07)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
 
     <!-- Glow -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-editus-600/20 rounded-full blur-[120px] pointer-events-none" />
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none" />
 
     <div
       ref="contentRef"
@@ -24,36 +24,36 @@
         <UrgencyBadge :variant="urgencyVariant" />
 
         <!-- Headline (A/B: hero-headline) -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6">
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
           <template v-if="headlineVariant === 'benefit'">
             Analise editais em minutos,<br>
-            <span class="text-editus-400">não em dias.</span><br>
+            <span class="text-violet-300">não em dias.</span><br>
             A IA faz o trabalho, você decide.
           </template>
           <template v-else-if="headlineVariant === 'loss'">
             Quanto você está perdendo<br>
-            <span class="text-editus-400">por não analisar o custo</span><br>
+            <span class="text-violet-300">por não analisar o custo</span><br>
             financeiro do prazo?
           </template>
           <template v-else-if="headlineVariant === 'process'">
             IA que lê o edital,<br>
-            <span class="text-editus-400">verifica habilitação</span><br>
+            <span class="text-violet-300">verifica habilitação</span><br>
             e escreve a proposta. Você só assina.
           </template>
           <template v-else-if="headlineVariant === 'veteran'">
             Quantos editais bons você<br>
-            <span class="text-editus-400">deixou passar esse mês</span><br>
+            <span class="text-violet-300">deixou passar esse mês</span><br>
             por falta de profissional para analisar?
           </template>
           <template v-else>
             Análise mais precisa.<br>
-            <span class="text-editus-400">Proposta mais elaborada.</span><br>
+            <span class="text-violet-300">Proposta mais elaborada.</span><br>
             Decisão sempre sua.
           </template>
         </h1>
 
         <!-- Sub (A/B: hero-subheadline) -->
-        <p class="text-lg md:text-xl text-white/55 leading-relaxed mb-10 max-w-xl">
+        <p class="text-lg md:text-xl text-white/60 leading-relaxed mb-10 max-w-xl">
           <template v-if="subheadlineVariant === 'short'">
             IA especializada em licitações: verifica habilitação, checa compliance com a Lei 14.133 e entrega a proposta pronta para você revisar. Acesso antecipado gratuito.
           </template>
@@ -86,7 +86,7 @@
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              class="text-victory-500"
+              class="text-success"
             >
               <path
                 d="M13.5 4L6.5 11 3 7.5"
@@ -104,7 +104,7 @@
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              class="text-victory-500"
+              class="text-success"
             >
               <path
                 d="M13.5 4L6.5 11 3 7.5"
@@ -122,7 +122,7 @@
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              class="text-victory-500"
+              class="text-success"
             >
               <path
                 d="M13.5 4L6.5 11 3 7.5"
@@ -138,19 +138,19 @@
             v-if="count"
             class="flex items-center gap-2"
           >
-            <span class="w-2 h-2 bg-victory-400 rounded-full" />
+            <span class="w-2 h-2 bg-success rounded-full" />
             <span class="text-sm text-white/50"><strong class="text-white/70">{{ count }}</strong> empresas já na lista</span>
           </div>
         </div>
       </div>
 
       <!-- Stats row -->
-      <div class="mt-20 pt-10 border-t border-editus-800 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="mt-20 pt-10 border-t border-indigo-800 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div
           v-for="stat in stats"
           :key="stat.label"
         >
-          <div class="text-2xl md:text-3xl font-semibold text-white tracking-tight">
+          <div class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight">
             {{ stat.value }}
           </div>
           <div class="text-sm text-white/40 mt-1">

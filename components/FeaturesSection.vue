@@ -1,7 +1,7 @@
 <template>
   <section
     id="features"
-    class="py-24 bg-editus-50"
+    class="py-24 bg-neutral-50"
   >
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
@@ -16,12 +16,12 @@
       <!-- Feature grid -->
       <div class="grid md:grid-cols-2 gap-6">
         <!-- Feature destacada (large) -->
-        <div class="card md:col-span-2 bg-editus-900 border-editus-800 hover:border-editus-700 p-8 md:p-10">
+        <div class="card md:col-span-2 bg-indigo-900 border-indigo-800 hover:border-indigo-700 p-8 md:p-10">
           <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <div class="inline-flex items-center gap-2 bg-victory-700/30 border border-victory-700/20 rounded-full px-3 py-1 mb-5">
-                <span class="w-1.5 h-1.5 bg-victory-500 rounded-full" />
-                <span class="text-xs text-victory-400 font-medium">Destaque</span>
+              <div class="inline-flex items-center gap-2 bg-success/20 border border-success/20 rounded-full px-3 py-1 mb-5">
+                <span class="w-1.5 h-1.5 bg-success rounded-full" />
+                <span class="text-xs text-success font-medium">Destaque</span>
               </div>
               <h3 class="text-2xl font-semibold text-white tracking-tight mb-3">
                 Custo financeiro do prazo de pagamento
@@ -31,24 +31,24 @@
                 O Editus calcula automaticamente esse custo com base na taxa Selic, inclui no relatório e ajusta sua margem antes de você enviar.
               </p>
               <div class="mt-6 flex items-baseline gap-2">
-                <span class="text-3xl font-semibold text-victory-500">R$ 9.000</span>
+                <span class="font-display text-3xl font-bold text-success">R$ 9.000</span>
                 <span class="text-sm text-white/40">custo identificado em contrato de R$ 300k / 60 dias</span>
               </div>
             </div>
-            <div class="bg-editus-800/50 border border-editus-700/30 rounded-2xl p-6">
-              <div class="text-xs font-medium text-editus-400 mb-4 uppercase tracking-wider">
+            <div class="bg-indigo-800/50 border border-indigo-700/30 rounded-eb-md p-6">
+              <div class="text-xs font-medium text-violet-300 mb-4 uppercase tracking-wider">
                 Relatório de precificação
               </div>
               <div class="space-y-3">
                 <div
                   v-for="row in pricingRows"
                   :key="row.label"
-                  class="flex items-center justify-between py-2 border-b border-editus-700/30 last:border-0"
+                  class="flex items-center justify-between py-2 border-b border-indigo-700/30 last:border-0"
                 >
                   <span class="text-sm text-white/60">{{ row.label }}</span>
                   <span
                     class="text-sm font-medium"
-                    :class="row.highlight ? 'text-victory-400' : 'text-white'"
+                    :class="row.highlight ? 'text-success' : 'text-white'"
                   >{{ row.value }}</span>
                 </div>
               </div>
@@ -68,27 +68,27 @@
           >
             <component :is="feature.icon" />
           </div>
-          <h3 class="text-base font-semibold text-editus-900 mb-2">
+          <h3 class="text-base font-semibold text-neutral-900 mb-2">
             {{ feature.title }}
           </h3>
-          <p class="text-sm text-editus-900/55 leading-relaxed">
+          <p class="text-sm text-neutral-600 leading-relaxed">
             {{ feature.desc }}
           </p>
         </div>
       </div>
       <!-- CTA mid-page -->
-      <div class="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 bg-editus-50 border border-editus-100 rounded-2xl px-8 py-7">
+      <div class="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 bg-neutral-50 border border-neutral-200 rounded-eb-md px-8 py-7">
         <div>
-          <p class="font-semibold text-editus-900 text-lg">
+          <p class="font-semibold text-neutral-900 text-lg">
             Quer ver o relatório completo na prática?
           </p>
-          <p class="text-sm text-editus-900/55 mt-1">
+          <p class="text-sm text-neutral-500 mt-1">
             Entre na lista de acesso antecipado e seja um dos primeiros a testar.
           </p>
         </div>
         <a
           href="#waitlist"
-          :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'"
+          :class="props.buttonColorVariant === 'green' ? 'bg-success hover:bg-success/90 shadow-success/25' : 'btn-primary'"
           class="whitespace-nowrap flex-shrink-0 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0"
           @click="onCTAClick"
         >
@@ -143,7 +143,7 @@ function onCTAClick() {
 }
 
 const IconStar = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
-  h('path', { 'd': 'M10 2l1.5 4.5H16l-3.5 2.5 1.5 4.5L10 11 6.5 13.5 8 9 4.5 6.5H9L10 2z', 'stroke': '#6459C8', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
+  h('path', { 'd': 'M10 2l1.5 4.5H16l-3.5 2.5 1.5 4.5L10 11 6.5 13.5 8 9 4.5 6.5H9L10 2z', 'stroke': '#5A3CE0', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }),
 ]))
 
 const IconCheck = defineComponent(() => () => h('svg', { width: 20, height: 20, viewBox: '0 0 20 20', fill: 'none' }, [
@@ -190,8 +190,8 @@ const featureCardTitles = computed(() =>
 )
 
 const features = computed(() => [
-  { iconBg: 'bg-editus-100', icon: IconStar, title: featureCardTitles.value[0], desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
-  { iconBg: 'bg-victory-100', icon: IconCheck, title: featureCardTitles.value[1], desc: 'Checklist automático com SIASG, CEIS, CNEP e CEPIM. Sabe exatamente quais certidões estão válidas e quais precisam de renovação.' },
+  { iconBg: 'bg-violet-100', icon: IconStar, title: featureCardTitles.value[0], desc: 'Pontuação de 0 a 100 baseada nos critérios da Lei 14.133/2021. Identifica cláusulas problemáticas antes de você se comprometer.' },
+  { iconBg: 'bg-success/10', icon: IconCheck, title: featureCardTitles.value[1], desc: 'Checklist automático com SIASG, CEIS, CNEP e CEPIM. Sabe exatamente quais certidões estão válidas e quais precisam de renovação.' },
   { iconBg: 'bg-red-50', icon: IconAlert, title: featureCardTitles.value[2], desc: 'Identifica cláusulas leoninas, penalidades desproporcionais e obrigações ocultas que a maioria não lê, antes de ser tarde.' },
   { iconBg: 'bg-amber-50', icon: IconDoc, title: featureCardTitles.value[3], desc: 'Documento profissional com todos os resultados dos agentes, pronto para apresentar para a diretoria ou arquivar como registro formal de auditoria.' },
 ])

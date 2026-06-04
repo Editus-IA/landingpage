@@ -25,13 +25,13 @@
             :key="i"
             class="text-center"
           >
-            <div class="w-14 h-14 rounded-2xl bg-editus-900 flex items-center justify-center mx-auto mb-5">
+            <div class="w-14 h-14 rounded-eb-md bg-indigo-900 flex items-center justify-center mx-auto mb-5">
               <span class="text-2xl font-semibold text-white">{{ i + 1 }}</span>
             </div>
-            <h3 class="text-base font-semibold text-editus-900 mb-2">
+            <h3 class="text-base font-semibold text-neutral-900 mb-2">
               {{ simpleStep.title }}
             </h3>
-            <p class="text-sm text-editus-900/55 leading-relaxed">
+            <p class="text-sm text-neutral-600 leading-relaxed">
               {{ simpleStep.context }}
             </p>
           </div>
@@ -43,7 +43,7 @@
         <!-- Pipeline steps -->
         <div class="relative">
           <!-- Vertical line connector -->
-          <div class="hidden md:block absolute left-8 top-8 bottom-8 w-px bg-editus-100" />
+          <div class="hidden md:block absolute left-8 top-8 bottom-8 w-px bg-neutral-200" />
 
           <div class="space-y-6">
             <div
@@ -54,8 +54,8 @@
               <!-- Step circle -->
               <div class="relative flex-shrink-0">
                 <div
-                  class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 z-10 relative"
-                  :class="step.human ? 'bg-white border-editus-200' : 'bg-editus-900 border-editus-900'"
+                  class="w-16 h-16 rounded-eb-md flex items-center justify-center border-2 z-10 relative"
+                  :class="step.human ? 'bg-white border-neutral-200' : 'bg-indigo-900 border-indigo-900'"
                 >
                   <component :is="step.icon" />
                 </div>
@@ -64,26 +64,26 @@
               <!-- Content -->
               <div class="flex-1 pb-8">
                 <div class="flex items-center gap-3 mb-2 flex-wrap">
-                  <h3 class="text-lg font-semibold text-editus-900">
+                  <h3 class="text-lg font-semibold text-neutral-900">
                     {{ step.title }}
                   </h3>
                   <span
                     class="text-xs px-2.5 py-1 rounded-full font-medium border"
                     :class="step.human
                       ? 'bg-amber-50 text-amber-700 border-amber-200'
-                      : 'bg-editus-50 text-editus-700 border-editus-100'"
+                      : 'bg-violet-100 text-violet-700 border-violet-100'"
                   >
                     {{ step.human ? 'Você' : 'Editus IA' }}
                   </span>
                 </div>
-                <p class="text-sm text-editus-900/55 leading-relaxed max-w-2xl mb-4">
+                <p class="text-sm text-neutral-600 leading-relaxed max-w-2xl mb-4">
                   {{ step.desc }}
                 </p>
                 <div class="flex flex-wrap gap-2">
                   <span
                     v-for="tag in step.tags"
                     :key="tag"
-                    class="text-xs px-2.5 py-1 bg-editus-50 text-editus-700 rounded-full border border-editus-100"
+                    class="text-xs px-2.5 py-1 bg-violet-100 text-violet-700 rounded-eb-pill border border-violet-100"
                   >
                     {{ tag }}
                   </span>
@@ -94,9 +94,9 @@
         </div>
 
         <!-- Agents grid -->
-        <div class="mt-16 bg-editus-900 rounded-3xl p-8 md:p-12">
+        <div class="mt-16 bg-indigo-900 rounded-eb-lg p-8 md:p-12">
           <div class="text-center mb-10">
-            <p class="text-xs font-medium tracking-widest uppercase text-editus-400 mb-2">
+            <p class="text-xs font-medium tracking-widest uppercase text-violet-300 mb-2">
               Sob o capô
             </p>
             <h3 class="text-2xl font-semibold text-white tracking-tight mb-2">
@@ -110,7 +110,7 @@
             <div
               v-for="agent in agents"
               :key="agent.name"
-              class="bg-editus-800/50 border border-editus-700/30 rounded-xl p-4 hover:bg-editus-800 transition-colors"
+              class="bg-indigo-800/50 border border-indigo-700/30 rounded-eb-md p-4 hover:bg-indigo-800 transition-colors"
             >
               <div class="flex items-center gap-2 mb-1">
                 <span
@@ -121,7 +121,7 @@
                   {{ agent.name }}
                 </div>
               </div>
-              <div class="text-xs text-editus-400">
+              <div class="text-xs text-violet-300">
                 {{ agent.role }}
               </div>
             </div>
@@ -143,8 +143,8 @@ onMounted(() => {
 })
 
 const IconUser = defineComponent(() => () => h('svg', { width: 22, height: 22, viewBox: '0 0 22 22', fill: 'none' }, [
-  h('circle', { 'cx': 11, 'cy': 8, 'r': 3.5, 'stroke': '#6459C8', 'stroke-width': 1.4 }),
-  h('path', { 'd': 'M4 19c0-3.5 3-6 7-6s7 2.5 7 6', 'stroke': '#6459C8', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
+  h('circle', { 'cx': 11, 'cy': 8, 'r': 3.5, 'stroke': '#5A3CE0', 'stroke-width': 1.4 }),
+  h('path', { 'd': 'M4 19c0-3.5 3-6 7-6s7 2.5 7 6', 'stroke': '#5A3CE0', 'stroke-width': 1.4, 'stroke-linecap': 'round' }),
 ]))
 
 const IconRadar = defineComponent(() => () => h('svg', { width: 22, height: 22, viewBox: '0 0 22 22', fill: 'none' }, [
@@ -207,17 +207,17 @@ const steps = [
 ]
 
 const agents = [
-  { name: 'Prospector', role: 'Monitora editais no PNCP', color: 'bg-victory-500' },
-  { name: 'Leitor', role: 'Extração e leitura do PDF', color: 'bg-victory-500' },
-  { name: 'Habilitador', role: 'Checklist de documentos', color: 'bg-victory-500' },
-  { name: 'Compliance', role: 'Lei 14.133/2021', color: 'bg-editus-400' },
-  { name: 'Risco', role: 'Análise de cláusulas', color: 'bg-editus-400' },
-  { name: 'Impedimentos', role: 'CEIS, CNEP, CEPIM', color: 'bg-victory-500' },
-  { name: 'Precificador', role: 'Custo financeiro e margem', color: 'bg-victory-500' },
-  { name: 'Pagamento', role: 'Prazo e fluxo de caixa', color: 'bg-editus-400' },
-  { name: 'Proposta', role: 'Geração do documento', color: 'bg-victory-500' },
-  { name: 'Contrato', role: 'Revisão da minuta', color: 'bg-editus-400' },
-  { name: 'Garantia', role: 'Garantia contratual', color: 'bg-editus-400' },
-  { name: 'Aditivo', role: 'Cláusulas de aditamento', color: 'bg-editus-400' },
+  { name: 'Prospector', role: 'Monitora editais no PNCP', color: 'bg-success' },
+  { name: 'Leitor', role: 'Extração e leitura do PDF', color: 'bg-success' },
+  { name: 'Habilitador', role: 'Checklist de documentos', color: 'bg-success' },
+  { name: 'Compliance', role: 'Lei 14.133/2021', color: 'bg-violet-400' },
+  { name: 'Risco', role: 'Análise de cláusulas', color: 'bg-violet-400' },
+  { name: 'Impedimentos', role: 'CEIS, CNEP, CEPIM', color: 'bg-success' },
+  { name: 'Precificador', role: 'Custo financeiro e margem', color: 'bg-success' },
+  { name: 'Pagamento', role: 'Prazo e fluxo de caixa', color: 'bg-violet-400' },
+  { name: 'Proposta', role: 'Geração do documento', color: 'bg-success' },
+  { name: 'Contrato', role: 'Revisão da minuta', color: 'bg-violet-400' },
+  { name: 'Garantia', role: 'Garantia contratual', color: 'bg-violet-400' },
+  { name: 'Aditivo', role: 'Cláusulas de aditamento', color: 'bg-violet-400' },
 ]
 </script>

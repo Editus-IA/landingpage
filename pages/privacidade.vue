@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-editus-950 py-20">
+  <div class="min-h-screen bg-indigo-950 py-20">
     <div class="max-w-3xl mx-auto px-6">
       <NuxtLink
         to="/"
@@ -45,7 +45,7 @@
             Para exercer seus direitos ou tirar dúvidas sobre privacidade, entre em contato:
             <a
               href="mailto:privacidade@editus.com.br"
-              class="text-editus-400 hover:text-editus-300 transition-colors"
+              class="text-violet-300 hover:text-violet-200 transition-colors"
             >privacidade@editus.com.br</a>
           </p>
         </section>
@@ -91,7 +91,7 @@
             Você pode revogar o consentimento a qualquer momento entrando em contato pelo e-mail
             <a
               href="mailto:privacidade@editus.com.br"
-              class="text-editus-400 hover:text-editus-300 transition-colors"
+              class="text-violet-300 hover:text-violet-200 transition-colors"
             >privacidade@editus.com.br</a>.
           </p>
         </section>
@@ -140,7 +140,7 @@
             Para exercer qualquer destes direitos, envie um e-mail para
             <a
               href="mailto:privacidade@editus.com.br"
-              class="text-editus-400 hover:text-editus-300 transition-colors"
+              class="text-violet-300 hover:text-violet-200 transition-colors"
             >privacidade@editus.com.br</a>.
             Responderemos em até 15 dias úteis.
           </p>
@@ -165,7 +165,7 @@
             Em caso de dúvidas, entre em contato com nosso encarregado de proteção de dados (DPO):
             <a
               href="mailto:privacidade@editus.com.br"
-              class="text-editus-400 hover:text-editus-300 transition-colors"
+              class="text-violet-300 hover:text-violet-200 transition-colors"
             >privacidade@editus.com.br</a>.
           </p>
           <p class="mt-3">
@@ -175,7 +175,7 @@
               href="https://www.gov.br/anpd"
               target="_blank"
               rel="noopener"
-              class="text-editus-400 hover:text-editus-300 transition-colors"
+              class="text-violet-300 hover:text-violet-200 transition-colors"
             >www.gov.br/anpd</a>.
           </p>
         </section>

@@ -1,7 +1,7 @@
 <template>
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="scrolled ? 'bg-editus-900/95 backdrop-blur-md shadow-lg shadow-editus-950/30' : 'bg-transparent'"
+    :class="scrolled ? 'bg-indigo-900/95 backdrop-blur-md shadow-lg shadow-indigo-950/30' : 'bg-transparent'"
   >
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <!-- Logo -->
@@ -9,59 +9,75 @@
         href="#"
         class="flex items-center gap-2.5"
       >
-        <div class="w-8 h-8 bg-editus-600 rounded-lg flex items-center justify-center">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
+        <!-- editus-symbol-gradient: símbolo oficial do rebranding -->
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 56 56"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient
+              id="nav-ebg"
+              x1="0"
+              y1="0"
+              x2="56"
+              y2="56"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop
+                offset="0"
+                stop-color="#7B63F5"
+              />
+              <stop
+                offset="1"
+                stop-color="#5A3CE0"
+              />
+            </linearGradient>
+          </defs>
+          <rect
+            width="56"
+            height="56"
+            rx="14.56"
+            fill="url(#nav-ebg)"
+          />
+          <rect
+            x="14"
+            y="15"
+            width="22"
+            height="4"
+            rx="2"
+            fill="#fff"
+          />
+          <rect
+            x="14"
+            y="24"
+            width="28"
+            height="4"
+            rx="2"
+            fill="#fff"
+            opacity="0.78"
+          />
+          <rect
+            x="14"
+            y="33"
+            width="16"
+            height="4"
+            rx="2"
+            fill="#fff"
+            opacity="0.6"
+          />
+          <path
+            d="M30 40.5 L34.5 45 L44 33.5"
+            stroke="#C9F0DD"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
             fill="none"
-          >
-            <rect
-              x="2"
-              y="2"
-              width="6"
-              height="4"
-              rx="1"
-              fill="white"
-            />
-            <rect
-              x="2"
-              y="7.5"
-              width="6"
-              height="4"
-              rx="1"
-              fill="white"
-              opacity="0.65"
-            />
-            <rect
-              x="2"
-              y="13"
-              width="6"
-              height="3"
-              rx="1"
-              fill="white"
-              opacity="0.35"
-            />
-            <rect
-              x="10"
-              y="2"
-              width="6"
-              height="14"
-              rx="1"
-              fill="white"
-              opacity="0.12"
-            />
-            <path
-              d="M10 5.5h6M10 9h4.5M10 12.5h3"
-              stroke="white"
-              stroke-width="1.2"
-              stroke-linecap="round"
-            />
-          </svg>
-        </div>
-        <span class="text-white font-semibold tracking-tight">
-          edit<span class="text-editus-400">us</span>
-        </span>
+          />
+        </svg>
+        <span class="font-display font-bold text-white tracking-tight">edit<span class="font-medium text-violet-300">us</span></span>
       </a>
 
       <!-- Nav links -->

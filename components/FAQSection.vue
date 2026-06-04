@@ -20,20 +20,20 @@
         <div
           v-for="(item, i) in faqs"
           :key="i"
-          class="border border-editus-100 rounded-2xl overflow-hidden transition-all"
-          :class="open === i ? 'shadow-md shadow-editus-900/5' : ''"
+          class="border border-neutral-200 rounded-eb-md overflow-hidden transition-all"
+          :class="open === i ? 'shadow-md shadow-indigo-900/5' : ''"
         >
           <button
             class="w-full flex items-center justify-between gap-4 px-6 py-5 text-left transition-colors"
-            :class="open === i ? 'bg-editus-50' : 'bg-white hover:bg-editus-50/50'"
+            :class="open === i ? 'bg-neutral-50' : 'bg-white hover:bg-neutral-50/50'"
             :aria-expanded="open === i"
             :aria-controls="`faq-panel-${i}`"
             @click="toggle(i)"
           >
-            <span class="font-semibold text-editus-900 text-base leading-snug">{{ item.q }}</span>
+            <span class="font-semibold text-neutral-900 text-base leading-snug">{{ item.q }}</span>
             <span
               class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all"
-              :class="open === i ? 'bg-editus-600 text-white rotate-45' : 'bg-editus-100 text-editus-600'"
+              :class="open === i ? 'bg-violet-600 text-white rotate-45' : 'bg-violet-100 text-violet-600'"
             >
               <svg
                 width="12"
@@ -57,14 +57,14 @@
               class="px-6 pb-5 bg-white"
               role="region"
             >
-              <p class="text-editus-900/60 text-sm leading-relaxed">
+              <p class="text-neutral-600 text-sm leading-relaxed">
                 <template
                   v-for="(part, pi) in item.parts"
                   :key="pi"
                 >
                   <strong
                     v-if="part.bold"
-                    class="font-semibold text-editus-900/80"
+                    class="font-semibold text-neutral-700"
                   >{{ part.text }}</strong>
                   <template v-else>
                     {{ part.text }}
@@ -78,12 +78,12 @@
 
       <!-- CTA inline -->
       <div class="mt-12 text-center">
-        <p class="text-editus-900/50 text-sm mb-4">
+        <p class="text-neutral-500 text-sm mb-4">
           Ainda tem dúvidas? Entre na lista e respondo pessoalmente.
         </p>
         <a
           href="#waitlist"
-          :class="props.buttonColorVariant === 'green' ? 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25' : 'btn-primary'"
+          :class="props.buttonColorVariant === 'green' ? 'bg-success hover:bg-success/90 shadow-success/25' : 'btn-primary'"
           class="text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0"
           @click="onCTAClick"
         >

@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-flex items-center gap-2 bg-editus-800/60 border border-editus-700/50 rounded-full px-4 py-1.5 mb-8">
-    <span class="w-2 h-2 bg-victory-400 rounded-full animate-pulse" />
+  <div class="inline-flex items-center gap-2 bg-indigo-800/60 border border-indigo-700/50 rounded-eb-pill px-4 py-1.5 mb-8">
+    <span class="w-2 h-2 bg-success rounded-full animate-pulse" />
     <span class="text-xs text-white/80 font-medium">{{ badgeText }}</span>
   </div>
 </template>
