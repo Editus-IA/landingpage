@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-editus-900 flex flex-col items-center justify-center px-6 py-24">
+  <div class="min-h-screen bg-indigo-900 flex flex-col items-center justify-center px-6 py-24">
     <div class="max-w-lg w-full text-center">
-      <div class="w-16 h-16 bg-victory-700/30 border border-victory-600/30 rounded-2xl flex items-center justify-center mx-auto mb-8">
+      <div class="w-16 h-16 bg-success/20 border border-success/30 rounded-eb-md flex items-center justify-center mx-auto mb-8">
         <svg
           width="28"
           height="28"
           viewBox="0 0 28 28"
           fill="none"
-          class="text-victory-400"
+          class="text-success"
         >
           <path
             d="M5 14l6 6 12-12"
@@ -48,27 +48,27 @@
       <!-- Badge de posição na fila -->
       <div
         v-if="position"
-        class="inline-flex items-center gap-2 bg-editus-700/40 border border-editus-600/40 rounded-full px-4 py-2 mb-8"
+        class="inline-flex items-center gap-2 bg-indigo-700/40 border border-violet-600/40 rounded-eb-pill px-4 py-2 mb-8"
       >
-        <span class="text-editus-400 text-xs font-medium tracking-widest uppercase">Sua posição</span>
+        <span class="text-violet-300 text-xs font-medium tracking-widest uppercase">Sua posição</span>
         <span class="text-white font-semibold text-sm">#{{ position }}</span>
       </div>
 
-      <div class="bg-editus-800/40 border border-editus-700/40 rounded-xl p-6 mb-10 text-left">
-        <p class="text-xs font-medium tracking-widest uppercase text-editus-400 mb-4">
+      <div class="bg-indigo-800/40 border border-indigo-700/40 rounded-eb-md p-6 mb-10 text-left">
+        <p class="text-xs font-medium tracking-widest uppercase text-violet-300 mb-4">
           O que acontece agora?
         </p>
         <ul class="space-y-3">
           <li class="flex items-start gap-3 text-sm text-white/60">
-            <span class="mt-0.5 w-5 h-5 rounded-full bg-editus-700/60 flex items-center justify-center shrink-0 text-editus-400 text-xs font-medium">1</span>
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-violet-700/60 flex items-center justify-center shrink-0 text-violet-300 text-xs font-medium">1</span>
             Você receberá um e-mail de confirmação em breve.
           </li>
           <li class="flex items-start gap-3 text-sm text-white/60">
-            <span class="mt-0.5 w-5 h-5 rounded-full bg-editus-700/60 flex items-center justify-center shrink-0 text-editus-400 text-xs font-medium">2</span>
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-violet-700/60 flex items-center justify-center shrink-0 text-violet-300 text-xs font-medium">2</span>
             Quando o acesso antecipado abrir, você será um dos primeiros avisados.
           </li>
           <li class="flex items-start gap-3 text-sm text-white/60">
-            <span class="mt-0.5 w-5 h-5 rounded-full bg-editus-700/60 flex items-center justify-center shrink-0 text-editus-400 text-xs font-medium">3</span>
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-violet-700/60 flex items-center justify-center shrink-0 text-violet-300 text-xs font-medium">3</span>
             O acesso é gratuito na fase inicial. Só queremos feedback real de quem compete em licitações.
           </li>
         </ul>

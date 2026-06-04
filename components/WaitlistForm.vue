@@ -11,7 +11,7 @@
         required
         placeholder="seu@email.com.br"
         aria-label="Seu email para acesso antecipado"
-        class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/35 text-sm focus:outline-none focus:border-editus-400 focus:bg-white/15 transition-all"
+        class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"
       >
       <button
         type="submit"
@@ -50,13 +50,13 @@
   <div
     v-else
     id="waitlist"
-    class="py-24 bg-editus-900"
+    class="py-24 bg-indigo-900"
   >
     <div class="max-w-2xl mx-auto px-6 text-center">
-      <p class="text-xs font-medium tracking-widest uppercase text-editus-400 mb-3">
+      <p class="text-xs font-medium tracking-widest uppercase text-violet-300 mb-3">
         Acesso antecipado
       </p>
-      <h2 class="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
         Seja um dos primeiros a usar o Editus
       </h2>
       <p class="text-white/50 mb-10 leading-relaxed">
@@ -95,9 +95,9 @@
       <!-- Lote esgotado — substitui o formulário -->
       <div
         v-if="waitlistFull"
-        class="rounded-2xl border border-editus-700/50 bg-editus-800/40 p-8 text-center"
+        class="rounded-eb-md border border-indigo-700/50 bg-indigo-800/40 p-8 text-center"
       >
-        <div class="text-victory-400 text-lg font-semibold mb-2">
+        <div class="text-success text-lg font-semibold mb-2">
           Vagas esgotadas neste lote
         </div>
         <p class="text-white/50 text-sm leading-relaxed">
@@ -126,7 +126,7 @@
             type="email"
             required
             placeholder="joao@empresa.com.br"
-            class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+            class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
         </div>
         <button
@@ -172,7 +172,7 @@
                 v-model="form.name"
                 type="text"
                 placeholder="João Silva"
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+                class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >
             </div>
             <div>
@@ -186,7 +186,7 @@
                 type="email"
                 required
                 placeholder="joao@empresa.com.br"
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+                class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >
             </div>
           </div>
@@ -201,7 +201,7 @@
               type="text"
               required
               placeholder="Nome da empresa"
-              class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+              class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
             >
           </div>
         </template>
@@ -218,7 +218,7 @@
             type="text"
             required
             placeholder="Nome da empresa"
-            class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+            class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
         </div>
 
@@ -234,7 +234,7 @@
             type="email"
             required
             placeholder="joao@empresa.com.br"
-            class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+            class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
         </div>
 
@@ -250,7 +250,7 @@
                 id="waitlist-volume"
                 v-model="form.volume"
                 required
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
+                class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white/80 text-sm focus:outline-none focus:border-violet-400 transition-all appearance-none pr-10"
               >
                 <option
                   value=""
@@ -298,7 +298,7 @@
                 id="waitlist-segment-tf"
                 v-model="form.segment"
                 required
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
+                class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white/80 text-sm focus:outline-none focus:border-violet-400 transition-all appearance-none pr-10"
               >
                 <option
                   value=""
@@ -350,7 +350,7 @@
             id="waitlist-consent"
             v-model="form.consent"
             type="checkbox"
-            class="mt-0.5 h-4 w-4 shrink-0 rounded border-editus-600 bg-editus-800/50 text-editus-500 focus:ring-editus-500 focus:ring-offset-editus-900 cursor-pointer"
+            class="mt-0.5 h-4 w-4 shrink-0 rounded border-violet-600 bg-indigo-800/50 text-violet-500 focus:ring-violet-500 focus:ring-offset-indigo-900 cursor-pointer"
           >
           <label
             for="waitlist-consent"
@@ -359,7 +359,7 @@
             Li e concordo com a
             <NuxtLink
               to="/privacidade"
-              class="text-editus-400 hover:text-editus-300 underline underline-offset-2 transition-colors"
+              class="text-violet-300 hover:text-violet-200 underline underline-offset-2 transition-colors"
             >Política de Privacidade</NuxtLink>
             e autorizo o uso dos meus dados para receber comunicações sobre o Editus.
           </label>
@@ -494,9 +494,9 @@ const fullFormCTAText = computed(() => {
 // Cor do botão por variante
 const btnClass = computed(() => {
   if (props.buttonColorVariant === 'green') {
-    return 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed'
+    return 'bg-success hover:bg-success/90 shadow-success/25 text-white rounded-eb-sm px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed'
   }
-  return 'bg-editus-600 hover:bg-editus-700 shadow-editus-600/25 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed'
+  return 'bg-violet-600 hover:bg-violet-700 shadow-violet-600/25 text-white rounded-eb-sm px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed'
 })
 
 function advanceStep() {

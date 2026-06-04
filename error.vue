@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-editus-950 flex flex-col items-center justify-center px-6 py-24">
+  <div class="min-h-screen bg-indigo-950 flex flex-col items-center justify-center px-6 py-24">
     <div class="max-w-md w-full text-center">
-      <div class="w-16 h-16 bg-editus-800/60 border border-editus-700/40 rounded-2xl flex items-center justify-center mx-auto mb-8">
+      <div class="w-16 h-16 bg-indigo-800/60 border border-indigo-700/40 rounded-eb-md flex items-center justify-center mx-auto mb-8">
         <svg
           width="28"
           height="28"
           viewBox="0 0 28 28"
           fill="none"
-          class="text-editus-400"
+          class="text-violet-400"
         >
           <circle
             cx="14"
@@ -25,7 +25,7 @@
         </svg>
       </div>
 
-      <p class="text-xs font-medium tracking-widest uppercase text-editus-500 mb-3">
+      <p class="text-xs font-medium tracking-widest uppercase text-violet-400 mb-3">
         Erro {{ error?.statusCode || 500 }}
       </p>
 

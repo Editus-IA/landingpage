@@ -1,54 +1,60 @@
 <template>
-  <footer class="bg-editus-950 py-12">
+  <footer class="bg-indigo-950 py-12">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <!-- Brand -->
         <div>
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-7 h-7 bg-editus-700 rounded-lg flex items-center justify-center">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 18 18"
+            <!-- editus-symbol-mono-dark: variante para superfícies escuras -->
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 56 56"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                width="56"
+                height="56"
+                rx="14.56"
+                fill="#1E1654"
+              />
+              <rect
+                x="14"
+                y="15"
+                width="22"
+                height="4"
+                rx="2"
+                fill="#fff"
+              />
+              <rect
+                x="14"
+                y="24"
+                width="28"
+                height="4"
+                rx="2"
+                fill="#fff"
+                opacity="0.78"
+              />
+              <rect
+                x="14"
+                y="33"
+                width="16"
+                height="4"
+                rx="2"
+                fill="#fff"
+                opacity="0.6"
+              />
+              <path
+                d="M30 40.5 L34.5 45 L44 33.5"
+                stroke="#8E7BF5"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 fill="none"
-              >
-                <rect
-                  x="2"
-                  y="2"
-                  width="6"
-                  height="4"
-                  rx="1"
-                  fill="white"
-                />
-                <rect
-                  x="2"
-                  y="7.5"
-                  width="6"
-                  height="4"
-                  rx="1"
-                  fill="white"
-                  opacity="0.6"
-                />
-                <rect
-                  x="2"
-                  y="13"
-                  width="6"
-                  height="3"
-                  rx="1"
-                  fill="white"
-                  opacity="0.3"
-                />
-                <path
-                  d="M10 5.5h6M10 9h4.5M10 12.5h3"
-                  stroke="white"
-                  stroke-width="1.2"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
-            <span class="text-white font-semibold tracking-tight">
-              edit<span class="text-editus-500">us</span>
-            </span>
+              />
+            </svg>
+            <span class="font-display font-bold text-white tracking-tight">edit<span class="font-medium text-violet-300">us</span></span>
           </div>
           <p class="text-xs text-white/30 max-w-xs leading-relaxed">
             Inteligência artificial para PMEs brasileiras que competem em licitações públicas.
@@ -98,7 +104,7 @@
         </div>
       </div>
 
-      <div class="mt-10 pt-8 border-t border-editus-800 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="mt-10 pt-8 border-t border-indigo-800 flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-xs text-white/20">
           © 2026 Editus. Todos os direitos reservados.
         </p>

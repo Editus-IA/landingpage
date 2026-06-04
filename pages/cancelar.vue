@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-editus-900 flex flex-col items-center justify-center px-6 py-24">
+  <div class="min-h-screen bg-indigo-900 flex flex-col items-center justify-center px-6 py-24">
     <div class="max-w-md w-full text-center">
       <template v-if="done">
-        <div class="w-14 h-14 bg-editus-800/60 border border-editus-700/40 rounded-2xl flex items-center justify-center mx-auto mb-8">
+        <div class="w-14 h-14 bg-indigo-800/60 border border-indigo-700/40 rounded-eb-md flex items-center justify-center mx-auto mb-8">
           <svg
             width="24"
             height="24"
@@ -27,7 +27,7 @@
         </p>
         <NuxtLink
           to="/"
-          class="text-sm text-editus-400 hover:text-editus-300 transition-colors"
+          class="text-sm text-violet-300 hover:text-violet-200 transition-colors"
         >Voltar ao início</NuxtLink>
       </template>
 
@@ -40,12 +40,12 @@
           Para remover seus dados, entre em contato com
           <a
             href="mailto:privacidade@editus.com.br"
-            class="text-editus-400 hover:text-editus-300 transition-colors"
+            class="text-violet-300 hover:text-violet-200 transition-colors"
           >privacidade@editus.com.br</a>.
         </p>
         <NuxtLink
           to="/"
-          class="text-sm text-editus-400 hover:text-editus-300 transition-colors"
+          class="text-sm text-violet-300 hover:text-violet-200 transition-colors"
         >Voltar ao início</NuxtLink>
       </template>
 

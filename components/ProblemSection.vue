@@ -1,7 +1,7 @@
 <template>
   <section
     id="problema"
-    class="py-24 bg-editus-50"
+    class="py-24 bg-neutral-50"
   >
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
@@ -38,14 +38,14 @@
           >
             <component :is="problem.icon" />
           </div>
-          <h3 class="text-lg font-semibold text-editus-900 mb-2">
+          <h3 class="text-lg font-semibold text-neutral-900 mb-2">
             {{ problem.title }}
           </h3>
-          <p class="text-sm text-editus-900/55 leading-relaxed">
+          <p class="text-sm text-neutral-600 leading-relaxed">
             {{ problem.desc }}
           </p>
-          <div class="mt-5 pt-5 border-t border-editus-100">
-            <p class="text-xs font-medium text-editus-600/80">
+          <div class="mt-5 pt-5 border-t border-neutral-100">
+            <p class="text-xs font-medium text-violet-600/80">
               {{ problem.stat }}
             </p>
           </div>

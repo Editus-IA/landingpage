@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="48" viewBox="0 0 190 48" fill="none">
+  <defs>
+    <linearGradient id="ebg" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7B63F5"></stop>
+      <stop offset="1" stop-color="#5A3CE0"></stop>
+    </linearGradient>
+  </defs>
+  <g transform="translate(4 4)">
+    <rect width="40" height="40" rx="10.4" fill="url(#ebg)"></rect>
+    <rect x="10" y="10.7" width="15.7" height="2.9" rx="1.45" fill="#fff"></rect>
+    <rect x="10" y="17.1" width="20" height="2.9" rx="1.45" fill="#fff" opacity="0.78"></rect>
+    <rect x="10" y="23.6" width="11.4" height="2.9" rx="1.45" fill="#fff" opacity="0.6"></rect>
+    <path d="M21.4 28.9 L24.6 32.1 L31.4 23.9" stroke="#C9F0DD" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  </g>
+  <text x="58" y="32" font-family="&#39;Space Grotesk&#39;, system-ui, sans-serif" font-size="27" letter-spacing="-0.5">
+    <tspan font-weight="700" fill="#FFFFFF">edit</tspan><tspan font-weight="500" fill="#B6A8FB">us</tspan>
+  </text>
+</svg>

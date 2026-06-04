@@ -1,19 +1,19 @@
 <template>
-  <section class="py-24 bg-editus-900 relative overflow-hidden">
+  <section class="py-24 bg-indigo-900 relative overflow-hidden">
     <!-- Background -->
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(100,89,200,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(100,89,200,0.06)_1px,transparent_1px)] bg-[size:48px_48px]" />
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-editus-600/15 rounded-full blur-[100px] pointer-events-none" />
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-violet-600/15 rounded-full blur-[100px] pointer-events-none" />
 
     <div class="relative max-w-3xl mx-auto px-6 text-center">
       <!-- Eyebrow -->
-      <div class="inline-flex items-center gap-2 bg-editus-800/60 border border-editus-700/40 rounded-full px-4 py-1.5 mb-8">
-        <span class="w-1.5 h-1.5 bg-victory-400 rounded-full" />
-        <span class="text-xs text-editus-300 font-medium">Acesso antecipado · Vagas limitadas</span>
+      <div class="inline-flex items-center gap-2 bg-indigo-800/60 border border-indigo-700/40 rounded-eb-pill px-4 py-1.5 mb-8">
+        <span class="w-1.5 h-1.5 bg-success rounded-full" />
+        <span class="text-xs text-violet-300 font-medium">Acesso antecipado · Vagas limitadas</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-tight mb-6">
+      <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
         Não perca mais licitações<br>
-        <span class="text-editus-400">por falta de análise.</span><br>
+        <span class="text-violet-300">por falta de análise.</span><br>
         Sua vaga está aqui.
       </h2>
 
@@ -32,7 +32,7 @@
           required
           placeholder="seu@email.com.br"
           aria-label="Seu email para acesso antecipado"
-          class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/35 text-sm focus:outline-none focus:border-editus-400 focus:bg-white/15 transition-all"
+          class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-eb-sm text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"
         >
         <button
           type="submit"
@@ -66,7 +66,7 @@
             height="14"
             viewBox="0 0 14 14"
             fill="none"
-            class="text-victory-400 flex-shrink-0"
+            class="text-success flex-shrink-0"
           >
             <path
               d="M12 3.5L5.5 10 2 6.5"
@@ -84,7 +84,7 @@
             height="14"
             viewBox="0 0 14 14"
             fill="none"
-            class="text-victory-400 flex-shrink-0"
+            class="text-success flex-shrink-0"
           >
             <path
               d="M12 3.5L5.5 10 2 6.5"
@@ -102,7 +102,7 @@
             height="14"
             viewBox="0 0 14 14"
             fill="none"
-            class="text-victory-400 flex-shrink-0"
+            class="text-success flex-shrink-0"
           >
             <path
               d="M12 3.5L5.5 10 2 6.5"
@@ -132,9 +132,9 @@ const submitting = ref(false)
 
 const btnClass = computed(() => {
   if (props.buttonColorVariant === 'green') {
-    return 'bg-victory-500 hover:bg-victory-600 shadow-victory-500/25'
+    return 'bg-success hover:bg-success/90 shadow-success/25'
   }
-  return 'bg-editus-600 hover:bg-editus-700 shadow-editus-600/25'
+  return 'bg-violet-600 hover:bg-violet-700 shadow-violet-600/25'
 })
 
 function onSubmit() {

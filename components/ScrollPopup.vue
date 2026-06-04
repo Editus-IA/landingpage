@@ -13,7 +13,7 @@
 
         <!-- Modal -->
         <div
-          class="relative bg-editus-900 border border-editus-700/60 rounded-2xl shadow-2xl max-w-md w-full p-8"
+          class="relative bg-indigo-900 border border-indigo-700/60 rounded-eb-md shadow-2xl max-w-md w-full p-8"
           role="dialog"
           aria-modal="true"
           aria-label="Garantir acesso antecipado"
@@ -39,9 +39,9 @@
             </svg>
           </button>
 
-          <div class="inline-flex items-center gap-2 bg-editus-800/60 border border-editus-700/40 rounded-full px-3 py-1 mb-5">
-            <span class="w-1.5 h-1.5 bg-victory-400 rounded-full animate-pulse" />
-            <span class="text-xs text-editus-300 font-medium">Acesso antecipado · Vagas limitadas</span>
+          <div class="inline-flex items-center gap-2 bg-indigo-800/60 border border-indigo-700/40 rounded-eb-pill px-3 py-1 mb-5">
+            <span class="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
+            <span class="text-xs text-violet-300 font-medium">Acesso antecipado · Vagas limitadas</span>
           </div>
 
           <h3 class="text-2xl font-semibold text-white tracking-tight mb-2">
@@ -78,7 +78,7 @@
                 type="email"
                 required
                 placeholder="joao@empresa.com.br"
-                class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white placeholder-white/25 text-sm focus:outline-none focus:border-editus-500 transition-all"
+                class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >
             </div>
 
@@ -91,7 +91,7 @@
                 <select
                   id="popup-segment"
                   v-model="popupSegment"
-                  class="w-full px-4 py-3 bg-editus-800/50 border border-editus-700/50 rounded-lg text-white/80 text-sm focus:outline-none focus:border-editus-500 transition-all appearance-none pr-10"
+                  class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white/80 text-sm focus:outline-none focus:border-violet-400 transition-all appearance-none pr-10"
                 >
                   <option
                     value=""
@@ -142,7 +142,7 @@
                 id="popup-consent"
                 v-model="popupConsent"
                 type="checkbox"
-                class="mt-0.5 h-4 w-4 shrink-0 rounded border-editus-600 bg-editus-800/50 text-editus-500 focus:ring-editus-500 focus:ring-offset-editus-900 cursor-pointer"
+                class="mt-0.5 h-4 w-4 shrink-0 rounded border-violet-600 bg-indigo-800/50 text-violet-500 focus:ring-violet-500 focus:ring-offset-indigo-900 cursor-pointer"
               >
               <label
                 for="popup-consent"
@@ -151,7 +151,7 @@
                 Li e concordo com a
                 <NuxtLink
                   to="/privacidade"
-                  class="text-editus-400 hover:text-editus-300 underline underline-offset-2 transition-colors"
+                  class="text-violet-300 hover:text-violet-200 underline underline-offset-2 transition-colors"
                 >Política de Privacidade</NuxtLink>
                 e autorizo o contato sobre o Editus.
               </label>
@@ -167,7 +167,7 @@
             <button
               type="submit"
               :disabled="!popupConsent"
-              class="w-full bg-editus-600 hover:bg-editus-700 text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full bg-violet-600 hover:bg-violet-700 text-white rounded-eb-sm px-6 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Continuar cadastro →
             </button>
