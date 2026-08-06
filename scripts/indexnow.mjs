@@ -29,6 +29,11 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 const DEFAULT_URLS = [
   `${ORIGIN}/`,
   `${ORIGIN}/faq`,
+  `${ORIGIN}/guia`,
+  `${ORIGIN}/guia/o-que-e-pncp`,
+  `${ORIGIN}/guia/habilitacao-licitacao`,
+  `${ORIGIN}/guia/consulta-ceis-cnep-cepim`,
+  `${ORIGIN}/guia/lei-14133-resumo`,
 ]
 
 async function main() {
