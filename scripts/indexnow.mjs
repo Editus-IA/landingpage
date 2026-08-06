@@ -29,6 +29,7 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 const DEFAULT_URLS = [
   `${ORIGIN}/`,
   `${ORIGIN}/faq`,
+  `${ORIGIN}/calculadora-custo-financeiro`,
   `${ORIGIN}/guia`,
   `${ORIGIN}/guia/o-que-e-pncp`,
   `${ORIGIN}/guia/habilitacao-licitacao`,
