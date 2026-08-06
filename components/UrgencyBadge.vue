@@ -19,6 +19,10 @@ const { track } = useUmami()
 
 const remainingCount = ref<number | null>(null)
 const countdown = ref('')
+// Só passa a true após a montagem no client. Evita hydration mismatch: qualquer
+// texto que dependa de Date.now() é decidido no client, nunca no SSR (o servidor
+// e o cliente avaliam o relógio em momentos diferentes).
+const mounted = ref(false)
 
 function formatCountdown(target: Date): string {
   const diff = target.getTime() - Date.now()
@@ -35,6 +39,10 @@ const badgeText = computed(() => {
     return `Restam ${remainingCount.value} vagas neste lote`
   }
   if (props.variant === 'countdown') {
+    // Durante o SSR (mounted=false) exibe o texto neutro — determinístico, igual
+    // no servidor e no client. O cálculo dependente do relógio só ocorre depois
+    // da montagem, evitando hydration mismatch.
+    if (!mounted.value) return 'Vagas limitadas · acesso antecipado aberto'
     // Se a data já passou, exibe badge neutro em vez de "encerrado" com form aberto
     if (Date.now() >= LOTE_CLOSE_DATE.getTime()) return 'Vagas limitadas · acesso antecipado aberto'
     const day = LOTE_CLOSE_DATE.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
@@ -48,6 +56,7 @@ const badgeText = computed(() => {
 let timer: ReturnType<typeof setInterval> | null = null
 
 onMounted(async () => {
+  mounted.value = true
   track('urgency_badge_impression', { ab_urgency_badge: props.variant })
 
   if (props.variant === 'count') {

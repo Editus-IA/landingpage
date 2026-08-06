@@ -180,7 +180,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { animate, stagger, utils } from 'animejs'
 import { useABTest } from '../composables/useABTest'
 import { useCountUp } from '../composables/useCountUp'
 import { prefersReducedMotion } from '../composables/useReducedMotion'
@@ -205,16 +204,20 @@ const { display: countDisplay, run: runCount } = useCountUp()
 // Wrapper das peças do Hero — alvo da animação de entrada escalonada.
 const revealRef = ref<HTMLElement | null>(null)
 
-function revealHero() {
+async function revealHero() {
   const el = revealRef.value
   if (!el) return
 
   const targets = el.querySelectorAll<HTMLElement>('[data-hero-reveal]')
   if (!targets.length) return
 
-  // Reduced-motion: não anima. Os elementos já estão visíveis (nunca ocultamos
-  // no HTML/SSR — crawlers e usuários sem JS veem o conteúdo normalmente).
+  // Reduced-motion: não anima e NEM carrega o anime.js. Os elementos já estão
+  // visíveis (nunca ocultamos no HTML/SSR — crawlers/usuários sem JS veem tudo).
   if (prefersReducedMotion()) return
+
+  // Import dinâmico: mantém o anime.js FORA do bundle crítico inicial (reduz o
+  // JS baixado no primeiro paint). Só carrega quando vamos de fato animar.
+  const { animate, stagger, utils } = await import('animejs')
 
   // Estado inicial oculto aplicado SÓ no client, no mesmo tick da animação —
   // o HTML renderizado permanece visível (bom para SEO e fallback sem JS).

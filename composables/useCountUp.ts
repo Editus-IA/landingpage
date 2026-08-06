@@ -1,5 +1,4 @@
 import { ref, watch } from 'vue'
-import { animate } from 'animejs'
 import { prefersReducedMotion } from '~/composables/useReducedMotion'
 
 // Anima um número "subindo" de 0 até o valor alvo (ex: contador de vagas na
@@ -18,7 +17,7 @@ export function useCountUp(options?: { duration?: number }) {
   const display = ref('0')
   let started = false
 
-  function run(target: number) {
+  async function run(target: number) {
     if (started) return
     started = true
 
@@ -26,6 +25,9 @@ export function useCountUp(options?: { duration?: number }) {
       display.value = String(target)
       return
     }
+
+    // Import dinâmico: anime.js fica fora do bundle crítico inicial.
+    const { animate } = await import('animejs')
 
     const state = { value: 0 }
     animate(state, {

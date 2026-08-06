@@ -14,8 +14,14 @@
         </p>
       </div>
 
-      <!-- Dashboard mockup -->
-      <div style="border-radius:16px; overflow:hidden; box-shadow:0 32px 80px rgba(15,12,46,0.45); border:1px solid rgba(100,89,200,0.2);">
+      <!-- Dashboard mockup: ilustração puramente decorativa (0 interatividade).
+           aria-hidden remove os elementos figurativos (ex: botões fake do
+           navegador) da árvore de acessibilidade — o significado já é dado
+           pelo título e descrição acima. Melhora a navegação por agentes de IA. -->
+      <div
+        aria-hidden="true"
+        style="border-radius:16px; overflow:hidden; box-shadow:0 32px 80px rgba(15,12,46,0.45); border:1px solid rgba(100,89,200,0.2);"
+      >
         <!-- Browser chrome -->
         <div style="background:#100D30; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column;">
           <!-- Tab bar -->
@@ -85,7 +91,11 @@
           <div style="display:flex; align-items:center; gap:10px; padding:7px 16px 9px; background:#1A1547;">
             <!-- Nav buttons -->
             <div style="display:flex;gap:4px;flex-shrink:0;">
-              <button style="width:24px;height:24px;border-radius:5px;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+              <button
+                type="button"
+                tabindex="-1"
+                style="width:24px;height:24px;border-radius:5px;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;"
+              >
                 <svg
                   width="10"
                   height="10"
@@ -99,7 +109,11 @@
                   stroke-linejoin="round"
                 /></svg>
               </button>
-              <button style="width:24px;height:24px;border-radius:5px;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.4;">
+              <button
+                type="button"
+                tabindex="-1"
+                style="width:24px;height:24px;border-radius:5px;background:rgba(255,255,255,0.05);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.4;"
+              >
                 <svg
                   width="10"
                   height="10"

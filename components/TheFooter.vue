@@ -56,7 +56,7 @@
             </svg>
             <span class="font-display font-bold text-white tracking-tight">edit<span class="font-medium text-violet-300">us</span></span>
           </div>
-          <p class="text-xs text-white/30 max-w-xs leading-relaxed">
+          <p class="text-xs text-white/55 max-w-xs leading-relaxed">
             Inteligência artificial para PMEs brasileiras que competem em licitações públicas.
           </p>
         </div>
@@ -70,27 +70,27 @@
             <div class="space-y-2">
               <a
                 href="#como-funciona"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Como funciona</a>
               <a
                 href="#features"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Funcionalidades</a>
               <NuxtLink
                 to="/calculadora-custo-financeiro"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Calculadora de custo financeiro</NuxtLink>
               <NuxtLink
                 to="/guia"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Guias de licitação</NuxtLink>
               <NuxtLink
                 to="/faq"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Perguntas frequentes</NuxtLink>
               <a
                 href="#waitlist"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Acesso antecipado</a>
             </div>
           </div>
@@ -101,10 +101,10 @@
             <div class="space-y-2">
               <NuxtLink
                 to="/privacidade"
-                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Política de Privacidade</NuxtLink>
               <span
-                class="block text-sm text-white/20 cursor-default"
+                class="block text-sm text-white/45 cursor-default"
                 title="Em breve"
               >Termos de uso</span>
             </div>
@@ -113,10 +113,10 @@
       </div>
 
       <div class="mt-10 pt-8 border-t border-indigo-800 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-xs text-white/20">
+        <p class="text-xs text-white/45">
           © 2026 Editus. Todos os direitos reservados.
         </p>
-        <p class="text-xs text-white/20">
+        <p class="text-xs text-white/45">
           Editus Tecnologia Ltda. · CNPJ 49.076.076/0001-90 ·
           <a
             href="mailto:privacidade@editus.com.br"
