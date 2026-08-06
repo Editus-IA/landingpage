@@ -31,8 +31,8 @@
                 O Editus calcula automaticamente esse custo com base na taxa Selic, inclui no relatório e ajusta sua margem antes de você enviar.
               </p>
               <div class="mt-6 flex items-baseline gap-2">
-                <span class="font-display text-3xl font-bold text-success">R$ 9.000</span>
-                <span class="text-sm text-white/60">custo identificado em contrato de R$ 300k / 60 dias</span>
+                <span class="font-display text-3xl font-bold text-success">R$ 9.881</span>
+                <span class="text-sm text-white/60">custo identificado em contrato de R$ 300k / 90 dias</span>
               </div>
             </div>
             <div class="bg-indigo-800/50 border border-indigo-700/30 rounded-eb-md p-6">
@@ -162,12 +162,14 @@ const IconDoc = defineComponent(() => () => h('svg', { width: 20, height: 20, vi
   h('path', { 'd': 'M7 9h6M7 12h4', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
 ]))
 
+// Valores conferem com a fórmula da /calculadora-custo-financeiro:
+// 300.000 × ((1+0,14)^(1/12)−1) × (90/30) ≈ R$ 9.881 (≈ 3,3% do contrato).
 const pricingRows = [
   { label: 'Valor do contrato', value: 'R$ 300.000' },
-  { label: 'Prazo de pagamento', value: '60 dias' },
-  { label: 'Taxa mensal (Selic)', value: '1,2% / mês' },
-  { label: 'Custo financeiro', value: 'R$ 9.000', highlight: true },
-  { label: 'Margem ajustada', value: '15,3% → 12,3%', highlight: false },
+  { label: 'Prazo de pagamento', value: '90 dias' },
+  { label: 'Taxa mensal (Selic)', value: '1,1% / mês' },
+  { label: 'Custo financeiro', value: 'R$ 9.881', highlight: true },
+  { label: 'Margem ajustada', value: '15,3% → 12,0%', highlight: false },
   { label: 'Recomendação', value: '✓ Participar c/ ajuste', highlight: true },
 ]
 

@@ -125,7 +125,7 @@ const veteranProblems = [
     iconBg: 'bg-green-50',
     title: 'Custo de oportunidade da proposta errada',
     desc: 'Você entra, vence, e descobre que o prazo de 90 dias corroeu a margem que parecia boa. Ou precifica alto demais e perde para quem calculou o custo financeiro direito.',
-    stat: 'Até R$ 9k de custo financeiro em contrato de R$ 300k / 60 dias',
+    stat: 'Cerca de R$ 9,9k de custo financeiro em contrato de R$ 300k / 90 dias',
   },
 ]
 
