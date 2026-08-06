@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@sentry/nuxt": "^10.69.0",
+    "animejs": "^4",
     "nuxt": "^3.21.11",
     "resend": "^4.8.0",
     "vue": "^3.5.41",
