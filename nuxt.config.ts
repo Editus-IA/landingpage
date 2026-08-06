@@ -257,5 +257,16 @@ export default defineNuxtConfig({
 
   sitemap: {
     exclude: ['/api/**', '/obrigado', '/cancelar', '/privacidade'],
+    // Rotas dinâmicas do cluster /guia/[slug]: o crawler do sitemap não as
+    // descobre sozinho, então declaramos explicitamente. Manter em sincronia
+    // com os slugs de composables/useGuides.ts (GUIDES[].slug).
+    urls: [
+      '/faq',
+      '/guia',
+      '/guia/o-que-e-pncp',
+      '/guia/habilitacao-licitacao',
+      '/guia/consulta-ceis-cnep-cepim',
+      '/guia/lei-14133-resumo',
+    ],
   },
 })
