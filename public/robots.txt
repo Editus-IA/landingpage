@@ -1,8 +1,69 @@
+# Editus — robots.txt
+# Objetivo: máxima descoberta por buscadores tradicionais E agentes de IA.
+# Agentes de IA descobrem sites via índices de busca (Bing → ChatGPT,
+# Google → Gemini) e via crawlers próprios. Liberamos ambos explicitamente.
+
+# --- Buscadores tradicionais e crawlers genéricos ---
 User-agent: *
 Allow: /
 Allow: /api/confirm
 Disallow: /api/
 Disallow: /obrigado
 Disallow: /cancelar
+
+# --- Crawlers de IA: liberados explicitamente ---
+# OpenAI (ChatGPT — treino e busca em tempo real)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini / Vertex AI (Google-Extended controla uso do conteúdo em IA)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence / Siri
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (alimenta datasets de vários LLMs)
+User-agent: CCBot
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# ByteDance / Amazon
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
 
 Sitemap: https://editus.com.br/sitemap.xml

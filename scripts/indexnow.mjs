@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+/* eslint-disable no-console -- script de CLI: stdout é a saída pretendida */
+/**
+ * IndexNow — notifica buscadores (Bing → ChatGPT, Yandex, Seznam, etc.) de que
+ * as URLs do site mudaram, sem esperar o crawl natural.
+ *
+ * Por que importa: o ChatGPT usa o índice do Bing. Poucos concorrentes usam
+ * IndexNow — é o "alpha barato" para aparecer em respostas de IA rapidamente.
+ *
+ * Pré-requisito: o arquivo public/<KEY>.txt precisa estar publicado e acessível
+ * em https://editus.com.br/<KEY>.txt (o build do Nuxt copia public/ para a raiz).
+ *
+ * Uso:
+ *   node scripts/indexnow.mjs                      # envia a lista padrão
+ *   node scripts/indexnow.mjs https://editus.com.br/faq  # envia URL(s) específica(s)
+ *
+ * Recomendado: rodar no pipeline de deploy, logo APÓS o site ir ao ar.
+ */
+
+const KEY = '55fb7b5ab071828f3a53f0339628da3c'
+const HOST = 'editus.com.br'
+const ORIGIN = `https://${HOST}`
+const KEY_LOCATION = `${ORIGIN}/${KEY}.txt`
+
+// Endpoint genérico do IndexNow: propaga para todos os buscadores participantes.
+const ENDPOINT = 'https://api.indexnow.org/indexnow'
+
+// URLs padrão do site (mantenha em sincronia com o sitemap das páginas públicas).
+const DEFAULT_URLS = [
+  `${ORIGIN}/`,
+  `${ORIGIN}/faq`,
+]
+
+async function main() {
+  const cliUrls = process.argv.slice(2).filter(u => u.startsWith('http'))
+  const urlList = cliUrls.length > 0 ? cliUrls : DEFAULT_URLS
+
+  const body = {
+    host: HOST,
+    key: KEY,
+    keyLocation: KEY_LOCATION,
+    urlList,
+  }
+
+  console.log(`[IndexNow] Enviando ${urlList.length} URL(s) para ${ENDPOINT}`)
+  urlList.forEach(u => console.log(`  • ${u}`))
+
+  const res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify(body),
+  })
+
+  // 200/202 = aceito. 422 costuma ser key/keyLocation inconsistente.
+  if (res.ok) {
+    console.log(`[IndexNow] OK (HTTP ${res.status}) — URLs aceitas para indexação.`)
+  }
+  else {
+    const text = await res.text().catch(() => '')
+    console.error(`[IndexNow] Falha (HTTP ${res.status}). ${text}`)
+    process.exitCode = 1
+  }
+}
+
+main().catch((err) => {
+  console.error('[IndexNow] Erro inesperado:', err)
+  process.exitCode = 1
+})

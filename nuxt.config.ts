@@ -101,22 +101,63 @@ export default defineNuxtConfig({
           }),
         },
         // JSON-LD: Organization
+        // NOTA DE DESAMBIGUAÇÃO DE ENTIDADE:
+        // Existe uma entidade homônima com 30 anos de autoridade — a "Editus",
+        // editora da UESC (Universidade Estadual de Santa Cruz). Para o Google
+        // Knowledge Graph e para agentes de IA distinguirem ESTA Editus (SaaS de
+        // licitações) da editora, reforçamos: '@id' estável, 'alternateName',
+        // 'knowsAbout' (tópicos-âncora: licitações, PNCP, Lei 14.133) e 'sameAs'
+        // (perfis externos). O 'sameAs' é o sinal MAIS forte: assim que os perfis
+        // oficiais existirem, descomente as URLs abaixo.
         {
           type: 'application/ld+json',
           innerHTML: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
+            '@id': 'https://editus.com.br/#organization',
             'name': 'Editus',
+            'alternateName': 'Editus IA',
+            'legalName': 'Editus Tecnologia',
             'url': 'https://editus.com.br',
+            'logo': 'https://editus.com.br/logo-symbol-gradient.svg',
+            'image': 'https://editus.com.br/og-image.png',
+            'slogan': 'IA para análise de editais e licitações públicas',
             'description':
-              'Empresa de tecnologia especializada em inteligência artificial para o mercado de licitações públicas brasileiras.',
+              'Empresa de tecnologia especializada em inteligência artificial para o mercado de licitações públicas brasileiras. Não confundir com a Editus, editora da UESC.',
             'foundingDate': '2026',
+            'areaServed': {
+              '@type': 'Country',
+              'name': 'Brasil',
+            },
+            'knowsAbout': [
+              'Licitações públicas',
+              'PNCP — Portal Nacional de Compras Públicas',
+              'Lei 14.133/2021',
+              'Pregão eletrônico',
+              'Análise de editais',
+              'Habilitação em licitações',
+              'Compliance em compras públicas',
+            ],
             'contactPoint': {
               '@type': 'ContactPoint',
               'contactType': 'customer support',
               'email': 'contato@editus.com.br',
               'availableLanguage': 'Portuguese',
             },
+            // sameAs: perfis externos que amarram a entidade no grafo de conhecimento.
+            // Prioridade de criação (maior peso primeiro):
+            //   1. LinkedIn (company page)   — sinal mais forte para SaaS B2B
+            //   2. Crunchbase                — reconhecido como fonte de entidade de empresa
+            //   3. GitHub / Product Hunt     — reforço para produto de software
+            //   4. Instagram / X (Twitter)   — presença social
+            // Descomente cada URL assim que o perfil oficial existir:
+            'sameAs': [
+              // 'https://www.linkedin.com/company/editus-ia',
+              // 'https://www.crunchbase.com/organization/editus',
+              // 'https://github.com/Editus-IA',
+              // 'https://www.producthunt.com/products/editus',
+              // 'https://www.instagram.com/editus.ia',
+            ],
           }),
         },
       ],

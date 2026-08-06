@@ -1,0 +1,26 @@
+# Editus
+
+> Plataforma de inteligência artificial para PMEs brasileiras que competem em licitações públicas. Monitora o PNCP, analisa editais conforme a Lei 14.133/2021, verifica habilitação e gera a proposta pronta para revisão. (Não confundir com a Editus, editora da UESC — Universidade Estadual de Santa Cruz.)
+
+## Produto
+
+A Editus usa 12 agentes de IA especializados para reduzir de dias para minutos o tempo que uma PME gasta analisando um edital de licitação. O sistema monitora o PNCP (Portal Nacional de Compras Públicas) pelo perfil da empresa, filtra oportunidades relevantes por segmento (CATMAT/CATSER), UF e porte (MEI, ME, EPP), verifica certidões e habilitação (SIASG, CEIS, CNEP, CEPIM), analisa compliance com a Lei 14.133/2021 e risco por cláusula, e gera a proposta redigida para revisão humana antes da submissão no Comprasnet.
+
+## Público-alvo
+
+- Pequenas e médias empresas brasileiras que participam de licitações públicas
+- Gestores e sócios sem experiência prévia em direito administrativo
+- Profissionais de licitações (pregoeiros, assessores jurídicos) que querem acelerar a análise
+
+## Termos-chave
+
+- PNCP — Portal Nacional de Compras Públicas
+- Lei 14.133/2021 — Nova Lei de Licitações e Contratos
+- Modalidades cobertas: pregão eletrônico, concorrência, tomada de preços, dispensa eletrônica
+- Comprasnet, habilitação, compliance, custo financeiro do prazo de pagamento
+
+## Links
+
+- [Página inicial](https://editus.com.br): Visão geral do produto e lista de acesso antecipado
+- [Perguntas frequentes](https://editus.com.br/faq): Respostas diretas sobre como a IA analisa editais, o que é o PNCP, compliance, habilitação, prazos e responsabilidade sobre a proposta
+- [Sitemap](https://editus.com.br/sitemap.xml): Mapa completo do site

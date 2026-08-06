@@ -76,10 +76,10 @@
                 href="#features"
                 class="block text-sm text-white/30 hover:text-white/60 transition-colors"
               >Funcionalidades</a>
-              <a
-                href="#faq"
+              <NuxtLink
+                to="/faq"
                 class="block text-sm text-white/30 hover:text-white/60 transition-colors"
-              >Perguntas frequentes</a>
+              >Perguntas frequentes</NuxtLink>
               <a
                 href="#waitlist"
                 class="block text-sm text-white/30 hover:text-white/60 transition-colors"

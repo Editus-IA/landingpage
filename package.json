@@ -16,6 +16,7 @@
     "typecheck": "nuxt typecheck",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint",
+    "indexnow": "node scripts/indexnow.mjs",
     "audit": "npx better-npm-audit audit --level moderate",
     "audit:critical": "npx better-npm-audit audit --level critical",
     "security:scan": "semgrep scan --config .semgrep/rules.yaml --error --exclude node_modules --exclude .nuxt",
