@@ -64,7 +64,7 @@
         <!-- Links -->
         <div class="flex gap-12">
           <div>
-            <p class="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
+            <p class="text-xs font-medium text-white/55 uppercase tracking-wider mb-3">
               Produto
             </p>
             <div class="space-y-2">
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div>
-            <p class="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
+            <p class="text-xs font-medium text-white/55 uppercase tracking-wider mb-3">
               Legal
             </p>
             <div class="space-y-2">

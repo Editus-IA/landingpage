@@ -34,9 +34,13 @@ export default defineNitroPlugin((nitro) => {
       }
     }
 
-    // Injeta nonce em todas as tags <script> e <style> do SSR
+    // Injeta nonce em todas as tags <script> e <style> do SSR.
+    // Usa flag global e casa a tag em qualquer posição da string (não só no
+    // início), pois o unhead pode concatenar várias tags — incluindo os
+    // <script type="application/ld+json"> — num mesmo fragmento de head.
+    // Evita duplicar: não reinjeta em tags que já têm nonce.
     const injectNonce = (tag: string) =>
-      tag.replace(/^<(script|style)(\s|>)/gi, `<$1 nonce="${nonce}"$2`)
+      tag.replace(/<(script|style)(?![^>]*\snonce=)(\s|>)/gi, `<$1 nonce="${nonce}"$2`)
 
     if (Array.isArray(html.head)) {
       html.head = html.head.map(injectNonce)

@@ -154,7 +154,7 @@
         <!-- Context line (A/B: form-context) -->
         <p
           v-if="formContextVariant === 'context'"
-          class="text-xs text-white/40 leading-relaxed pb-1"
+          class="text-xs text-white/60 leading-relaxed pb-1"
         >
           Usamos essas informações para priorizar empresas com mais fit para o beta e personalizar os editais monitorados para o seu perfil.
         </p>

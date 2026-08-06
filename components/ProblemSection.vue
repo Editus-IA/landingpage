@@ -45,7 +45,7 @@
             {{ problem.desc }}
           </p>
           <div class="mt-5 pt-5 border-t border-neutral-100">
-            <p class="text-xs font-medium text-violet-600/80">
+            <p class="text-xs font-medium text-violet-700">
               {{ problem.stat }}
             </p>
           </div>

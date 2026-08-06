@@ -112,7 +112,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span class="text-sm text-white/50">Monitora PNCP pelo perfil da empresa</span>
+            <span class="text-sm text-white/70">Monitora PNCP pelo perfil da empresa</span>
           </div>
           <div class="flex items-center gap-2">
             <svg
@@ -130,7 +130,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span class="text-sm text-white/50">Proposta gerada, você só aprova</span>
+            <span class="text-sm text-white/70">Proposta gerada, você só aprova</span>
           </div>
           <div class="flex items-center gap-2">
             <svg
@@ -148,14 +148,14 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span class="text-sm text-white/50">Lei 14.133/2021 coberta</span>
+            <span class="text-sm text-white/70">Lei 14.133/2021 coberta</span>
           </div>
           <div
             v-if="count"
             class="flex items-center gap-2"
           >
             <span class="w-2 h-2 bg-success rounded-full" />
-            <span class="text-sm text-white/50"><strong class="text-white/70">{{ countDisplay }}</strong> empresas já na lista</span>
+            <span class="text-sm text-white/70"><strong class="text-white/70">{{ countDisplay }}</strong> empresas já na lista</span>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@
           <div class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight">
             {{ stat.value }}
           </div>
-          <div class="text-sm text-white/40 mt-1">
+          <div class="text-sm text-white/60 mt-1">
             {{ stat.label }}
           </div>
         </div>

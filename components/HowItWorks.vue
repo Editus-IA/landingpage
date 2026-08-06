@@ -102,7 +102,7 @@
             <h3 class="text-2xl font-semibold text-white tracking-tight mb-2">
               12 agentes trabalhando em paralelo
             </h3>
-            <p class="text-sm text-white/40">
+            <p class="text-sm text-white/60">
               Cada agente é especialista em uma etapa, todos ativados pelo perfil da sua empresa
             </p>
           </div>

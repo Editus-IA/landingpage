@@ -41,7 +41,8 @@ export default {
           0: '#FFFFFF',
         },
         // Semantic
-        success: { DEFAULT: '#16895A', tint: '#E3F4EC' },
+        // #147A50: WCAG AA (5.34:1 sobre branco) — antes #16895A ficava em 4.41:1
+        success: { DEFAULT: '#147A50', tint: '#E3F4EC' },
         warning: { DEFAULT: '#C07A09', tint: '#FBF0DA' },
         danger: { DEFAULT: '#D23B47', tint: '#FBE6E8' },
 

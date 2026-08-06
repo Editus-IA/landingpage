@@ -32,7 +32,7 @@
               </p>
               <div class="mt-6 flex items-baseline gap-2">
                 <span class="font-display text-3xl font-bold text-success">R$ 9.000</span>
-                <span class="text-sm text-white/40">custo identificado em contrato de R$ 300k / 60 dias</span>
+                <span class="text-sm text-white/60">custo identificado em contrato de R$ 300k / 60 dias</span>
               </div>
             </div>
             <div class="bg-indigo-800/50 border border-indigo-700/30 rounded-eb-md p-6">
