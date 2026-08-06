@@ -77,6 +77,10 @@
                 class="block text-sm text-white/30 hover:text-white/60 transition-colors"
               >Funcionalidades</a>
               <NuxtLink
+                to="/guia"
+                class="block text-sm text-white/30 hover:text-white/60 transition-colors"
+              >Guias de licitação</NuxtLink>
+              <NuxtLink
                 to="/faq"
                 class="block text-sm text-white/30 hover:text-white/60 transition-colors"
               >Perguntas frequentes</NuxtLink>
