@@ -14,7 +14,10 @@
  *   node scripts/indexnow.mjs                      # envia a lista padrão
  *   node scripts/indexnow.mjs https://editus.com.br/faq  # envia URL(s) específica(s)
  *
- * Recomendado: rodar no pipeline de deploy, logo APÓS o site ir ao ar.
+ * NOTA: em produção, o disparo é AUTOMÁTICO via Vercel Cron → GET /api/indexnow
+ * (ver vercel.json e server/utils/indexnow.ts). Este script é o disparo MANUAL de
+ * fallback / uso local. A lista canônica de URLs vive em server/utils/indexnow.ts;
+ * manter as duas em sincronia ao adicionar páginas.
  */
 
 const KEY = '55fb7b5ab071828f3a53f0339628da3c'
