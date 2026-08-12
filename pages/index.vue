@@ -68,8 +68,8 @@ const formVariant = useABTest('waitlist-form', ['control', 'two-field', 'two-ste
 const formContextVariant = useABTest('form-context', ['control', 'context'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
-const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'dashboard', 'faq', 'cta-section', 'waitlist'] as const
-const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'faq', 'dashboard', 'cta-section', 'waitlist'] as const
+const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'dashboard', 'faq', 'waitlist'] as const
+const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'faq', 'dashboard', 'waitlist'] as const
 
 const sectionOrder = computed(() =>
   sectionOrderVariant.value === 'faq-first' ? FAQ_FIRST_SECTIONS : BASE_SECTIONS,
