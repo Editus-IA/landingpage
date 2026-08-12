@@ -478,17 +478,18 @@ onUnmounted(() => {
   stopWatchingSegment()
 })
 
-// CTA copy por variante
+// CTA copy por variante. O 'control' lidera com resultado (não com "lista"),
+// mantendo o funil de acesso antecipado — que é o que existe hoje.
 const heroCTAText = computed(() => {
   if (props.ctaCopyVariant === 'benefit') return 'Testar grátis'
   if (props.ctaCopyVariant === 'action') return 'Entrar na lista'
-  return 'Garantir acesso'
+  return 'Quero encontrar minhas licitações'
 })
 
 const fullFormCTAText = computed(() => {
   if (props.ctaCopyVariant === 'benefit') return 'Quero analisar editais'
   if (props.ctaCopyVariant === 'action') return 'Reservar minha vaga'
-  return 'Garantir meu acesso antecipado'
+  return 'Quero acesso antecipado'
 })
 
 // Cor do botão por variante

@@ -14,6 +14,8 @@
         :key="section"
       >
         <ProblemSection v-if="section === 'problem'" />
+        <RoiHighlight v-else-if="section === 'roi-highlight'" />
+        <DecisionCard v-else-if="section === 'decisao'" />
         <HowItWorks v-else-if="section === 'how-it-works'" />
         <FeaturesSection
           v-else-if="section === 'features'"
@@ -64,8 +66,8 @@ const formVariant = useABTest('waitlist-form', ['control', 'two-field', 'two-ste
 const formContextVariant = useABTest('form-context', ['control', 'context'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
-const BASE_SECTIONS = ['problem', 'how-it-works', 'features', 'dashboard', 'faq', 'cta-section', 'waitlist'] as const
-const FAQ_FIRST_SECTIONS = ['problem', 'how-it-works', 'features', 'faq', 'dashboard', 'cta-section', 'waitlist'] as const
+const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'dashboard', 'faq', 'cta-section', 'waitlist'] as const
+const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'faq', 'dashboard', 'cta-section', 'waitlist'] as const
 
 const sectionOrder = computed(() =>
   sectionOrderVariant.value === 'faq-first' ? FAQ_FIRST_SECTIONS : BASE_SECTIONS,

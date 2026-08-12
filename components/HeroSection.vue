@@ -54,9 +54,9 @@
             por falta de profissional para analisar?
           </template>
           <template v-else>
-            Análise mais precisa.<br>
-            <span class="text-violet-300">Proposta mais elaborada.</span><br>
-            Decisão sempre sua.
+            Encontre as licitações certas.<br>
+            <span class="text-violet-300">Saiba se vale a pena participar.</span><br>
+            Tenha a proposta pronta para revisar.
           </template>
         </h1>
 
@@ -75,9 +75,9 @@
             Você já tem processo. O problema é volume: editais demais para analisar com profundidade, tempo de menos. O Editus analisa os que você não conseguiria: habilitação, risco, custo financeiro e entrega o relatório pronto.
           </template>
           <template v-else>
-            Editus monitora o PNCP, filtra editais pelo perfil da sua empresa e entrega
-            análise completa de habilitação, compliance e precificação com a proposta
-            redigida e pronta para você revisar e submeter no Comprasnet.
+            O Editus monitora o PNCP, encontra editais compatíveis com sua empresa,
+            verifica habilitação, riscos e margem e prepara a proposta. Você decide
+            quais oportunidades merecem seu tempo.
           </template>
         </p>
 
@@ -89,6 +89,35 @@
             :button-color-variant="buttonColorVariant"
             :urgency-copy-variant="urgencyCopyVariant"
           />
+        </div>
+
+        <!-- CTA secundário: leva à demonstração da decisão (sem formulário) -->
+        <div
+          data-hero-reveal
+          class="mt-4"
+        >
+          <a
+            href="#decisao"
+            class="inline-flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors"
+            @click="onSecondaryCTAClick"
+          >
+            Ver um edital sendo analisado
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 7h8M8 4.5L10.5 7 8 9.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
         </div>
 
         <!-- Social proof -->
@@ -197,6 +226,10 @@ const urgencyVariant = useABTest('urgency-badge', ['control', 'count', 'countdow
 const subheadlineVariant = useABTest('hero-subheadline', ['control', 'short', 'pain', 'veteran'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
+function onSecondaryCTAClick() {
+  track('cta_click', { location: 'hero-secondary', target: 'decisao' })
+}
+
 const count = ref<number | null>(null)
 // Contador de vagas animado (sobe de 0 ao valor real); respeita reduced-motion.
 const { display: countDisplay, run: runCount } = useCountUp()
@@ -251,8 +284,8 @@ onMounted(async () => {
 })
 
 const stats = [
-  { value: '80+', label: 'páginas de edital analisadas em minutos' },
-  { value: 'R$ 9k', label: 'custo financeiro identificado por contrato de R$ 300k' },
+  { value: 'Minutos', label: 'para analisar um edital que levaria 3 a 5 dias manualmente' },
+  { value: 'R$ 9,9k', label: 'de custo financeiro identificado por contrato de R$ 300k' },
   { value: '200+', label: 'artigos da Lei 14.133/2021 verificados' },
   { value: '24/7', label: 'monitoramento do PNCP pelo perfil da empresa' },
 ]

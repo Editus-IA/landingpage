@@ -96,14 +96,15 @@
         <!-- Agents grid -->
         <div class="mt-16 bg-indigo-900 rounded-eb-lg p-8 md:p-12">
           <div class="text-center mb-10">
-            <p class="text-xs font-medium tracking-widest uppercase text-violet-300 mb-2">
-              Sob o capô
-            </p>
             <h3 class="text-2xl font-semibold text-white tracking-tight mb-2">
-              12 agentes trabalhando em paralelo
+              Uma análise completa antes de você gastar horas com a licitação
             </h3>
             <p class="text-sm text-white/60">
-              Cada agente é especialista em uma etapa, todos ativados pelo perfil da sua empresa
+              O Editus verifica automaticamente os pontos que normalmente exigiriam
+              horas de análise manual.
+            </p>
+            <p class="text-xs font-medium tracking-widest uppercase text-violet-300 mt-5">
+              Sob o capô: 12 agentes especializados
             </p>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
