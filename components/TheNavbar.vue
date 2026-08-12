@@ -1,13 +1,14 @@
 <template>
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="scrolled ? 'bg-indigo-900/95 backdrop-blur-md shadow-lg shadow-indigo-950/30' : 'bg-transparent'"
+    :class="solidBar ? 'bg-indigo-900/95 backdrop-blur-md shadow-lg shadow-indigo-950/30' : 'bg-transparent'"
   >
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <!-- Logo -->
-      <a
-        href="#"
+      <NuxtLink
+        to="/"
         class="flex items-center gap-2.5"
+        aria-label="Editus — página inicial"
       >
         <!-- editus-symbol-gradient: símbolo oficial do rebranding -->
         <svg
@@ -78,38 +79,38 @@
           />
         </svg>
         <span class="font-display font-bold text-white tracking-tight">edit<span class="font-medium text-violet-300">us</span></span>
-      </a>
+      </NuxtLink>
 
       <!-- Nav links -->
       <nav
         class="hidden md:flex items-center gap-8"
         aria-label="Menu principal"
       >
-        <a
-          href="#problema"
+        <NuxtLink
+          to="/#problema"
           class="text-sm text-white/60 hover:text-white transition-colors"
-        >Problema</a>
-        <a
-          href="#decisao"
+        >Problema</NuxtLink>
+        <NuxtLink
+          to="/#decisao"
           class="text-sm text-white/60 hover:text-white transition-colors"
-        >Decisão</a>
-        <a
-          href="#como-funciona"
+        >Decisão</NuxtLink>
+        <NuxtLink
+          to="/#como-funciona"
           class="text-sm text-white/60 hover:text-white transition-colors"
-        >Como funciona</a>
-        <a
-          href="#features"
+        >Como funciona</NuxtLink>
+        <NuxtLink
+          to="/#features"
           class="text-sm text-white/60 hover:text-white transition-colors"
-        >Funcionalidades</a>
-        <a
-          href="#faq"
+        >Funcionalidades</NuxtLink>
+        <NuxtLink
+          to="/#faq"
           class="text-sm text-white/60 hover:text-white transition-colors"
-        >FAQ</a>
+        >FAQ</NuxtLink>
       </nav>
 
       <!-- CTA -->
-      <a
-        href="#waitlist"
+      <NuxtLink
+        to="/#waitlist"
         class="btn-primary text-sm py-2"
         @click="onCtaClick"
       >
@@ -128,7 +129,7 @@
             stroke-linejoin="round"
           />
         </svg>
-      </a>
+      </NuxtLink>
     </div>
   </header>
 </template>
@@ -139,7 +140,14 @@ const { track } = useUmami()
 const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
 const buttonColorVariant = useABTest('button-color', ['control', 'green'])
 
+const route = useRoute()
+// Só a home tem hero escuro no topo — lá o navbar pode começar transparente e
+// virar sólido no scroll. Nas demais rotas (fundo branco), a barra transparente
+// sumiria; por isso fica sólida desde o topo. Evita o navbar "invisível".
+const isHome = computed(() => route.path === '/')
+
 const scrolled = ref(false)
+const solidBar = computed(() => scrolled.value || !isHome.value)
 
 const onScroll = () => {
   scrolled.value = window.scrollY > 20
