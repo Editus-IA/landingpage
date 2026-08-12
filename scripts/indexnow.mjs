@@ -36,6 +36,9 @@ const DEFAULT_URLS = [
   `${ORIGIN}/guia/habilitacao-licitacao`,
   `${ORIGIN}/guia/consulta-ceis-cnep-cepim`,
   `${ORIGIN}/guia/lei-14133-resumo`,
+  `${ORIGIN}/guia/pregao-eletronico-como-funciona`,
+  `${ORIGIN}/guia/como-participar-de-licitacao`,
+  `${ORIGIN}/guia/mei-pode-participar-de-licitacao`,
 ]
 
 async function main() {

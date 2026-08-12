@@ -213,6 +213,112 @@ export const GUIDES: Guide[] = [
       { q: 'O que é o diálogo competitivo?', a: 'É uma modalidade nova, voltada a contratações de soluções inovadoras ou tecnicamente complexas, em que a administração conversa com os licitantes para desenvolver a solução antes de receber as propostas finais.' },
     ],
   },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'pregao-eletronico-como-funciona',
+    title: 'Como funciona o pregão eletrônico: guia completo para empresas',
+    h1: 'Como funciona o pregão eletrônico',
+    description:
+      'O pregão eletrônico é a modalidade mais usada em licitações de bens e serviços comuns. Entenda as fases, os lances, a habilitação e como participar passo a passo.',
+    kicker: 'Guia do pregão eletrônico',
+    keyword: 'como funciona o pregão eletrônico',
+    updated: '2026-08-05',
+    readingTime: '7 min',
+    blocks: [
+      { type: 'p', text: 'O pregão eletrônico é a modalidade de licitação mais utilizada no Brasil para a compra de bens e serviços comuns — aqueles cujo desempenho e qualidade podem ser definidos por especificações usuais de mercado. Toda a disputa acontece pela internet, o que amplia a competição e dá transparência ao processo.' },
+      { type: 'p', text: 'Sob a Lei 14.133/2021, o pregão é julgado por menor preço ou maior desconto, e é conduzido em plataformas como o Compras.gov.br (antigo Comprasnet) e portais estaduais e municipais.' },
+      { type: 'h2', text: 'As fases do pregão eletrônico', id: 'fases' },
+      { type: 'ol', items: [
+        'Publicação do edital no PNCP, com o objeto, as exigências e a data da sessão.',
+        'Cadastro e envio das propostas iniciais pelas empresas, antes da abertura.',
+        'Sessão pública: abertura das propostas e início da etapa de lances.',
+        'Etapa de lances: as empresas reduzem seus preços em tempo real até o encerramento.',
+        'Julgamento e habilitação: verifica-se a documentação da empresa mais bem classificada.',
+        'Adjudicação e homologação: o vencedor é declarado e o resultado é oficializado.',
+      ] },
+      { type: 'h2', text: 'A etapa de lances', id: 'lances' },
+      { type: 'p', text: 'É o momento decisivo. Após a abertura das propostas, as empresas competem enviando lances sucessivos e decrescentes. Os modos de disputa mais comuns são o aberto (lances públicos por tempo determinado, com prorrogações automáticas) e o aberto e fechado (combina lances públicos com um lance final sigiloso dos melhores classificados).' },
+      { type: 'h2', text: 'Habilitação: o vencedor precisa comprovar', id: 'habilitacao' },
+      { type: 'p', text: 'Vencer o preço não basta. Antes de assinar, a empresa mais bem classificada precisa comprovar habilitação jurídica, regularidade fiscal e trabalhista, qualificação técnica e econômico-financeira. É aqui que muitas propostas caem — por uma certidão vencida ou um documento faltando.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O Editus analisa o edital do pregão antes da sessão: verifica se sua empresa está habilitada, calcula o custo financeiro do prazo de pagamento e ajuda a definir o preço mínimo viável — para você não dar um lance que corrói a margem.' },
+    ],
+    faqs: [
+      { q: 'Qual a diferença entre pregão eletrônico e presencial?', a: 'No pregão eletrônico toda a disputa ocorre pela internet, em plataforma como o Compras.gov.br. No presencial, hoje raro, os representantes comparecem fisicamente. A Lei 14.133/2021 prioriza a forma eletrônica.' },
+      { q: 'Preciso de certificado digital para participar de pregão?', a: 'Para operar na maioria das plataformas e assinar documentos é necessário credenciamento e, em muitos casos, certificado digital. O cadastro no Compras.gov.br é o ponto de partida para pregões federais.' },
+      { q: 'O menor preço sempre vence o pregão?', a: 'O menor preço é classificado em primeiro lugar, mas só vence se a empresa comprovar a habilitação e se o preço for exequível. Propostas inexequíveis ou com documentação irregular são desclassificadas.' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'como-participar-de-licitacao',
+    title: 'Como participar de uma licitação: passo a passo para empresas',
+    h1: 'Como participar de uma licitação (passo a passo)',
+    description:
+      'Guia prático para a sua primeira licitação: do cadastro no Compras.gov.br à documentação de habilitação e ao envio da proposta. O que a empresa precisa para começar.',
+    kicker: 'Guia para começar',
+    keyword: 'como participar de licitação',
+    updated: '2026-08-05',
+    readingTime: '8 min',
+    blocks: [
+      { type: 'p', text: 'Participar de licitações é uma das formas mais previsíveis de conquistar um cliente com contratos de médio e longo prazo: o poder público. O processo tem regras claras, e uma empresa organizada consegue competir mesmo sem experiência prévia. Este é o passo a passo para começar.' },
+      { type: 'h2', text: '1. Regularize a empresa', id: 'regularize' },
+      { type: 'p', text: 'Antes de qualquer coisa, a empresa precisa estar em dia: CNPJ ativo, contrato social atualizado, e as certidões de regularidade fiscal e trabalhista válidas (federal, FGTS e CNDT). É a base da habilitação — sem isso, nem adianta disputar.' },
+      { type: 'h2', text: '2. Faça o cadastro nas plataformas', id: 'cadastro' },
+      { type: 'ul', items: [
+        'Compras.gov.br: cadastro no SICAF para licitações federais.',
+        'Portais estaduais e municipais: cada ente pode ter sua própria plataforma.',
+        'Certificado digital: necessário para assinar propostas e documentos na maioria dos sistemas.',
+      ] },
+      { type: 'h2', text: '3. Encontre editais compatíveis', id: 'encontre' },
+      { type: 'p', text: 'Todos os editais são publicados no PNCP. O desafio é achar os que combinam com o seu segmento, porte e região — e acompanhar as publicações continuamente, porque os prazos são curtos. Monitorar manualmente todos os dias é inviável para a maioria das empresas.' },
+      { type: 'h2', text: '4. Analise o edital antes de decidir', id: 'analise' },
+      { type: 'p', text: 'Nem toda licitação vale a pena. Antes de investir tempo, avalie: sua empresa se habilita? Há cláusulas de risco ou penalidades desproporcionais? O prazo de pagamento (30, 60, 90 dias) corrói a margem? Essa análise é o que separa um contrato lucrativo de um prejuízo disfarçado.' },
+      { type: 'h2', text: '5. Envie a proposta e dispute', id: 'proposta' },
+      { type: 'p', text: 'Com a decisão tomada, monte a proposta conforme as exigências do edital, cadastre-a na plataforma dentro do prazo e participe da sessão. No pregão, isso inclui a etapa de lances.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O Editus cobre as etapas 3, 4 e 5: monitora o PNCP pelo perfil da sua empresa, analisa cada edital compatível (habilitação, risco, custo financeiro) e prepara a proposta para você revisar e enviar.' },
+    ],
+    faqs: [
+      { q: 'Qualquer empresa pode participar de licitação?', a: 'Sim, desde que atenda às condições de habilitação do edital e não esteja impedida (por exemplo, com registro no CEIS). MEI, ME e EPP inclusive têm benefícios legais, como o direito de preferência em empate.' },
+      { q: 'Preciso de um consultor para participar?', a: 'Não é obrigatório. Em licitações mais simples, uma empresa organizada consegue participar sozinha. Em contratos complexos, uma consultoria ou ferramentas de análise ajudam a reduzir erros de habilitação e precificação.' },
+      { q: 'Quanto custa participar de uma licitação?', a: 'Participar em si é gratuito. Os custos são indiretos: certificado digital, tempo de análise do edital, elaboração da proposta e, eventualmente, garantias exigidas pelo edital.' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'mei-pode-participar-de-licitacao',
+    title: 'MEI pode participar de licitação? O que o microempreendedor precisa saber',
+    h1: 'MEI pode participar de licitação?',
+    description:
+      'Sim, o MEI pode participar de licitações e ainda tem benefícios legais como ME/EPP. Veja os documentos, os limites de faturamento e como o microempreendedor concorre.',
+    kicker: 'Guia para MEI',
+    keyword: 'MEI pode participar de licitação',
+    updated: '2026-08-05',
+    readingTime: '5 min',
+    blocks: [
+      { type: 'p', text: 'Sim: o Microempreendedor Individual (MEI) pode participar de licitações públicas. Mais do que isso, o MEI é equiparado a microempresa (ME) e goza dos benefícios legais concedidos a ME e EPP na Lei Complementar 123/2006 — o que, em muitos casos, é uma vantagem competitiva real.' },
+      { type: 'h2', text: 'Documentos que o MEI precisa', id: 'documentos' },
+      { type: 'ul', items: [
+        'Certificado da Condição de Microempreendedor Individual (CCMEI), que comprova a habilitação jurídica.',
+        'Comprovante de inscrição no CNPJ.',
+        'Certidões de regularidade fiscal e trabalhista (federal, FGTS e CNDT).',
+        'Certificado digital, para operar nas plataformas e assinar a proposta.',
+      ] },
+      { type: 'h2', text: 'Os benefícios do MEI em licitações', id: 'beneficios' },
+      { type: 'ul', items: [
+        'Direito de preferência em caso de empate (o chamado empate ficto): se a proposta de um MEI/ME/EPP for até 5% superior à do vencedor, ele pode cobrir o preço.',
+        'Regularização fiscal facilitada: prazo para sanar pendências fiscais após ser declarado vencedor.',
+        'Licitações e cotas exclusivas para ME/EPP em contratações de menor valor.',
+      ] },
+      { type: 'h2', text: 'O limite que o MEI precisa observar', id: 'limite' },
+      { type: 'p', text: 'A principal atenção é o faturamento: o MEI tem um teto anual de receita. Ao disputar contratos públicos, o microempreendedor precisa garantir que a soma dos contratos não ultrapasse esse limite — caso contrário, será obrigado a migrar para ME, com outra carga tributária. Vale planejar o porte antes de assumir contratos maiores.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O Editus considera o porte da empresa (MEI, ME, EPP) na análise: identifica cotas e benefícios aplicáveis, verifica a habilitação e sinaliza quando o valor do contrato exige atenção ao limite de faturamento.' },
+    ],
+    faqs: [
+      { q: 'MEI tem vantagem em licitação?', a: 'Sim. Como é equiparado a ME, o MEI tem direito de preferência em empate (empate ficto), regularização fiscal facilitada e acesso a cotas e licitações exclusivas para ME/EPP em contratações de menor valor.' },
+      { q: 'Qual o limite de faturamento do MEI em licitações?', a: 'O MEI deve respeitar o teto anual de receita da categoria. Contratos públicos contam para esse limite; ao ultrapassá-lo, o microempreendedor precisa migrar para ME, com regime tributário diferente.' },
+      { q: 'MEI precisa de certificado digital para licitar?', a: 'Na prática, sim. A maioria das plataformas de licitação exige credenciamento e certificado digital para envio de propostas e assinatura de documentos.' },
+    ],
+  },
 ]
 
 export function getGuide(slug: string): Guide | undefined {

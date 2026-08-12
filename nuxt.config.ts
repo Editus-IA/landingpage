@@ -267,6 +267,9 @@ export default defineNuxtConfig({
       '/guia/habilitacao-licitacao',
       '/guia/consulta-ceis-cnep-cepim',
       '/guia/lei-14133-resumo',
+      '/guia/pregao-eletronico-como-funciona',
+      '/guia/como-participar-de-licitacao',
+      '/guia/mei-pode-participar-de-licitacao',
     ],
   },
 })
