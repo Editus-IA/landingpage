@@ -255,7 +255,8 @@ import {
   formatBRL,
 } from '~/composables/useCustoFinanceiro'
 
-// Inputs (valores iniciais espelham a estatística usada no Hero: R$ 300k / R$ 9k).
+// Inputs (valores iniciais espelham o cenário usado na home: R$ 300k / 90 dias →
+// ~R$ 9,9k). O selicAnual inicial é um placeholder; o valor real vem de /api/selic.
 const valorContrato = ref(300000)
 const prazoPagamentoDias = ref(90)
 const selicAnual = ref(11)

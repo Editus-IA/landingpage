@@ -12,13 +12,14 @@
       </div>
 
       <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
-        Não perca mais licitações<br>
-        <span class="text-violet-300">por falta de análise.</span><br>
-        Sua vaga está aqui.
+        Descubra as licitações<br>
+        <span class="text-violet-300">que valem o seu tempo.</span><br>
+        Comece pelo acesso antecipado.
       </h2>
 
-      <p class="text-lg text-white/50 leading-relaxed mb-10 max-w-xl mx-auto">
-        Sem custo. Sem compromisso. Só queremos feedback real de quem compete em licitações.
+      <p class="text-lg text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+        O Editus encontra os editais compatíveis, mostra se vale a pena participar e prepara a
+        proposta. Sem custo, sem compromisso — só queremos feedback de quem compete em licitações.
       </p>
 
       <!-- Inline email capture -->
@@ -31,7 +32,7 @@
           type="email"
           required
           placeholder="seu@email.com.br"
-          aria-label="Seu email para acesso antecipado"
+          aria-label="Seu email para encontrar suas próximas licitações"
           class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-eb-sm text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"
         >
         <button
@@ -40,7 +41,7 @@
           :class="btnClass"
           class="whitespace-nowrap text-white rounded-lg px-6 py-3 text-sm font-medium inline-flex items-center gap-2 transition-all hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:opacity-50"
         >
-          Garantir acesso
+          Quero encontrar minhas licitações
           <svg
             width="14"
             height="14"

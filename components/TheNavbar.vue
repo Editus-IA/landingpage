@@ -90,6 +90,10 @@
           class="text-sm text-white/60 hover:text-white transition-colors"
         >Problema</a>
         <a
+          href="#decisao"
+          class="text-sm text-white/60 hover:text-white transition-colors"
+        >Decisão</a>
+        <a
           href="#como-funciona"
           class="text-sm text-white/60 hover:text-white transition-colors"
         >Como funciona</a>
@@ -109,7 +113,7 @@
         class="btn-primary text-sm py-2"
         @click="onCtaClick"
       >
-        Acesso antecipado
+        Quero acesso antecipado
         <svg
           width="14"
           height="14"

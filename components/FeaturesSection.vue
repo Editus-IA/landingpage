@@ -15,46 +15,9 @@
 
       <!-- Feature grid -->
       <div class="grid md:grid-cols-2 gap-6">
-        <!-- Feature destacada (large) -->
-        <div class="card md:col-span-2 bg-indigo-900 border-indigo-800 hover:border-indigo-700 p-8 md:p-10">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div class="inline-flex items-center gap-2 bg-success/20 border border-success/20 rounded-full px-3 py-1 mb-5">
-                <span class="w-1.5 h-1.5 bg-success rounded-full" />
-                <span class="text-xs text-success font-medium">Destaque</span>
-              </div>
-              <h3 class="text-2xl font-semibold text-white tracking-tight mb-3">
-                Custo financeiro do prazo de pagamento
-              </h3>
-              <p class="text-white/55 leading-relaxed text-sm">
-                Editais com pagamento em 60 ou 90 dias geram custo financeiro real que a maioria das PMEs ignora na proposta.
-                O Editus calcula automaticamente esse custo com base na taxa Selic, inclui no relatório e ajusta sua margem antes de você enviar.
-              </p>
-              <div class="mt-6 flex items-baseline gap-2">
-                <span class="font-display text-3xl font-bold text-success">R$ 9.881</span>
-                <span class="text-sm text-white/60">custo identificado em contrato de R$ 300k / 90 dias</span>
-              </div>
-            </div>
-            <div class="bg-indigo-800/50 border border-indigo-700/30 rounded-eb-md p-6">
-              <div class="text-xs font-medium text-violet-300 mb-4 uppercase tracking-wider">
-                Relatório de precificação
-              </div>
-              <div class="space-y-3">
-                <div
-                  v-for="row in pricingRows"
-                  :key="row.label"
-                  class="flex items-center justify-between py-2 border-b border-indigo-700/30 last:border-0"
-                >
-                  <span class="text-sm text-white/60">{{ row.label }}</span>
-                  <span
-                    class="text-sm font-medium"
-                    :class="row.highlight ? 'text-success' : 'text-white'"
-                  >{{ row.value }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- O cenário de custo financeiro (R$ 300k → R$ 9.881) já é apresentado
+             nos blocos RoiHighlight e DecisionCard, no topo da página. Aqui
+             listamos apenas as funcionalidades, sem repetir a tabela. -->
 
         <!-- Features regulares -->
         <div
@@ -161,17 +124,6 @@ const IconDoc = defineComponent(() => () => h('svg', { width: 20, height: 20, vi
   h('path', { 'd': 'M12 2v4h4', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
   h('path', { 'd': 'M7 9h6M7 12h4', 'stroke': '#BA7517', 'stroke-width': 1.3, 'stroke-linecap': 'round' }),
 ]))
-
-// Valores conferem com a fórmula da /calculadora-custo-financeiro:
-// 300.000 × ((1+0,14)^(1/12)−1) × (90/30) ≈ R$ 9.881 (≈ 3,3% do contrato).
-const pricingRows = [
-  { label: 'Valor do contrato', value: 'R$ 300.000' },
-  { label: 'Prazo de pagamento', value: '90 dias' },
-  { label: 'Taxa mensal (Selic)', value: '1,1% / mês' },
-  { label: 'Custo financeiro', value: 'R$ 9.881', highlight: true },
-  { label: 'Margem ajustada', value: '15,3% → 12,0%', highlight: false },
-  { label: 'Recomendação', value: '✓ Participar c/ ajuste', highlight: true },
-]
 
 const controlTitles = [
   'Score de compliance automático',

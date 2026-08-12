@@ -652,7 +652,7 @@ const editais = [
 
 const metrics = [
   { label: 'Compliance', value: '87/100', color: '#1D9E75' },
-  { label: 'Custo financeiro', value: 'R$ 9k', color: 'white' },
+  { label: 'Custo financeiro', value: 'R$ 9.881', color: 'white' },
   { label: 'Risco', value: 'Médio', color: '#EF9F27' },
   { label: 'Impedimentos', value: 'Limpo', color: '#1D9E75' },
 ]

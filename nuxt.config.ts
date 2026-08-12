@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Editus — IA para análise de editais e licitações públicas',
+      title: 'Editus — encontre licitações certas e saiba se vale a pena participar',
       htmlAttrs: { lang: 'pt-BR' },
       meta: [
         { charset: 'utf-8' },
@@ -18,7 +18,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Analise editais de licitação em minutos, não em dias. O Editus verifica habilitação, compliance com a Lei 14.133 e gera a proposta pronta para PMEs. Acesso antecipado aberto.',
+            'O Editus monitora o PNCP, encontra editais compatíveis com sua empresa, diz se vale a pena participar (habilitação, risco, margem) e prepara a proposta. IA para PMEs em licitações. Acesso antecipado aberto.',
         },
         {
           name: 'keywords',
@@ -26,30 +26,30 @@ export default defineNuxtConfig({
             'análise de edital, software licitação, IA para licitações, PNCP, Lei 14133, compliance licitação, habilitação licitação, PME licitação, proposta automática, Comprasnet, como analisar edital de licitação, verificação habilitação licitação, custo financeiro edital pagamento, análise edital PNCP automática',
         },
         // Open Graph
-        { property: 'og:title', content: 'Editus — IA para análise de editais e licitações públicas' },
+        { property: 'og:title', content: 'Editus — encontre licitações certas e saiba se vale a pena participar' },
         {
           property: 'og:description',
           content:
-            'Monitora o PNCP, analisa editais com 12 agentes de IA e entrega proposta pronta para revisão. Habilitação, compliance e custo financeiro — automatizados.',
+            'Monitora o PNCP, encontra editais compatíveis com sua empresa, mostra se vale a pena entrar (habilitação, risco, margem, custo financeiro) e prepara a proposta. Você decide.',
         },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://editus.com.br' },
         { property: 'og:image', content: 'https://editus.com.br/og-image.png' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Editus — IA para análise de editais e licitações públicas' },
+        { property: 'og:image:alt', content: 'Editus — encontre licitações certas e saiba se vale a pena participar' },
         { property: 'og:locale', content: 'pt_BR' },
         { property: 'og:site_name', content: 'Editus' },
         // Twitter / X Card
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Editus — IA para análise de editais e licitações' },
+        { name: 'twitter:title', content: 'Editus — encontre licitações certas e saiba se vale a pena' },
         {
           name: 'twitter:description',
           content:
-            'Monitora PNCP, analisa editais com IA e entrega proposta pronta para revisão. Para PMEs brasileiras.',
+            'Monitora o PNCP, encontra editais compatíveis, mostra se vale a pena participar e prepara a proposta. Para PMEs brasileiras.',
         },
         { name: 'twitter:image', content: 'https://editus.com.br/og-image.png' },
-        { name: 'twitter:image:alt', content: 'Editus — IA para análise de editais e licitações públicas' },
+        { name: 'twitter:image:alt', content: 'Editus — encontre licitações certas e saiba se vale a pena participar' },
         // Técnico
         { name: 'theme-color', content: '#1E1654' },
         { name: 'robots', content: 'index, follow' },
@@ -71,7 +71,7 @@ export default defineNuxtConfig({
             'operatingSystem': 'Web',
             'url': 'https://editus.com.br',
             'description':
-              'Plataforma de inteligência artificial para PMEs brasileiras que competem em licitações públicas. Monitora o PNCP, analisa editais com 12 agentes de IA especializados, verifica habilitação e gera propostas completas com base no perfil da empresa.',
+              'Plataforma de inteligência artificial para PMEs brasileiras que competem em licitações públicas. Monitora o PNCP, encontra editais compatíveis com o perfil da empresa, mostra se vale a pena participar (habilitação, risco, compliance com a Lei 14.133, custo financeiro e margem) e prepara a proposta para revisão.',
             'offers': {
               '@type': 'Offer',
               'availability': 'https://schema.org/PreOrder',
@@ -121,7 +121,7 @@ export default defineNuxtConfig({
             'url': 'https://editus.com.br',
             'logo': 'https://editus.com.br/logo-symbol-gradient.svg',
             'image': 'https://editus.com.br/og-image.png',
-            'slogan': 'IA para análise de editais e licitações públicas',
+            'slogan': 'Encontre as licitações certas e saiba se vale a pena participar',
             'description':
               'Empresa de tecnologia especializada em inteligência artificial para o mercado de licitações públicas brasileiras. Não confundir com a Editus, editora da UESC.',
             'foundingDate': '2026',

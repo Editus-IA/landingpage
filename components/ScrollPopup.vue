@@ -16,7 +16,7 @@
           class="relative bg-indigo-900 border border-indigo-700/60 rounded-eb-md shadow-2xl max-w-md w-full p-8"
           role="dialog"
           aria-modal="true"
-          aria-label="Garantir acesso antecipado"
+          aria-label="Encontre suas próximas licitações com o Editus"
         >
           <!-- Fechar -->
           <button
@@ -45,10 +45,11 @@
           </div>
 
           <h3 class="text-2xl font-semibold text-white tracking-tight mb-2">
-            Garanta sua vaga antes de fechar
+            Antes de sair: quais licitações você está deixando passar?
           </h3>
-          <p class="text-sm text-white/50 mb-6 leading-relaxed">
-            Comece pelo e-mail e segmento — você finaliza o cadastro em seguida.
+          <p class="text-sm text-white/60 mb-6 leading-relaxed">
+            Diga seu e-mail e segmento e o Editus começa a monitorar os editais compatíveis com a
+            sua empresa. Você finaliza o cadastro em seguida.
           </p>
 
           <form
