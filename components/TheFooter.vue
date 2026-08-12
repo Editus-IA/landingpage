@@ -77,6 +77,10 @@
                 class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Funcionalidades</a>
               <NuxtLink
+                to="/diagnostico"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
+              >Diagnóstico de oportunidades</NuxtLink>
+              <NuxtLink
                 to="/calculadora-custo-financeiro"
                 class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Calculadora de custo financeiro</NuxtLink>

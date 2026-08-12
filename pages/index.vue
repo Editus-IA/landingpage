@@ -22,6 +22,8 @@
           :cta-copy-variant="ctaCopyVariant"
           :button-color-variant="buttonColorVariant"
         />
+        <VsChatGPT v-else-if="section === 'vs-chatgpt'" />
+        <SegmentsSection v-else-if="section === 'segments'" />
         <ClientOnly v-else-if="section === 'dashboard'">
           <DashboardPreview />
           <template #fallback>
@@ -66,8 +68,8 @@ const formVariant = useABTest('waitlist-form', ['control', 'two-field', 'two-ste
 const formContextVariant = useABTest('form-context', ['control', 'context'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
 
-const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'dashboard', 'faq', 'cta-section', 'waitlist'] as const
-const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'faq', 'dashboard', 'cta-section', 'waitlist'] as const
+const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'dashboard', 'faq', 'cta-section', 'waitlist'] as const
+const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'faq', 'dashboard', 'cta-section', 'waitlist'] as const
 
 const sectionOrder = computed(() =>
   sectionOrderVariant.value === 'faq-first' ? FAQ_FIRST_SECTIONS : BASE_SECTIONS,

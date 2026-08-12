@@ -30,6 +30,7 @@ const DEFAULT_URLS = [
   `${ORIGIN}/`,
   `${ORIGIN}/faq`,
   `${ORIGIN}/calculadora-custo-financeiro`,
+  `${ORIGIN}/diagnostico`,
   `${ORIGIN}/guia`,
   `${ORIGIN}/guia/o-que-e-pncp`,
   `${ORIGIN}/guia/habilitacao-licitacao`,
