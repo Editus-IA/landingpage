@@ -319,6 +319,144 @@ export const GUIDES: Guide[] = [
       { q: 'MEI precisa de certificado digital para licitar?', a: 'Na prática, sim. A maioria das plataformas de licitação exige credenciamento e certificado digital para envio de propostas e assinatura de documentos.' },
     ],
   },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'o-que-e-sicaf',
+    title: 'O que é o SICAF e como se cadastrar para licitar',
+    h1: 'O que é o SICAF e como fazer o cadastro',
+    description:
+      'O SICAF é o cadastro que habilita empresas a participar de licitações federais. Entenda o que é, os níveis de cadastramento e o passo a passo para se registrar.',
+    kicker: 'Guia do SICAF',
+    keyword: 'o que é SICAF e como se cadastrar',
+    updated: '2026-08-05',
+    readingTime: '6 min',
+    blocks: [
+      { type: 'p', text: 'O SICAF (Sistema de Cadastramento Unificado de Fornecedores) é o registro oficial das empresas aptas a contratar com a administração pública federal. Estar cadastrado no SICAF simplifica a habilitação: em vez de apresentar dezenas de documentos a cada licitação, boa parte da regularidade da empresa já fica comprovada no sistema.' },
+      { type: 'p', text: 'O cadastro é gratuito e feito pelo portal Compras.gov.br. É, na prática, o passo de entrada para quem quer disputar licitações federais.' },
+      { type: 'h2', text: 'Para que serve o SICAF', id: 'para-que-serve' },
+      { type: 'ul', items: [
+        'Comprova a regularidade fiscal, trabalhista e a habilitação jurídica da empresa de forma centralizada.',
+        'Agiliza a fase de habilitação — o pregoeiro consulta o SICAF em vez de conferir documento por documento.',
+        'Mantém o histórico e a situação cadastral da empresa atualizados perante o governo federal.',
+      ] },
+      { type: 'h2', text: 'Os níveis de cadastramento', id: 'niveis' },
+      { type: 'p', text: 'O SICAF é organizado em níveis, do credenciamento básico à qualificação técnica e econômico-financeira. Quanto mais completo o cadastro, menos documentos avulsos a empresa precisa apresentar em cada certame. Alguns editais exigem níveis específicos.' },
+      { type: 'h2', text: 'Passo a passo para se cadastrar', id: 'passo-a-passo' },
+      { type: 'ol', items: [
+        'Obtenha um certificado digital (e-CNPJ) para acessar o sistema.',
+        'Acesse o Compras.gov.br e inicie o credenciamento como fornecedor.',
+        'Preencha os dados da empresa e dos sócios/representantes.',
+        'Anexe e valide as certidões de regularidade fiscal e trabalhista.',
+        'Conclua os níveis adicionais (técnico e econômico) conforme o seu ramo.',
+      ] },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'Depois de cadastrada, sua empresa precisa manter as certidões válidas — e é aqui que muitos perdem prazo. O Editus verifica a habilitação a cada edital e sinaliza certidões a vencer antes da sessão.' },
+    ],
+    faqs: [
+      { q: 'O cadastro no SICAF é gratuito?', a: 'Sim. O credenciamento no SICAF é gratuito e feito pelo portal Compras.gov.br. O custo indireto é o certificado digital (e-CNPJ), necessário para acessar o sistema.' },
+      { q: 'Preciso estar no SICAF para participar de qualquer licitação?', a: 'Para licitações federais no Compras.gov.br, o SICAF é o cadastro padrão. Estados e municípios podem ter seus próprios sistemas de cadastramento de fornecedores.' },
+      { q: 'O SICAF substitui a apresentação de documentos?', a: 'Parcialmente. Ele comprova boa parte da regularidade da empresa, mas alguns editais ainda exigem documentos complementares específicos do objeto.' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'certidao-vencida-licitacao',
+    title: 'Certidão vencida na licitação: o que fazer para não ser desclassificado',
+    h1: 'Certidão vencida na licitação: o que fazer',
+    description:
+      'Uma certidão vencida é a causa mais comum de desclassificação em licitações. Entenda o que acontece, o que a lei permite (especialmente para ME/EPP) e como se prevenir.',
+    kicker: 'Guia de certidões',
+    keyword: 'certidão vencida na licitação',
+    updated: '2026-08-05',
+    readingTime: '5 min',
+    blocks: [
+      { type: 'p', text: 'Perder uma licitação por causa de uma certidão vencida é uma das frustrações mais comuns — e mais evitáveis — do processo. A empresa tem capacidade, oferece o melhor preço, mas é inabilitada por um documento que expirou dias antes da sessão. Entender as regras ajuda a não cair nessa.' },
+      { type: 'h2', text: 'O que acontece se a certidão estiver vencida', id: 'o-que-acontece' },
+      { type: 'p', text: 'Na regra geral, a empresa cuja documentação de regularidade fiscal ou trabalhista esteja vencida no momento da habilitação é inabilitada. As certidões precisam estar válidas na data exigida pelo edital — normalmente a da sessão ou a do envio da proposta.' },
+      { type: 'h2', text: 'A exceção para ME e EPP', id: 'me-epp' },
+      { type: 'p', text: 'A Lei Complementar 123/2006 dá um tratamento favorecido a microempresas e empresas de pequeno porte: mesmo com alguma restrição na regularidade fiscal, a ME/EPP pode ser declarada vencedora e tem um prazo (prorrogável) para regularizar a situação antes da assinatura do contrato. Atenção: esse benefício vale para a regularidade fiscal e trabalhista — não para todos os documentos.' },
+      { type: 'h2', text: 'Como se prevenir', id: 'prevencao' },
+      { type: 'ul', items: [
+        'Mantenha um calendário de validade de cada certidão (CND federal, FGTS, CNDT, estaduais e municipais).',
+        'Emita as certidões novamente sempre que faltar pouco para o vencimento antes de uma sessão.',
+        'Confira as datas exigidas pelo edital — algumas pedem validade na data da proposta, outras na sessão.',
+      ] },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O agente de habilitação do Editus cruza as exigências do edital com o perfil da empresa e sinaliza certidões vencidas ou a vencer antes da sessão — reduzindo o risco de desclassificação por documentação.' },
+    ],
+    faqs: [
+      { q: 'ME e EPP podem regularizar certidão depois de vencer a licitação?', a: 'Sim, quanto à regularidade fiscal e trabalhista. A Lei Complementar 123/2006 concede às ME/EPP um prazo para sanar pendências após serem declaradas vencedoras, antes da assinatura do contrato.' },
+      { q: 'Certidão positiva com efeito de negativa serve?', a: 'Sim. A certidão positiva com efeitos de negativa (quando há débito com exigibilidade suspensa ou parcelado) é geralmente aceita como prova de regularidade, equivalendo à negativa.' },
+      { q: 'Posso apresentar a certidão em outra data se ela venceu?', a: 'Fora da hipótese de ME/EPP, não. A regra geral exige a certidão válida na data definida pelo edital; documento vencido leva à inabilitação.' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'impugnacao-de-edital',
+    title: 'Impugnação de edital de licitação: como e quando fazer',
+    h1: 'Impugnação de edital: como e quando fazer',
+    description:
+      'A impugnação questiona cláusulas ilegais ou restritivas de um edital antes da sessão. Veja quem pode impugnar, os prazos e a diferença para o pedido de esclarecimento.',
+    kicker: 'Guia de impugnação',
+    keyword: 'como impugnar edital de licitação',
+    updated: '2026-08-05',
+    readingTime: '6 min',
+    blocks: [
+      { type: 'p', text: 'Nem todo edital é perfeito. Às vezes ele traz uma exigência restritiva, uma cláusula ilegal ou um erro que prejudica a competição. Nesses casos, a lei permite que se apresente uma impugnação — um questionamento formal ao órgão, antes da sessão, para corrigir ou anular o que estiver errado.' },
+      { type: 'h2', text: 'Quem pode impugnar', id: 'quem-pode' },
+      { type: 'p', text: 'Sob a Lei 14.133/2021, qualquer pessoa — cidadão ou empresa interessada — pode impugnar os termos do edital por irregularidade. Não é preciso já estar inscrito na licitação para impugnar.' },
+      { type: 'h2', text: 'Impugnação x pedido de esclarecimento', id: 'diferenca' },
+      { type: 'ul', items: [
+        'Impugnação: aponta uma ilegalidade ou restrição indevida e pede correção ou anulação de cláusula.',
+        'Pedido de esclarecimento: apenas tira dúvidas sobre pontos do edital, sem questionar sua legalidade.',
+      ] },
+      { type: 'h2', text: 'Prazos', id: 'prazos' },
+      { type: 'p', text: 'A Lei 14.133/2021 fixa prazo para impugnação e para o pedido de esclarecimento até determinado número de dias úteis antes da data da sessão, e o órgão deve responder também dentro de prazo legal. Como os prazos são curtos, analisar o edital cedo é decisivo — quem só lê o edital na véspera perde a janela de impugnar.' },
+      { type: 'h2', text: 'Como apresentar', id: 'como-apresentar' },
+      { type: 'ol', items: [
+        'Identifique a cláusula problemática e a base legal do questionamento.',
+        'Redija a impugnação de forma objetiva, indicando o pedido (correção ou anulação).',
+        'Protocole pelo canal indicado no edital (geralmente a plataforma ou e-mail do órgão), dentro do prazo.',
+        'Acompanhe a resposta: o edital pode ser alterado, com eventual reabertura de prazo.',
+      ] },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O agente de risco do Editus identifica cláusulas restritivas, penalidades desproporcionais e exigências possivelmente ilegais logo na análise do edital — dando tempo para você decidir se vale impugnar antes do prazo acabar.' },
+    ],
+    faqs: [
+      { q: 'Qualquer pessoa pode impugnar um edital?', a: 'Sim. Sob a Lei 14.133/2021, qualquer pessoa pode impugnar os termos do edital por irregularidade, não sendo necessário já estar inscrito na licitação.' },
+      { q: 'Impugnar o edital atrapalha minha participação?', a: 'Não. Impugnar é um direito e não impede a empresa de participar. Se a impugnação for aceita, o edital é corrigido — o que pode inclusive beneficiar quem apontou o problema.' },
+      { q: 'Qual a diferença entre impugnação e recurso?', a: 'A impugnação questiona o edital antes da sessão. O recurso questiona decisões tomadas durante ou após o certame (habilitação, julgamento, resultado).' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'carta-de-credenciamento-licitacao',
+    title: 'Carta de credenciamento e procuração em licitação: para que servem',
+    h1: 'Carta de credenciamento e procuração em licitação',
+    description:
+      'A carta de credenciamento autoriza um representante a agir pela empresa na licitação. Entenda quando é exigida, o que deve conter e a diferença para a procuração.',
+    kicker: 'Guia de credenciamento',
+    keyword: 'carta de credenciamento licitação',
+    updated: '2026-08-05',
+    readingTime: '5 min',
+    blocks: [
+      { type: 'p', text: 'Em uma licitação, quem fala e assina pela empresa precisa ter poderes para isso. A carta de credenciamento (ou a procuração) é o documento que comprova que aquele representante está autorizado a agir em nome da empresa — dar lances, assinar atas, apresentar recursos e praticar os atos do certame.' },
+      { type: 'h2', text: 'Quando é exigida', id: 'quando' },
+      { type: 'p', text: 'É exigida sempre que quem representa a empresa no certame não é o próprio titular ou sócio administrador com poderes no contrato social. No pregão eletrônico, os poderes muitas vezes se comprovam pelo credenciamento na plataforma; em atos presenciais ou específicos, o documento formal pode ser pedido.' },
+      { type: 'h2', text: 'O que a carta de credenciamento deve conter', id: 'conteudo' },
+      { type: 'ul', items: [
+        'Identificação completa da empresa (razão social, CNPJ) e do representante (nome, CPF, documento).',
+        'Os poderes concedidos: formular lances, negociar preço, assinar atas, interpor e desistir de recursos.',
+        'A licitação a que se refere (número do edital/órgão), quando específica.',
+        'Data e assinatura do responsável legal da empresa.',
+      ] },
+      { type: 'h2', text: 'Carta de credenciamento x procuração', id: 'diferenca' },
+      { type: 'p', text: 'Na prática ambas cumprem a função de outorgar poderes. A carta de credenciamento costuma ser um documento mais simples, específico para aquele certame. A procuração (por instrumento particular ou público) é mais formal e pode ter escopo mais amplo. O edital indica qual forma aceita — vale sempre conferir a exigência exata.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'Na análise do edital, o Editus identifica as exigências de representação e credenciamento — para que a empresa chegue à sessão com a documentação de poderes correta e não perca a disputa por uma formalidade.' },
+    ],
+    faqs: [
+      { q: 'Preciso de firma reconhecida na carta de credenciamento?', a: 'Depende do edital. Muitos aceitam a carta com assinatura simples do responsável legal; outros exigem firma reconhecida ou procuração pública. Confira sempre a exigência específica do edital.' },
+      { q: 'No pregão eletrônico preciso de carta de credenciamento?', a: 'Em geral os poderes se comprovam pelo próprio credenciamento na plataforma. Ainda assim, alguns editais pedem o documento para atos específicos — leia as regras do certame.' },
+      { q: 'Qual a diferença entre carta de credenciamento e procuração?', a: 'Ambas outorgam poderes ao representante. A carta costuma ser mais simples e específica para o certame; a procuração é mais formal e pode ter escopo mais amplo. O edital define qual é aceita.' },
+    ],
+  },
 ]
 
 export function getGuide(slug: string): Guide | undefined {

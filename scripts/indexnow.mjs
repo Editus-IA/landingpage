@@ -39,6 +39,10 @@ const DEFAULT_URLS = [
   `${ORIGIN}/guia/pregao-eletronico-como-funciona`,
   `${ORIGIN}/guia/como-participar-de-licitacao`,
   `${ORIGIN}/guia/mei-pode-participar-de-licitacao`,
+  `${ORIGIN}/guia/o-que-e-sicaf`,
+  `${ORIGIN}/guia/certidao-vencida-licitacao`,
+  `${ORIGIN}/guia/impugnacao-de-edital`,
+  `${ORIGIN}/guia/carta-de-credenciamento-licitacao`,
 ]
 
 async function main() {

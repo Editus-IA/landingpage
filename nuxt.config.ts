@@ -270,6 +270,10 @@ export default defineNuxtConfig({
       '/guia/pregao-eletronico-como-funciona',
       '/guia/como-participar-de-licitacao',
       '/guia/mei-pode-participar-de-licitacao',
+      '/guia/o-que-e-sicaf',
+      '/guia/certidao-vencida-licitacao',
+      '/guia/impugnacao-de-edital',
+      '/guia/carta-de-credenciamento-licitacao',
     ],
   },
 })
