@@ -18,6 +18,7 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 export const INDEXNOW_URLS: string[] = [
   `${ORIGIN}/`,
   `${ORIGIN}/sobre`,
+  `${ORIGIN}/checklist-habilitacao`,
   `${ORIGIN}/faq`,
   `${ORIGIN}/calculadora-custo-financeiro`,
   `${ORIGIN}/diagnostico`,
@@ -33,6 +34,8 @@ export const INDEXNOW_URLS: string[] = [
   `${ORIGIN}/guia/certidao-vencida-licitacao`,
   `${ORIGIN}/guia/impugnacao-de-edital`,
   `${ORIGIN}/guia/carta-de-credenciamento-licitacao`,
+  `${ORIGIN}/guia/margem-em-licitacao`,
+  `${ORIGIN}/guia/como-calcular-bdi`,
 ]
 
 export interface IndexNowResult {

@@ -23,6 +23,7 @@
           :button-color-variant="buttonColorVariant"
         />
         <VsChatGPT v-else-if="section === 'vs-chatgpt'" />
+        <ComparativoSection v-else-if="section === 'comparativo'" />
         <SegmentsSection v-else-if="section === 'segments'" />
         <ClientOnly v-else-if="section === 'dashboard'">
           <DashboardPreview />
@@ -72,8 +73,8 @@ const formVariant = useABTest('waitlist-form', ['control'])
 const formContextVariant = useABTest('form-context', ['control'])
 const urgencyCopyVariant = useABTest('urgency-copy', ['control'])
 
-const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'dashboard', 'faq', 'waitlist'] as const
-const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'faq', 'dashboard', 'waitlist'] as const
+const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'comparativo', 'segments', 'cta-section', 'dashboard', 'faq', 'waitlist'] as const
+const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'comparativo', 'segments', 'cta-section', 'faq', 'dashboard', 'waitlist'] as const
 
 const sectionOrder = computed(() =>
   sectionOrderVariant.value === 'faq-first' ? FAQ_FIRST_SECTIONS : BASE_SECTIONS,

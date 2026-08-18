@@ -33,7 +33,9 @@ interface WaitlistPayload {
 // SEC-08: fonte origem validada contra whitelist.
 // 'waitlist-overflow': lead capturado quando o lote atual já esgotou — entra
 // na fila do PRÓXIMO lote, por isso ignora a checagem de capacidade abaixo.
-const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer', 'waitlist-overflow'] as const
+// 'checklist-habilitacao': lead magnet (ver pages/checklist-habilitacao.vue) —
+// só pede e-mail + consentimento, sem vaga na waitlist nem checagem de capacidade.
+const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer', 'waitlist-overflow', 'checklist-habilitacao'] as const
 
 // SEC-07: SHA-256 truncado com salt secreto — garante anonimização real dos IPs (LGPD)
 function hashIp(ip: string, salt: string): string {
@@ -99,12 +101,13 @@ export default defineEventHandler(async (event) => {
     ? body.source
     : 'landing'
 
-  // 'waitlist-overflow': captura de baixa fricção quando o lote atual já
-  // esgotou (ver components/WaitlistForm.vue). Só pede e-mail + consentimento —
-  // empresa/volume/segmento ficam para a qualificação completa no próximo lote.
-  const isOverflowSignup = source === 'waitlist-overflow'
+  // Cadastros de baixa fricção — só pedem e-mail + consentimento, sem
+  // empresa/volume/segmento: 'waitlist-overflow' (lote esgotado, ver
+  // components/WaitlistForm.vue) e 'checklist-habilitacao' (lead magnet, ver
+  // pages/checklist-habilitacao.vue). Nenhum dos dois reserva vaga no lote atual.
+  const isMinimalSignup = source === 'waitlist-overflow' || source === 'checklist-habilitacao'
 
-  if (!isOverflowSignup) {
+  if (!isMinimalSignup) {
     const VALID_VOLUMES = ['1-5', '6-20', '20+'] as const
     if (!VALID_VOLUMES.includes(body.volume as typeof VALID_VOLUMES[number])) {
       throw createError({ statusCode: 422, message: 'Selecione o volume de editais.' })
@@ -119,7 +122,7 @@ export default defineEventHandler(async (event) => {
   const email = body.email.trim().toLowerCase().slice(0, 254)
   const name = body.name?.trim().slice(0, 100) || null
   const company = body.company?.trim().slice(0, 100) || null
-  if (!isOverflowSignup && !company) {
+  if (!isMinimalSignup && !company) {
     throw createError({ statusCode: 422, message: 'Nome da empresa obrigatório.' })
   }
   const volume = body.volume || null
@@ -151,7 +154,7 @@ export default defineEventHandler(async (event) => {
   // Nota: contar+inserir não é atômico, então sob concorrência extrema o total
   // pode ultrapassar o limite por 1-2 linhas — aceitável para este volume.
   const maxVagas = config.public.maxVagas
-  if (!isOverflowSignup) {
+  if (!isMinimalSignup) {
     try {
       const countRes = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads?select=count`, {
         headers: {
@@ -218,10 +221,16 @@ export default defineEventHandler(async (event) => {
     // (badge de vagas restantes / bloqueio do form ao esgotar).
     invalidateCachedCount().catch(() => { /* não bloqueia o cadastro */ })
 
-    // fire-and-forget: falha no email não impede o cadastro
-    sendWelcomeEmail({ name: name ?? email, email }).catch((err: unknown) => {
-      console.error('[email] falha ao enviar boas-vindas', { error: String(err) })
-    })
+    // 'checklist-habilitacao' não entra na waitlist — o e-mail de boas-vindas
+    // fala de "lista de espera" e confirmação de vaga, o que seria falso aqui.
+    // O checklist já é entregue na própria página (ver
+    // pages/checklist-habilitacao.vue), sem necessidade de e-mail separado.
+    if (source !== 'checklist-habilitacao') {
+      // fire-and-forget: falha no email não impede o cadastro
+      sendWelcomeEmail({ name: name ?? email, email }).catch((err: unknown) => {
+        console.error('[email] falha ao enviar boas-vindas', { error: String(err) })
+      })
+    }
 
     // Busca posição na fila logo após o insert (inclui o próprio registro)
     let position: number | null = null

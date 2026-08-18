@@ -85,6 +85,10 @@
                 class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Calculadora de custo financeiro</NuxtLink>
               <NuxtLink
+                to="/checklist-habilitacao"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
+              >Checklist de habilitação</NuxtLink>
+              <NuxtLink
                 to="/guia"
                 class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Guias de licitação</NuxtLink>

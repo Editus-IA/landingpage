@@ -218,7 +218,7 @@ export const GUIDES: Guide[] = [
       { q: 'Quais são as modalidades da nova lei?', a: 'São cinco: pregão, concorrência, concurso, leilão e diálogo competitivo. A tomada de preços e o convite, da lei antiga, foram extintos.' },
       { q: 'O que é o diálogo competitivo?', a: 'É uma modalidade nova, voltada a contratações de soluções inovadoras ou tecnicamente complexas, em que a administração conversa com os licitantes para desenvolver a solução antes de receber as propostas finais.' },
     ],
-    related: ['pregao-eletronico-como-funciona', 'impugnacao-de-edital', 'o-que-e-pncp'],
+    related: ['pregao-eletronico-como-funciona', 'impugnacao-de-edital', 'como-calcular-bdi'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -254,7 +254,7 @@ export const GUIDES: Guide[] = [
       { q: 'Preciso de certificado digital para participar de pregão?', a: 'Para operar na maioria das plataformas e assinar documentos é necessário credenciamento e, em muitos casos, certificado digital. O cadastro no Compras.gov.br é o ponto de partida para pregões federais.' },
       { q: 'O menor preço sempre vence o pregão?', a: 'O menor preço é classificado em primeiro lugar, mas só vence se a empresa comprovar a habilitação e se o preço for exequível. Propostas inexequíveis ou com documentação irregular são desclassificadas.' },
     ],
-    related: ['habilitacao-licitacao', 'o-que-e-pncp', 'carta-de-credenciamento-licitacao'],
+    related: ['habilitacao-licitacao', 'margem-em-licitacao', 'carta-de-credenciamento-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -290,7 +290,7 @@ export const GUIDES: Guide[] = [
       { q: 'Preciso de um consultor para participar?', a: 'Não é obrigatório. Em licitações mais simples, uma empresa organizada consegue participar sozinha. Em contratos complexos, uma consultoria ou ferramentas de análise ajudam a reduzir erros de habilitação e precificação.' },
       { q: 'Quanto custa participar de uma licitação?', a: 'Participar em si é gratuito. Os custos são indiretos: certificado digital, tempo de análise do edital, elaboração da proposta e, eventualmente, garantias exigidas pelo edital.' },
     ],
-    related: ['o-que-e-sicaf', 'habilitacao-licitacao', 'mei-pode-participar-de-licitacao'],
+    related: ['o-que-e-sicaf', 'habilitacao-licitacao', 'margem-em-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -470,6 +470,81 @@ export const GUIDES: Guide[] = [
       { q: 'Qual a diferença entre carta de credenciamento e procuração?', a: 'Ambas outorgam poderes ao representante. A carta costuma ser mais simples e específica para o certame; a procuração é mais formal e pode ter escopo mais amplo. O edital define qual é aceita.' },
     ],
     related: ['pregao-eletronico-como-funciona', 'como-participar-de-licitacao', 'o-que-e-pncp'],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'margem-em-licitacao',
+    title: 'Margem em licitação: como calcular sem perder dinheiro no contrato',
+    h1: 'Como calcular a margem em uma licitação',
+    description:
+      'Ganhar a licitação pelo menor preço não garante lucro. Veja como calcular a margem real de um contrato público, incluindo custos indiretos e o custo financeiro do prazo de pagamento.',
+    kicker: 'Guia de margem',
+    keyword: 'como calcular margem em licitação',
+    updated: '2026-08-18',
+    readingTime: '7 min',
+    blocks: [
+      { type: 'p', text: 'Vencer uma licitação pelo menor preço é uma vitória parcial. O que decide se o contrato foi um bom negócio é a margem que resta depois de todos os custos — diretos, indiretos e financeiros. Muitas empresas calculam só os primeiros e descobrem tarde demais que o contrato deu prejuízo.' },
+      { type: 'h2', text: 'Os três blocos de custo que compõem o preço', id: 'blocos-de-custo' },
+      { type: 'ul', items: [
+        'Custos diretos: material, mão de obra e insumos diretamente ligados à execução do objeto.',
+        'Custos indiretos (BDI): administração central, tributos, riscos, garantias e lucro — normalmente aplicados como percentual sobre o custo direto.',
+        'Custo financeiro do prazo de pagamento: o capital que a empresa precisa bancar entre a execução e o recebimento (30, 60, 90 dias), com custo de carregamento ancorado na Selic.',
+      ] },
+      { type: 'h2', text: 'O erro mais comum: ignorar o terceiro bloco', id: 'erro-comum' },
+      { type: 'p', text: 'A maioria das empresas precifica direto e indireto (BDI) com cuidado, mas trata o prazo de pagamento como um detalhe administrativo, não como um custo. Não é: dinheiro parado por 90 dias tem custo de oportunidade real. Em um contrato de R$ 300 mil com prazo de 90 dias e Selic a 14% a.a., esse custo financeiro sozinho já consome cerca de 3,3% do valor — R$ 9.881, aproximadamente.' },
+      { type: 'h2', text: 'Como calcular a margem real', id: 'como-calcular' },
+      { type: 'ol', items: [
+        'Some os custos diretos (material, mão de obra, insumos) do objeto do edital.',
+        'Aplique o BDI para cobrir custos indiretos, tributos e a margem de lucro pretendida.',
+        'Calcule o custo financeiro do prazo de pagamento do edital (Selic vigente convertida em taxa mensal, aplicada sobre o valor e o prazo em dias).',
+        'Subtraia o custo financeiro da margem de lucro planejada no BDI — o que resta é a margem real do contrato.',
+      ] },
+      { type: 'p', text: 'Uma proposta que parecia lucrativa em 15,3% de margem bruta pode cair para 12,0% de margem real depois de embutir o custo financeiro do prazo — a diferença entre fechar um bom contrato e um que só parecia bom no papel.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O agente Precificador do Editus calcula o custo financeiro do prazo de pagamento de cada edital automaticamente e mostra o impacto na margem antes da decisão de participar — sem depender de planilha manual.' },
+    ],
+    faqs: [
+      { q: 'O que é margem real em um contrato de licitação?', a: 'É a margem de lucro que resta depois de descontar não só os custos diretos e indiretos (BDI), mas também o custo financeiro do prazo de pagamento do órgão — um custo indireto que raramente é embutido no cálculo inicial.' },
+      { q: 'Por que o prazo de pagamento afeta a margem?', a: 'Porque a empresa precisa financiar a operação (fornecedores, folha, tributos) enquanto aguarda o pagamento do órgão público. Esse capital tem um custo de carregamento, geralmente ancorado na Selic, que reduz a margem líquida do contrato.' },
+      { q: 'Como saber se uma licitação vale a pena mesmo com prazo de pagamento longo?', a: 'Calculando o custo financeiro do prazo (valor do contrato × taxa mensal equivalente à Selic × prazo em dias/30) e subtraindo esse valor da margem de lucro planejada. Se a margem real ainda for positiva e aceitável, o contrato vale a pena.' },
+    ],
+    related: ['certidao-vencida-licitacao', 'como-calcular-bdi', 'como-participar-de-licitacao'],
+  },
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'como-calcular-bdi',
+    title: 'Como calcular o BDI em licitação: guia da taxa de custos indiretos',
+    h1: 'Como calcular o BDI em uma licitação',
+    description:
+      'O BDI (Benefícios e Despesas Indiretas) cobre custos que não entram direto na planilha de execução. Entenda a fórmula, os componentes e como aplicar corretamente na proposta.',
+    kicker: 'Guia do BDI',
+    keyword: 'como calcular BDI licitação',
+    updated: '2026-08-18',
+    readingTime: '6 min',
+    blocks: [
+      { type: 'p', text: 'BDI significa Benefícios e Despesas Indiretas. É o percentual aplicado sobre o custo direto de execução para cobrir tudo que não está na planilha de insumos e mão de obra, mas que é indispensável para a empresa operar e ter lucro: administração central, tributos, riscos, garantias e a margem de lucro pretendida.' },
+      { type: 'h2', text: 'O que compõe o BDI', id: 'componentes' },
+      { type: 'ul', items: [
+        'Administração central: estrutura da empresa que não está alocada diretamente na obra ou serviço (escritório, gestão, apoio).',
+        'Seguros e garantias: custos de apólices e garantias contratuais exigidas pelo edital.',
+        'Riscos: margem para imprevistos não cobertos por outras rubricas.',
+        'Despesas financeiras: custo do capital de giro necessário para a operação (diferente do custo financeiro do prazo de pagamento do próprio contrato, que é calculado separadamente).',
+        'Tributos: PIS, COFINS, ISS ou ICMS, conforme o regime tributário da empresa e o objeto do contrato.',
+        'Lucro: a margem de lucro pretendida pela empresa sobre o contrato.',
+      ] },
+      { type: 'h2', text: 'A fórmula básica', id: 'formula' },
+      { type: 'p', text: 'O preço de venda é calculado aplicando o BDI sobre o custo direto: Preço = Custo Direto × (1 + BDI). Se o custo direto de um serviço é R$ 100 mil e o BDI aplicado é 25%, o preço final da proposta é R$ 125 mil.' },
+      { type: 'h2', text: 'BDI para obras e serviços de engenharia', id: 'obras-engenharia' },
+      { type: 'p', text: 'Editais de obras e serviços de engenharia costumam exigir que o BDI seja detalhado numa planilha própria (frequentemente no modelo do TCU ou similar), com cada componente aberto separadamente — não basta informar um percentual único. Fugir desse detalhamento quando o edital exige é motivo comum de questionamento na fase de julgamento.' },
+      { type: 'h2', text: 'Faixas de referência', id: 'faixas' },
+      { type: 'p', text: 'Não existe um BDI "correto" universal — ele varia por tipo de objeto (obra pesada, serviço contínuo, fornecimento de bens) e pela estrutura de custos de cada empresa. Órgãos de controle costumam publicar faixas de referência por categoria de obra, usadas como parâmetro para identificar propostas com sobrepreço ou inexequíveis, mas a composição real depende da planilha de cada licitante.' },
+      { type: 'callout', title: 'Como o Editus se encaixa', text: 'O agente Precificador do Editus identifica quando o edital exige detalhamento de BDI e sinaliza isso no relatório, além de calcular o custo financeiro do prazo de pagamento separadamente — para a empresa não confundir os dois na hora de definir o preço mínimo viável.' },
+    ],
+    faqs: [
+      { q: 'O que significa BDI?', a: 'Benefícios e Despesas Indiretas — o percentual aplicado sobre o custo direto de execução para cobrir administração central, tributos, riscos, garantias e a margem de lucro da empresa.' },
+      { q: 'O BDI é obrigatório em toda licitação?', a: 'A exigência de detalhamento formal do BDI é mais comum em obras e serviços de engenharia. Para bens e serviços comuns, a empresa ainda precisa considerar custos indiretos e lucro no preço, mas o edital pode não exigir a planilha detalhada.' },
+      { q: 'Qual a diferença entre BDI e custo financeiro do prazo de pagamento?', a: 'O BDI cobre despesas indiretas gerais da operação (administração, tributos, riscos, lucro). O custo financeiro do prazo de pagamento é um cálculo específico do dinheiro que fica parado entre a execução e o recebimento do contrato — um custo adicional, não incluído automaticamente no BDI.' },
+    ],
+    related: ['margem-em-licitacao', 'lei-14133-resumo', 'pregao-eletronico-como-funciona'],
   },
 ]
 

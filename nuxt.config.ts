@@ -279,6 +279,7 @@ export default defineNuxtConfig({
     // com os slugs de composables/useGuides.ts (GUIDES[].slug).
     urls: [
       '/sobre',
+      '/checklist-habilitacao',
       '/faq',
       '/guia',
       '/guia/o-que-e-pncp',
@@ -292,6 +293,8 @@ export default defineNuxtConfig({
       '/guia/certidao-vencida-licitacao',
       '/guia/impugnacao-de-edital',
       '/guia/carta-de-credenciamento-licitacao',
+      '/guia/margem-em-licitacao',
+      '/guia/como-calcular-bdi',
     ],
   },
 })

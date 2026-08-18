@@ -32,6 +32,7 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 const DEFAULT_URLS = [
   `${ORIGIN}/`,
   `${ORIGIN}/sobre`,
+  `${ORIGIN}/checklist-habilitacao`,
   `${ORIGIN}/faq`,
   `${ORIGIN}/calculadora-custo-financeiro`,
   `${ORIGIN}/diagnostico`,
@@ -47,6 +48,8 @@ const DEFAULT_URLS = [
   `${ORIGIN}/guia/certidao-vencida-licitacao`,
   `${ORIGIN}/guia/impugnacao-de-edital`,
   `${ORIGIN}/guia/carta-de-credenciamento-licitacao`,
+  `${ORIGIN}/guia/margem-em-licitacao`,
+  `${ORIGIN}/guia/como-calcular-bdi`,
 ]
 
 async function main() {
