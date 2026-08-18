@@ -30,8 +30,10 @@ interface WaitlistPayload {
   utm_campaign?: string | null
 }
 
-// SEC-08: fonte origem validada contra whitelist
-const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer'] as const
+// SEC-08: fonte origem validada contra whitelist.
+// 'waitlist-overflow': lead capturado quando o lote atual já esgotou — entra
+// na fila do PRÓXIMO lote, por isso ignora a checagem de capacidade abaixo.
+const VALID_SOURCES = ['landing', 'hero', 'waitlist-section', 'cta', 'footer', 'waitlist-overflow'] as const
 
 // SEC-07: SHA-256 truncado com salt secreto — garante anonimização real dos IPs (LGPD)
 function hashIp(ip: string, salt: string): string {
@@ -92,29 +94,36 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 422, message: 'E-mail inválido.' })
   }
 
-  const VALID_VOLUMES = ['1-5', '6-20', '20+'] as const
-  if (!VALID_VOLUMES.includes(body.volume as typeof VALID_VOLUMES[number])) {
-    throw createError({ statusCode: 422, message: 'Selecione o volume de editais.' })
-  }
+  // SEC-08: source validado contra whitelist (evita strings arbitrárias no banco)
+  const source = VALID_SOURCES.includes(body.source as typeof VALID_SOURCES[number])
+    ? body.source
+    : 'landing'
 
-  const VALID_SEGMENTS = ['ti', 'construcao', 'saude', 'limpeza', 'alimentacao', 'outro'] as const
-  if (!VALID_SEGMENTS.includes(body.segment as typeof VALID_SEGMENTS[number])) {
-    throw createError({ statusCode: 422, message: 'Selecione o segmento de atuação.' })
+  // 'waitlist-overflow': captura de baixa fricção quando o lote atual já
+  // esgotou (ver components/WaitlistForm.vue). Só pede e-mail + consentimento —
+  // empresa/volume/segmento ficam para a qualificação completa no próximo lote.
+  const isOverflowSignup = source === 'waitlist-overflow'
+
+  if (!isOverflowSignup) {
+    const VALID_VOLUMES = ['1-5', '6-20', '20+'] as const
+    if (!VALID_VOLUMES.includes(body.volume as typeof VALID_VOLUMES[number])) {
+      throw createError({ statusCode: 422, message: 'Selecione o volume de editais.' })
+    }
+
+    const VALID_SEGMENTS = ['ti', 'construcao', 'saude', 'limpeza', 'alimentacao', 'outro'] as const
+    if (!VALID_SEGMENTS.includes(body.segment as typeof VALID_SEGMENTS[number])) {
+      throw createError({ statusCode: 422, message: 'Selecione o segmento de atuação.' })
+    }
   }
 
   const email = body.email.trim().toLowerCase().slice(0, 254)
   const name = body.name?.trim().slice(0, 100) || null
   const company = body.company?.trim().slice(0, 100) || null
-  if (!company) {
+  if (!isOverflowSignup && !company) {
     throw createError({ statusCode: 422, message: 'Nome da empresa obrigatório.' })
   }
-  const volume = body.volume
-  const segment = body.segment
-
-  // SEC-08: source validado contra whitelist (evita strings arbitrárias no banco)
-  const source = VALID_SOURCES.includes(body.source as typeof VALID_SOURCES[number])
-    ? body.source
-    : 'landing'
+  const volume = body.volume || null
+  const segment = body.segment || null
 
   const utm_source = body.utm_source?.trim().slice(0, 100) || null
   const utm_medium = body.utm_medium?.trim().slice(0, 100) || null
@@ -142,29 +151,31 @@ export default defineEventHandler(async (event) => {
   // Nota: contar+inserir não é atômico, então sob concorrência extrema o total
   // pode ultrapassar o limite por 1-2 linhas — aceitável para este volume.
   const maxVagas = config.public.maxVagas
-  try {
-    const countRes = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads?select=count`, {
-      headers: {
-        apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`,
-        Prefer: 'count=exact',
-        Range: '0-0',
-      },
-      signal: AbortSignal.timeout(3000),
-    })
-    const contentRange = countRes.headers.get('content-range') // "0-0/19"
-    const total = contentRange ? Number.parseInt(contentRange.split('/')[1], 10) : null
-    if (typeof total === 'number' && !Number.isNaN(total) && total >= maxVagas) {
-      throw createError({ statusCode: 403, message: 'Vagas esgotadas neste lote.' })
+  if (!isOverflowSignup) {
+    try {
+      const countRes = await fetch(`${supabaseUrl}/rest/v1/waitlist_leads?select=count`, {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+          Prefer: 'count=exact',
+          Range: '0-0',
+        },
+        signal: AbortSignal.timeout(3000),
+      })
+      const contentRange = countRes.headers.get('content-range') // "0-0/19"
+      const total = contentRange ? Number.parseInt(contentRange.split('/')[1], 10) : null
+      if (typeof total === 'number' && !Number.isNaN(total) && total >= maxVagas) {
+        throw createError({ statusCode: 403, message: 'Vagas esgotadas neste lote.' })
+      }
     }
-  }
-  catch (err: unknown) {
-    // Repassa o 403 de capacidade. Falha de rede na contagem é fail-open
-    // (não bloqueia o cadastro), mas registramos para ter visibilidade.
-    if ((err as { statusCode?: number })?.statusCode === 403) throw err
-    console.warn('[waitlist] falha ao verificar capacidade do lote — cadastro liberado', {
-      error: String(err),
-    })
+    catch (err: unknown) {
+      // Repassa o 403 de capacidade. Falha de rede na contagem é fail-open
+      // (não bloqueia o cadastro), mas registramos para ter visibilidade.
+      if ((err as { statusCode?: number })?.statusCode === 403) throw err
+      console.warn('[waitlist] falha ao verificar capacidade do lote — cadastro liberado', {
+        error: String(err),
+      })
+    }
   }
 
   // ── Insert via REST API do Supabase (sem SDK extra) ────────────────────────

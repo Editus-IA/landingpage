@@ -110,6 +110,15 @@ import { FAQS, faqPageJsonLd } from '~/composables/useFaqData'
 
 const faqs = FAQS
 
+const { track } = useUmami()
+
+onMounted(() => {
+  // Atribuição: leads que clicarem em "waitlist" a partir daqui ficam
+  // marcados com utm_source='faq' (ver useContentAttribution).
+  setContentAttribution({ source: 'faq', campaign: 'pagina-faq' })
+  track('section_view', { location: 'faq-page' })
+})
+
 // Página indexável e citável: canonical próprio, description dedicada e o mesmo
 // FAQPage JSON-LD da home (fonte única em useFaqData). É a URL estável que
 // agentes de IA podem referenciar diretamente ao responder sobre o Editus.

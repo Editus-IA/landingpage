@@ -136,7 +136,7 @@
 <script setup lang="ts">
 import { defineComponent, h } from 'vue'
 
-const howItWorksVariant = useABTest('how-it-works', ['control', 'simple'])
+const howItWorksVariant = useABTest('how-it-works', ['control'])
 const { track } = useUmami()
 
 onMounted(() => {

@@ -78,7 +78,7 @@
                   type="button"
                   class="text-xs px-2.5 py-1 rounded-full border transition"
                   :class="prazoPagamentoDias === preset ? 'bg-violet-600 text-white border-violet-600' : 'border-neutral-300 text-neutral-500 hover:border-neutral-400'"
-                  @click="prazoPagamentoDias = preset"
+                  @click="onPrazoPreset(preset)"
                 >
                   {{ preset }} dias
                 </button>
@@ -302,6 +302,20 @@ const faqs = [
     a: 'A taxa é buscada automaticamente da API pública do Banco Central (série 432 — Meta Selic). Se o serviço estiver indisponível, um valor padrão é usado, e você pode ajustar o campo manualmente a qualquer momento.',
   },
 ]
+
+const { track } = useUmami()
+
+onMounted(() => {
+  // Atribuição: leads que clicarem em "waitlist" a partir daqui ficam
+  // marcados com utm_source='calculadora' (ver useContentAttribution).
+  setContentAttribution({ source: 'calculadora', campaign: 'custo-financeiro' })
+  track('section_view', { location: 'calculadora-custo-financeiro' })
+})
+
+function onPrazoPreset(preset: number) {
+  prazoPagamentoDias.value = preset
+  track('calculator_use', { location: 'calculadora-custo-financeiro', prazo_dias: preset })
+}
 
 useHead({
   title: 'Calculadora de custo financeiro do prazo de pagamento em licitações | Editus',

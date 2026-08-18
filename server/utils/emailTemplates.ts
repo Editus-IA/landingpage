@@ -24,9 +24,9 @@ export function welcomeEmailHtml(name: string, unsubscribeUrl: string, confirmUr
             <td style="padding:40px 40px 32px;">
               <p style="margin:0 0 16px;font-size:22px;font-weight:600;color:#111827;">Olá, ${firstName}! 👋</p>
               <p style="margin:0 0 20px;font-size:16px;color:#374151;line-height:1.6;">
-                Seu cadastro na lista de espera do <strong>Editus</strong> foi confirmado.
-                Você está entre os primeiros a ter acesso à plataforma de IA que transforma a forma como PMEs
-                brasileiras participam de licitações públicas.
+                ${confirmUrl
+                  ? 'Recebemos seu cadastro na lista de espera do <strong>Editus</strong>. Falta um passo: confirme seu email abaixo para garantir sua vaga.'
+                  : 'Seu cadastro na lista de espera do <strong>Editus</strong> está confirmado. Você está entre os primeiros a ter acesso à plataforma de IA que transforma a forma como PMEs brasileiras participam de licitações públicas.'}
               </p>
               <!-- Divider -->
               <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
@@ -62,8 +62,8 @@ export function welcomeEmailHtml(name: string, unsubscribeUrl: string, confirmUr
               ${confirmUrl
                 ? `
               <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
-              <p style="margin:0 0 16px;font-size:15px;color:#374151;line-height:1.6;">
-                Para garantir sua vaga e confirmar o e-mail, clique no botão abaixo:
+              <p style="margin:0 0 16px;font-size:16px;font-weight:600;color:#111827;line-height:1.6;">
+                ⚠️ Falta confirmar: sem esse clique, sua vaga não fica garantida.
               </p>
               <a href="${confirmUrl}" style="display:inline-block;background:#1E1654;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:14px 32px;border-radius:8px;">
                 Confirmar minha inscrição
@@ -106,13 +106,14 @@ export function welcomeEmailHtml(name: string, unsubscribeUrl: string, confirmUr
 export function welcomeEmailText(name: string, unsubscribeUrl: string, confirmUrl: string | null): string {
   const firstName = name.split(' ')[0]
   const confirmBlock = confirmUrl
-    ? `\nPara confirmar sua inscrição e garantir sua vaga, acesse:\n${confirmUrl}\n(O link expira em 7 dias)\n`
+    ? `\n⚠️ FALTA CONFIRMAR: sem esse clique, sua vaga não fica garantida.\n${confirmUrl}\n(O link expira em 7 dias)\n`
     : ''
+  const intro = confirmUrl
+    ? 'Recebemos seu cadastro na lista de espera do Editus. Falta um passo: confirme seu email para garantir sua vaga.'
+    : 'Seu cadastro na lista de espera do Editus está confirmado.\n\nVocê está entre os primeiros a ter acesso à plataforma de IA que transforma a forma como PMEs brasileiras participam de licitações públicas.'
   return `Olá, ${firstName}!
 
-Seu cadastro na lista de espera do Editus foi confirmado.
-
-Você está entre os primeiros a ter acesso à plataforma de IA que transforma a forma como PMEs brasileiras participam de licitações públicas.
+${intro}
 ${confirmBlock}
 O QUE ACONTECE A SEGUIR
 

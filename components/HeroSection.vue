@@ -219,12 +219,16 @@ defineProps<{
 
 const { track } = useUmami()
 
-// A/B tests
+// A/B tests. hero-headline e cta-copy são os únicos ativos no site (maior
+// impacto em conversão, tráfego insuficiente para testar 14 ao mesmo tempo —
+// ver pages/index.vue). urgency-badge fixado em 'control': a variante
+// 'countdown' aponta para uma data já vencida (LOTE_CLOSE_DATE em
+// UrgencyBadge.vue) e sempre cairia no texto neutro mesmo se sorteada.
 const headlineVariant = useABTest('hero-headline', ['control', 'benefit', 'loss', 'process', 'veteran'])
 const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
-const urgencyVariant = useABTest('urgency-badge', ['control', 'count', 'countdown'])
-const subheadlineVariant = useABTest('hero-subheadline', ['control', 'short', 'pain', 'veteran'])
-const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
+const urgencyVariant = useABTest('urgency-badge', ['control'])
+const subheadlineVariant = useABTest('hero-subheadline', ['control'])
+const urgencyCopyVariant = useABTest('urgency-copy', ['control'])
 
 function onSecondaryCTAClick() {
   track('cta_click', { location: 'hero-secondary', target: 'decisao' })
@@ -275,7 +279,9 @@ onMounted(async () => {
 
   try {
     const data = await $fetch<{ count: number | null }>('/api/waitlist-count')
-    if (data?.count && data.count > 0) {
+    // Abaixo de 10 inscritos, mostrar o número é prova social NEGATIVA (revela
+    // que quase ninguém se cadastrou ainda) — melhor omitir do que expor isso.
+    if (data?.count && data.count >= 10) {
       count.value = data.count
       runCount(data.count)
     }

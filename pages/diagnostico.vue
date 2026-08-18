@@ -151,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 
 type QuestionKey = 'received' | 'analyzed' | 'ticket' | 'discarded'
 
@@ -241,6 +241,19 @@ const potentialValue = computed(() => {
 })
 
 const { track } = useUmami()
+
+onMounted(() => {
+  // Atribuição: leads que clicarem em "waitlist" a partir daqui ficam
+  // marcados com utm_source='diagnostico' (ver useContentAttribution).
+  setContentAttribution({ source: 'diagnostico', campaign: 'oportunidades' })
+  track('section_view', { location: 'diagnostico' })
+})
+
+// Sinal de engajamento: usuário completou as 4 perguntas (mesmo sem clicar no
+// CTA depois). Dado de qualificação que hoje se perde — ver auditoria.
+watch(allAnswered, (done) => {
+  if (done) track('diagnostico_completo', { missed_per_month: missedPerMonthRaw.value })
+})
 
 function onResultCTA() {
   track('cta_click', {

@@ -58,15 +58,19 @@
 </template>
 
 <script setup lang="ts">
-// A/B tests
-const buttonColorVariant = useABTest('button-color', ['control', 'green'])
+// A/B tests. Com tráfego de waitlist pré-lançamento, 14 testes simultâneos
+// nunca atingiriam significância estatística (espaço combinatório
+// astronômico). Mantemos ativos só os 2 de maior impacto na conversão
+// (hero-headline em HeroSection.vue e cta-copy) e fixamos o resto em
+// 'control' — reversível: basta reabrir o array de variantes.
+const buttonColorVariant = useABTest('button-color', ['control'])
 const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
-const ctaSectionVariant = useABTest('cta-section', ['control', 'active'])
-const sectionOrderVariant = useABTest('section-order', ['control', 'faq-first'])
-const scrollPopupVariant = useABTest('scroll-popup', ['control', 'popup'])
-const formVariant = useABTest('waitlist-form', ['control', 'two-field', 'two-step'])
-const formContextVariant = useABTest('form-context', ['control', 'context'])
-const urgencyCopyVariant = useABTest('urgency-copy', ['control', 'consequence'])
+const ctaSectionVariant = useABTest('cta-section', ['control'])
+const sectionOrderVariant = useABTest('section-order', ['control'])
+const scrollPopupVariant = useABTest('scroll-popup', ['control'])
+const formVariant = useABTest('waitlist-form', ['control'])
+const formContextVariant = useABTest('form-context', ['control'])
+const urgencyCopyVariant = useABTest('urgency-copy', ['control'])
 
 const BASE_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'dashboard', 'faq', 'waitlist'] as const
 const FAQ_FIRST_SECTIONS = ['problem', 'roi-highlight', 'decisao', 'how-it-works', 'features', 'vs-chatgpt', 'segments', 'cta-section', 'faq', 'dashboard', 'waitlist'] as const

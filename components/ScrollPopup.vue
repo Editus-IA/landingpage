@@ -78,6 +78,7 @@
                 v-model="popupEmail"
                 type="email"
                 required
+                autocomplete="email"
                 placeholder="joao@empresa.com.br"
                 class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >

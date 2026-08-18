@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { defineComponent, h, computed } from 'vue'
 
-const problemVariant = useABTest('problem-section', ['control', 'veteran'])
+const problemVariant = useABTest('problem-section', ['control'])
 const { track } = useUmami()
 
 onMounted(() => {

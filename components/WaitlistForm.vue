@@ -9,6 +9,7 @@
         v-model="email"
         type="email"
         required
+        autocomplete="email"
         placeholder="seu@email.com.br"
         aria-label="Seu email para acesso antecipado"
         class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"
@@ -92,7 +93,8 @@
         :value="form.utm_campaign"
       >
 
-      <!-- Lote esgotado — substitui o formulário -->
+      <!-- Lote esgotado — substitui o formulário completo por captura de baixa
+           fricção para o PRÓXIMO lote (fonte 'waitlist-overflow' no backend) -->
       <div
         v-if="waitlistFull"
         class="rounded-eb-md border border-indigo-700/50 bg-indigo-800/40 p-8 text-center"
@@ -100,9 +102,60 @@
         <div class="text-success text-lg font-semibold mb-2">
           Vagas esgotadas neste lote
         </div>
-        <p class="text-white/50 text-sm leading-relaxed">
-          Todas as vagas do acesso antecipado foram preenchidas.
-          Em breve abriremos um novo lote — acompanhe nossas comunicações.
+        <p class="text-white/50 text-sm leading-relaxed mb-6">
+          Todas as vagas do acesso antecipado foram preenchidas. Deixe seu e-mail para
+          garantir prioridade assim que o próximo lote abrir.
+        </p>
+
+        <div v-if="overflowSubmitted">
+          <p class="text-success text-sm font-medium">
+            ✓ Anotado! Você será avisado quando o próximo lote abrir.
+          </p>
+        </div>
+        <form
+          v-else
+          class="max-w-sm mx-auto"
+          @submit.prevent="submitOverflow"
+        >
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              v-model="overflowEmail"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="seu@email.com.br"
+              aria-label="Seu e-mail para o próximo lote"
+              class="flex-1 px-4 py-2.5 bg-white/10 border border-white/20 rounded-eb-sm text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"
+            >
+            <button
+              type="submit"
+              :disabled="overflowSubmitting || !overflowConsent"
+              class="bg-violet-600 hover:bg-violet-700 text-white rounded-eb-sm px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-all disabled:opacity-50"
+            >
+              Avise-me
+            </button>
+          </div>
+          <label class="flex items-start gap-2 mt-3 text-left cursor-pointer">
+            <input
+              v-model="overflowConsent"
+              type="checkbox"
+              required
+              class="mt-0.5 accent-violet-500"
+            >
+            <span class="text-xs text-white/40 leading-relaxed">
+              Concordo com o tratamento dos meus dados conforme a
+              <NuxtLink
+                to="/privacidade"
+                class="text-violet-300 hover:text-violet-200 underline underline-offset-2"
+              >Política de Privacidade</NuxtLink>.
+            </span>
+          </label>
+        </form>
+        <p
+          v-if="overflowError"
+          class="text-danger text-xs mt-3"
+        >
+          {{ overflowError }}
         </p>
       </div>
 
@@ -125,6 +178,7 @@
             v-model="form.email"
             type="email"
             required
+            autocomplete="email"
             placeholder="joao@empresa.com.br"
             class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
@@ -171,6 +225,7 @@
                 id="waitlist-name"
                 v-model="form.name"
                 type="text"
+                autocomplete="name"
                 placeholder="João Silva"
                 class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >
@@ -185,6 +240,7 @@
                 v-model="form.email"
                 type="email"
                 required
+                autocomplete="email"
                 placeholder="joao@empresa.com.br"
                 class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
               >
@@ -200,6 +256,7 @@
               v-model="form.company"
               type="text"
               required
+              autocomplete="organization"
               placeholder="Nome da empresa"
               class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
             >
@@ -217,6 +274,7 @@
             v-model="form.company"
             type="text"
             required
+            autocomplete="organization"
             placeholder="Nome da empresa"
             class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
@@ -233,6 +291,7 @@
             v-model="form.email"
             type="email"
             required
+            autocomplete="email"
             placeholder="joao@empresa.com.br"
             class="w-full px-4 py-3 bg-indigo-800/50 border border-indigo-700/50 rounded-eb-sm text-white placeholder-white/25 text-sm focus:outline-none focus:border-violet-400 transition-all"
           >
@@ -443,11 +502,59 @@ const form = reactive({
 
 const errorMsg = ref('')
 
+// Captura de baixa fricção quando o lote atual esgotou (ver bloco waitlistFull
+// no template) — entra na fila do próximo lote via source='waitlist-overflow'.
+const overflowEmail = ref('')
+const overflowConsent = ref(false)
+const overflowSubmitting = ref(false)
+const overflowSubmitted = ref(false)
+const overflowError = ref('')
+
+async function submitOverflow() {
+  if (!overflowEmail.value || !overflowConsent.value || overflowSubmitting.value) return
+  overflowSubmitting.value = true
+  overflowError.value = ''
+  try {
+    await $fetch('/api/waitlist', {
+      method: 'POST',
+      body: {
+        email: overflowEmail.value,
+        consent: overflowConsent.value,
+        source: 'waitlist-overflow',
+        utm_source: form.utm_source,
+        utm_medium: form.utm_medium,
+        utm_campaign: form.utm_campaign,
+      },
+    })
+    overflowSubmitted.value = true
+    track('waitlist_signup', { source: 'waitlist-overflow' })
+  }
+  catch {
+    overflowError.value = 'Não foi possível salvar. Tente novamente.'
+  }
+  finally {
+    overflowSubmitting.value = false
+  }
+}
+
 const route = useRoute()
 onMounted(() => {
   form.utm_source = (route.query.utm_source as string) || null
   form.utm_medium = (route.query.utm_medium as string) || null
   form.utm_campaign = (route.query.utm_campaign as string) || null
+
+  // Sem UTM real na URL (tráfego pago/campanha tem prioridade): usa a
+  // atribuição de conteúdo gravada pela página de origem (guia, calculadora,
+  // diagnóstico, FAQ), se o visitante chegou de lá. Ver useContentAttribution.
+  if (!form.utm_source) {
+    const attribution = getContentAttribution()
+    if (attribution) {
+      form.utm_source = attribution.source
+      form.utm_medium = 'organic-content'
+      form.utm_campaign = attribution.campaign
+    }
+  }
+
   if (!props.inline) {
     track('waitlist_form_start', {
       source: 'waitlist-section',

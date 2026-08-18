@@ -31,6 +31,7 @@
           v-model="email"
           type="email"
           required
+          autocomplete="email"
           placeholder="seu@email.com.br"
           aria-label="Seu email para encontrar suas próximas licitações"
           class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-eb-sm text-white placeholder-white/35 text-sm focus:outline-none focus:border-violet-400 focus:bg-white/15 transition-all"

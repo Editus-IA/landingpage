@@ -85,7 +85,7 @@ const props = defineProps<{
 }>()
 
 const { track } = useUmami()
-const featuresCopyVariant = useABTest('features-copy', ['control', 'outcome'])
+const featuresCopyVariant = useABTest('features-copy', ['control'])
 
 onMounted(() => {
   track('section_view', { section: 'features', ab_features_copy: featuresCopyVariant.value })

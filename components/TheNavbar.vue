@@ -138,7 +138,7 @@
 const { track } = useUmami()
 
 const ctaCopyVariant = useABTest('cta-copy', ['control', 'benefit', 'action'])
-const buttonColorVariant = useABTest('button-color', ['control', 'green'])
+const buttonColorVariant = useABTest('button-color', ['control'])
 
 const route = useRoute()
 // Só a home tem hero escuro no topo — lá o navbar pode começar transparente e

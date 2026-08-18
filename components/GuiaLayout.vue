@@ -243,4 +243,15 @@ useHead(() => ({
     innerHTML: JSON.stringify(s),
   })),
 }))
+
+const { track } = useUmami()
+
+onMounted(() => {
+  // Atribuição: se o visitante clicar em "waitlist" a partir daqui, o lead
+  // fica marcado com utm_source='guia' + utm_campaign=<slug> (ver
+  // useContentAttribution e WaitlistForm.vue). Sem isso, era impossível saber
+  // se um cadastro veio de um guia específico ou direto da home.
+  setContentAttribution({ source: 'guia', campaign: props.guide.slug })
+  track('section_view', { location: 'guia', slug: props.guide.slug })
+})
 </script>
