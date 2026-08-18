@@ -104,6 +104,10 @@
             </p>
             <div class="space-y-2">
               <NuxtLink
+                to="/sobre"
+                class="block text-sm text-white/55 hover:text-white/80 transition-colors"
+              >Sobre o Editus</NuxtLink>
+              <NuxtLink
                 to="/privacidade"
                 class="block text-sm text-white/55 hover:text-white/80 transition-colors"
               >Política de Privacidade</NuxtLink>

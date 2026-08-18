@@ -36,6 +36,9 @@ export interface Guide {
   readingTime: string
   blocks: GuideBlock[]
   faqs?: GuideFaq[]
+  // slugs de guias topicamente relacionados (linkagem interna direcionada,
+  // não a lista genérica "todos os outros guias" — ver GuiaLayout.vue)
+  related?: string[]
 }
 
 const ORIGIN = 'https://editus.com.br'
@@ -79,6 +82,7 @@ export const GUIDES: Guide[] = [
       { q: 'O PNCP substituiu o Comprasnet?', a: 'Não exatamente. O PNCP é o portal de divulgação e transparência dos editais. O Comprasnet (Compras.gov.br) continua sendo o sistema operacional onde os pregões do governo federal são efetivamente disputados. Muitos editais publicados no PNCP remetem ao Comprasnet ou a outras plataformas para a sessão pública.' },
       { q: 'Todo órgão público é obrigado a publicar no PNCP?', a: 'Sim. Sob a Lei 14.133/2021, a publicação no PNCP é condição de eficácia do edital para os órgãos e entidades da administração pública direta e indireta da União, estados, DF e municípios.' },
     ],
+    related: ['pregao-eletronico-como-funciona', 'como-participar-de-licitacao', 'lei-14133-resumo'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -129,6 +133,7 @@ export const GUIDES: Guide[] = [
       { q: 'Quais certidões negativas são obrigatórias?', a: 'As mais recorrentes são: CND de tributos federais e dívida ativa da União, CRF do FGTS e CNDT (débitos trabalhistas). A depender do objeto e do ente licitante, somam-se certidões estaduais e municipais.' },
       { q: 'O que acontece se um documento estiver vencido no dia da sessão?', a: 'A empresa costuma ser inabilitada. Por isso o controle de validade das certidões é crítico. Empresas ME/EPP têm alguma flexibilidade para regularização fiscal posterior, mas isso não vale para todos os documentos.' },
     ],
+    related: ['certidao-vencida-licitacao', 'o-que-e-sicaf', 'mei-pode-participar-de-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -163,6 +168,7 @@ export const GUIDES: Guide[] = [
       { q: 'Qual a diferença entre CEIS e CNEP?', a: 'O CEIS registra sanções que restringem o direito de licitar e contratar (inidoneidade, suspensão). O CNEP registra punições da Lei Anticorrupção (multas e acordos de leniência por atos lesivos à administração).' },
       { q: 'Estar no CEIS impede definitivamente de licitar?', a: 'Depende do tipo e da vigência da sanção. Algumas são temporárias e têm prazo determinado; enquanto vigentes, impedem a participação. Por isso é importante verificar não só a existência, mas o alcance e a validade da sanção.' },
     ],
+    related: ['habilitacao-licitacao', 'impugnacao-de-edital', 'certidao-vencida-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -212,6 +218,7 @@ export const GUIDES: Guide[] = [
       { q: 'Quais são as modalidades da nova lei?', a: 'São cinco: pregão, concorrência, concurso, leilão e diálogo competitivo. A tomada de preços e o convite, da lei antiga, foram extintos.' },
       { q: 'O que é o diálogo competitivo?', a: 'É uma modalidade nova, voltada a contratações de soluções inovadoras ou tecnicamente complexas, em que a administração conversa com os licitantes para desenvolver a solução antes de receber as propostas finais.' },
     ],
+    related: ['pregao-eletronico-como-funciona', 'impugnacao-de-edital', 'o-que-e-pncp'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -247,6 +254,7 @@ export const GUIDES: Guide[] = [
       { q: 'Preciso de certificado digital para participar de pregão?', a: 'Para operar na maioria das plataformas e assinar documentos é necessário credenciamento e, em muitos casos, certificado digital. O cadastro no Compras.gov.br é o ponto de partida para pregões federais.' },
       { q: 'O menor preço sempre vence o pregão?', a: 'O menor preço é classificado em primeiro lugar, mas só vence se a empresa comprovar a habilitação e se o preço for exequível. Propostas inexequíveis ou com documentação irregular são desclassificadas.' },
     ],
+    related: ['habilitacao-licitacao', 'o-que-e-pncp', 'carta-de-credenciamento-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -282,6 +290,7 @@ export const GUIDES: Guide[] = [
       { q: 'Preciso de um consultor para participar?', a: 'Não é obrigatório. Em licitações mais simples, uma empresa organizada consegue participar sozinha. Em contratos complexos, uma consultoria ou ferramentas de análise ajudam a reduzir erros de habilitação e precificação.' },
       { q: 'Quanto custa participar de uma licitação?', a: 'Participar em si é gratuito. Os custos são indiretos: certificado digital, tempo de análise do edital, elaboração da proposta e, eventualmente, garantias exigidas pelo edital.' },
     ],
+    related: ['o-que-e-sicaf', 'habilitacao-licitacao', 'mei-pode-participar-de-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -318,6 +327,7 @@ export const GUIDES: Guide[] = [
       { q: 'Qual o limite de faturamento do MEI em licitações?', a: 'O MEI deve respeitar o teto anual de receita da categoria. Contratos públicos contam para esse limite; ao ultrapassá-lo, o microempreendedor precisa migrar para ME, com regime tributário diferente.' },
       { q: 'MEI precisa de certificado digital para licitar?', a: 'Na prática, sim. A maioria das plataformas de licitação exige credenciamento e certificado digital para envio de propostas e assinatura de documentos.' },
     ],
+    related: ['habilitacao-licitacao', 'certidao-vencida-licitacao', 'como-participar-de-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -356,6 +366,7 @@ export const GUIDES: Guide[] = [
       { q: 'Preciso estar no SICAF para participar de qualquer licitação?', a: 'Para licitações federais no Compras.gov.br, o SICAF é o cadastro padrão. Estados e municípios podem ter seus próprios sistemas de cadastramento de fornecedores.' },
       { q: 'O SICAF substitui a apresentação de documentos?', a: 'Parcialmente. Ele comprova boa parte da regularidade da empresa, mas alguns editais ainda exigem documentos complementares específicos do objeto.' },
     ],
+    related: ['habilitacao-licitacao', 'como-participar-de-licitacao', 'certidao-vencida-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -387,6 +398,7 @@ export const GUIDES: Guide[] = [
       { q: 'Certidão positiva com efeito de negativa serve?', a: 'Sim. A certidão positiva com efeitos de negativa (quando há débito com exigibilidade suspensa ou parcelado) é geralmente aceita como prova de regularidade, equivalendo à negativa.' },
       { q: 'Posso apresentar a certidão em outra data se ela venceu?', a: 'Fora da hipótese de ME/EPP, não. A regra geral exige a certidão válida na data definida pelo edital; documento vencido leva à inabilitação.' },
     ],
+    related: ['habilitacao-licitacao', 'mei-pode-participar-de-licitacao', 'consulta-ceis-cnep-cepim'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -424,6 +436,7 @@ export const GUIDES: Guide[] = [
       { q: 'Impugnar o edital atrapalha minha participação?', a: 'Não. Impugnar é um direito e não impede a empresa de participar. Se a impugnação for aceita, o edital é corrigido — o que pode inclusive beneficiar quem apontou o problema.' },
       { q: 'Qual a diferença entre impugnação e recurso?', a: 'A impugnação questiona o edital antes da sessão. O recurso questiona decisões tomadas durante ou após o certame (habilitação, julgamento, resultado).' },
     ],
+    related: ['lei-14133-resumo', 'consulta-ceis-cnep-cepim', 'carta-de-credenciamento-licitacao'],
   },
   // ---------------------------------------------------------------------------
   {
@@ -456,6 +469,7 @@ export const GUIDES: Guide[] = [
       { q: 'No pregão eletrônico preciso de carta de credenciamento?', a: 'Em geral os poderes se comprovam pelo próprio credenciamento na plataforma. Ainda assim, alguns editais pedem o documento para atos específicos — leia as regras do certame.' },
       { q: 'Qual a diferença entre carta de credenciamento e procuração?', a: 'Ambas outorgam poderes ao representante. A carta costuma ser mais simples e específica para o certame; a procuração é mais formal e pode ter escopo mais amplo. O edital define qual é aceita.' },
     ],
+    related: ['pregao-eletronico-como-funciona', 'como-participar-de-licitacao', 'o-que-e-pncp'],
   },
 ]
 

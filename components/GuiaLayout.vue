@@ -208,7 +208,18 @@ import {
 
 const props = defineProps<{ guide: Guide }>()
 
-const otherGuides = computed(() => GUIDES.filter(g => g.slug !== props.guide.slug))
+// Prioriza os guias topicamente relacionados (guide.related); completa com os
+// demais só se related estiver ausente ou tiver menos de 3 entradas — assim a
+// seção nunca aponta para um guia desconexo do assunto atual.
+const otherGuides = computed(() => {
+  const rest = GUIDES.filter(g => g.slug !== props.guide.slug)
+  const related = (props.guide.related ?? [])
+    .map(slug => rest.find(g => g.slug === slug))
+    .filter((g): g is Guide => g !== undefined)
+  if (related.length >= 3) return related.slice(0, 4)
+  const fallback = rest.filter(g => !related.includes(g))
+  return [...related, ...fallback].slice(0, 4)
+})
 
 const formattedDate = computed(() => {
   // Formata a data ISO (guide.updated) em pt-BR sem depender de Date.now().

@@ -31,6 +31,7 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 // URLs padrão do site (mantenha em sincronia com o sitemap das páginas públicas).
 const DEFAULT_URLS = [
   `${ORIGIN}/`,
+  `${ORIGIN}/sobre`,
   `${ORIGIN}/faq`,
   `${ORIGIN}/calculadora-custo-financeiro`,
   `${ORIGIN}/diagnostico`,

@@ -60,6 +60,23 @@ export default defineNuxtConfig({
       ],
       script: [
         // Umami: injetado em app.vue via useRuntimeConfig (runtime-safe)
+        // JSON-LD: WebSite — ancora a entidade "site" (distinta da "aplicação" e
+        // da "organização" abaixo). Sem isso, Google e agentes de IA não têm um
+        // nó @type:WebSite para associar às páginas indexadas (/guia/*, /faq etc.).
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            '@id': 'https://editus.com.br/#website',
+            'name': 'Editus',
+            'url': 'https://editus.com.br',
+            'inLanguage': 'pt-BR',
+            'description':
+              'Editus monitora o PNCP, encontra editais compatíveis com o perfil da empresa, mostra se vale a pena participar e prepara a proposta.',
+            'publisher': { '@id': 'https://editus.com.br/#organization' },
+          }),
+        },
         // JSON-LD: SoftwareApplication
         {
           type: 'application/ld+json',
@@ -261,6 +278,7 @@ export default defineNuxtConfig({
     // descobre sozinho, então declaramos explicitamente. Manter em sincronia
     // com os slugs de composables/useGuides.ts (GUIDES[].slug).
     urls: [
+      '/sobre',
       '/faq',
       '/guia',
       '/guia/o-que-e-pncp',

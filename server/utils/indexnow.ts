@@ -17,6 +17,7 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow'
 // e com os slugs de composables/useGuides.ts.
 export const INDEXNOW_URLS: string[] = [
   `${ORIGIN}/`,
+  `${ORIGIN}/sobre`,
   `${ORIGIN}/faq`,
   `${ORIGIN}/calculadora-custo-financeiro`,
   `${ORIGIN}/diagnostico`,
