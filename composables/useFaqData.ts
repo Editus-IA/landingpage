@@ -12,7 +12,7 @@ export const FAQS: Faq[] = [
     q: 'Funciona para qualquer tipo de licitação?',
     parts: [
       { text: 'Sim. O Editus foi desenhado para os principais modelos previstos na Lei 14.133/2021: ' },
-      { text: 'pregão eletrônico, concorrência, tomada de preços e dispensa eletrônica.', bold: true },
+      { text: 'pregão eletrônico, concorrência e dispensa eletrônica.', bold: true },
       { text: ' O agente Compliance identifica automaticamente a modalidade do edital e aplica os critérios específicos de cada uma. Para editais de credenciamento e chamamento público, a análise é parcial — cobrindo habilitação e compliance, mas sem geração de proposta.' },
     ],
   },

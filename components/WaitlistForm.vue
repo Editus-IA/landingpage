@@ -481,7 +481,7 @@ onUnmounted(() => {
 // CTA copy por variante. O 'control' lidera com resultado (não com "lista"),
 // mantendo o funil de acesso antecipado — que é o que existe hoje.
 const heroCTAText = computed(() => {
-  if (props.ctaCopyVariant === 'benefit') return 'Testar grátis'
+  if (props.ctaCopyVariant === 'benefit') return 'Quero o beta gratuito'
   if (props.ctaCopyVariant === 'action') return 'Entrar na lista'
   return 'Quero encontrar minhas licitações'
 })

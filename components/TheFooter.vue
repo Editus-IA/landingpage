@@ -121,7 +121,7 @@
           © 2026 Editus. Todos os direitos reservados.
         </p>
         <p class="text-xs text-white/45">
-          Editus Tecnologia Ltda. · CNPJ 49.076.076/0001-90 ·
+          Editus é um produto de Joaquim Alves LTDA · CNPJ 49.076.076/0001-90 ·
           <a
             href="mailto:privacidade@editus.com.br"
             class="hover:text-white/40 transition-colors"

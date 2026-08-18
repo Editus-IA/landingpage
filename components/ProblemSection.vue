@@ -93,15 +93,15 @@ const problems = [
     icon: IconCompliance,
     iconBg: 'bg-amber-50',
     title: 'Compliance é complexo demais',
-    desc: 'A Lei 14.133/2021 substituiu a antiga lei de licitações com centenas de novos requisitos. Uma cláusula ignorada pode levar à desclassificação ou até impedimento futuro.',
-    stat: 'Lei 14.133 tem mais de 200 artigos',
+    desc: 'A Lei 14.133/2021 substituiu a antiga lei de licitações com 194 artigos e centenas de novos requisitos. Uma cláusula ignorada pode levar à desclassificação ou até impedimento futuro.',
+    stat: 'Lei 14.133 tem 194 artigos',
   },
   {
     icon: IconMoney,
     iconBg: 'bg-green-50',
     title: 'Custo financeiro invisível',
     desc: 'Contratos com prazo de pagamento longo (30, 60, 90 dias) geram custo financeiro real que erode a margem. Poucos calculam isso na proposta e perdem dinheiro sem perceber.',
-    stat: 'Custo de até 3% da margem ignorado por edital',
+    stat: '~3,3% do contrato em 90 dias com a Selic a 14% a.a.',
   },
 ]
 
@@ -110,15 +110,15 @@ const veteranProblems = [
     icon: IconClock,
     iconBg: 'bg-red-50',
     title: 'Volume maior do que a capacidade de análise',
-    desc: 'Empresas ativas no PNCP recebem dezenas de alertas por semana. Seu time consegue analisar com profundidade 4 ou 5. Os outros 35 passam sem avaliação — e alguns eram oportunidades reais.',
-    stat: 'Média de 40+ editais compatíveis por semana para PMEs ativas',
+    desc: 'Empresas ativas no PNCP recebem dezenas de alertas por semana, mas o time só consegue analisar com profundidade uma fração deles. O resto passa sem avaliação — e alguns eram oportunidades reais.',
+    stat: 'Milhares de editais publicados no PNCP toda semana',
   },
   {
     icon: IconCompliance,
     iconBg: 'bg-amber-50',
     title: 'Habilitação descoberta na abertura, não antes',
     desc: 'A certidão venceu. O CNPJ tem restrição no CEIS. O porte não se enquadra na cota reservada. Você só descobre na abertura do envelope — depois de dias de trabalho e custo de proposta.',
-    stat: 'Desclassificação por habilitação é o erro mais frequente em pregões',
+    stat: 'Certidão vencida e documento faltando estão entre as causas mais comuns de desclassificação',
   },
   {
     icon: IconMoney,

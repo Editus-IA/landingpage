@@ -48,8 +48,8 @@
             Antes de sair: quais licitações você está deixando passar?
           </h3>
           <p class="text-sm text-white/60 mb-6 leading-relaxed">
-            Diga seu e-mail e segmento e o Editus começa a monitorar os editais compatíveis com a
-            sua empresa. Você finaliza o cadastro em seguida.
+            Deixe seu e-mail e segmento para garantir seu lugar no acesso antecipado — seu perfil
+            já fica pronto para quando o monitoramento começar. Você finaliza o cadastro em seguida.
           </p>
 
           <form

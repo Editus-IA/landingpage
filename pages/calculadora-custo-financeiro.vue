@@ -185,10 +185,10 @@
         </h2>
         <p class="text-neutral-600 leading-relaxed">
           Empresas que ignoram esse custo apresentam propostas com margem menor do que imaginam. Em um
-          contrato de R$ 300 mil pago em 90 dias, com a Selic na casa dos dois dígitos, o custo
-          financeiro facilmente ultrapassa R$ 8 mil — dinheiro que sai direto da margem se não estiver
-          embutido no preço. Precificar esse carregamento é a diferença entre um contrato lucrativo e
-          um que só parece lucrativo.
+          contrato de R$ 300 mil pago em 90 dias, com a Selic a 14% ao ano (taxa mensal equivalente
+          de ~1,1%), o custo financeiro é de R$ 9.881 — cerca de 3,3% do valor do contrato, dinheiro
+          que sai direto da margem se não estiver embutido no preço. Precificar esse carregamento é a
+          diferença entre um contrato lucrativo e um que só parece lucrativo.
         </p>
       </article>
 

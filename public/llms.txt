@@ -1,26 +1,46 @@
 # Editus
 
-> Plataforma de inteligência artificial para PMEs brasileiras que competem em licitações públicas. Monitora o PNCP, analisa editais conforme a Lei 14.133/2021, verifica habilitação e gera a proposta pronta para revisão. (Não confundir com a Editus, editora da UESC — Universidade Estadual de Santa Cruz.)
+> O Editus encontra as licitações certas para PMEs brasileiras, mostra se vale a pena participar e prepara a proposta. Monitora o PNCP pelo perfil da empresa, verifica habilitação, riscos, compliance com a Lei 14.133/2021 e custo financeiro do prazo de pagamento. (Não confundir com a Editus, editora da UESC — Universidade Estadual de Santa Cruz.)
 
 ## Produto
 
-A Editus usa 12 agentes de IA especializados para reduzir de dias para minutos o tempo que uma PME gasta analisando um edital de licitação. O sistema monitora o PNCP (Portal Nacional de Compras Públicas) pelo perfil da empresa, filtra oportunidades relevantes por segmento (CATMAT/CATSER), UF e porte (MEI, ME, EPP), verifica certidões e habilitação (SIASG, CEIS, CNEP, CEPIM), analisa compliance com a Lei 14.133/2021 e risco por cláusula, e gera a proposta redigida para revisão humana antes da submissão no Comprasnet.
+O Editus é uma plataforma de inteligência artificial para PMEs que competem em licitações públicas no Brasil. Em vez de a empresa garimpar editais e gastar dias analisando cada um, o Editus: (1) monitora o PNCP (Portal Nacional de Compras Públicas) continuamente pelo perfil da empresa — segmento (CATMAT/CATSER), UF e porte (MEI, ME, EPP); (2) analisa cada edital compatível: habilitação e certidões (SIASG, CEIS, CNEP, CEPIM), compliance com a Lei 14.133/2021, risco por cláusula, prazo de pagamento e custo financeiro ancorado na Selic; (3) entrega uma decisão executiva — participar, participar com ajustes ou não participar — e prepara a proposta para revisão humana antes da submissão no Comprasnet. Está em fase de acesso antecipado (waitlist).
 
 ## Público-alvo
 
 - Pequenas e médias empresas brasileiras que participam de licitações públicas
 - Gestores e sócios sem experiência prévia em direito administrativo
-- Profissionais de licitações (pregoeiros, assessores jurídicos) que querem acelerar a análise
+- Profissionais de licitações que querem acelerar a análise
 
 ## Termos-chave
 
 - PNCP — Portal Nacional de Compras Públicas
-- Lei 14.133/2021 — Nova Lei de Licitações e Contratos
-- Modalidades cobertas: pregão eletrônico, concorrência, tomada de preços, dispensa eletrônica
-- Comprasnet, habilitação, compliance, custo financeiro do prazo de pagamento
+- Lei 14.133/2021 — Nova Lei de Licitações e Contratos (194 artigos)
+- Modalidades cobertas: pregão eletrônico, concorrência, dispensa eletrônica
+- Comprasnet, SICAF, habilitação, compliance, custo financeiro do prazo de pagamento
+
+## Ferramentas gratuitas
+
+- [Calculadora de custo financeiro](https://editus.com.br/calculadora-custo-financeiro): calcula quanto o prazo de pagamento (30/60/90 dias) custa à margem de um contrato, com a taxa Selic atual do Banco Central. Exemplo: contrato de R$ 300.000 pago em 90 dias com Selic a 14% a.a. tem custo financeiro de R$ 9.881 (~3,3% do contrato).
+- [Diagnóstico de oportunidades](https://editus.com.br/diagnostico): 4 perguntas para estimar quantas licitações compatíveis a empresa deixa de analisar por mês por falta de tempo.
+
+## Guias de licitação
+
+- [O que é o PNCP](https://editus.com.br/guia/o-que-e-pncp): o portal oficial onde União, estados e municípios publicam todas as licitações após a Lei 14.133/2021.
+- [Habilitação em licitação](https://editus.com.br/guia/habilitacao-licitacao): checklist de documentos e certidões (jurídica, fiscal, técnica e econômica).
+- [Consulta CEIS, CNEP e CEPIM](https://editus.com.br/guia/consulta-ceis-cnep-cepim): como saber se uma empresa está impedida de licitar.
+- [Resumo da Lei 14.133/2021](https://editus.com.br/guia/lei-14133-resumo): modalidades, critérios de julgamento e o que muda para as empresas.
+- [Como funciona o pregão eletrônico](https://editus.com.br/guia/pregao-eletronico-como-funciona): fases, lances e habilitação.
+- [Como participar de licitação](https://editus.com.br/guia/como-participar-de-licitacao): passo a passo para a primeira licitação.
+- [MEI pode participar de licitação?](https://editus.com.br/guia/mei-pode-participar-de-licitacao): documentos, benefícios e limite de faturamento.
+- [O que é o SICAF](https://editus.com.br/guia/o-que-e-sicaf): o cadastro de fornecedores do governo federal e como se registrar.
+- [Certidão vencida na licitação](https://editus.com.br/guia/certidao-vencida-licitacao): o que acontece e a exceção para ME/EPP.
+- [Impugnação de edital](https://editus.com.br/guia/impugnacao-de-edital): como e quando questionar cláusulas ilegais.
+- [Carta de credenciamento](https://editus.com.br/guia/carta-de-credenciamento-licitacao): poderes de representação em licitações.
 
 ## Links
 
-- [Página inicial](https://editus.com.br): Visão geral do produto e lista de acesso antecipado
-- [Perguntas frequentes](https://editus.com.br/faq): Respostas diretas sobre como a IA analisa editais, o que é o PNCP, compliance, habilitação, prazos e responsabilidade sobre a proposta
-- [Sitemap](https://editus.com.br/sitemap.xml): Mapa completo do site
+- [Página inicial](https://editus.com.br): visão geral do produto e acesso antecipado
+- [Perguntas frequentes](https://editus.com.br/faq): respostas diretas sobre o Editus, PNCP, compliance, habilitação e responsabilidade sobre a proposta
+- [Índice de guias](https://editus.com.br/guia): todos os guias práticos de licitação
+- [Sitemap](https://editus.com.br/sitemap.xml): mapa completo do site

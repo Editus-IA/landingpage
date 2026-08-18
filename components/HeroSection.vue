@@ -286,7 +286,7 @@ onMounted(async () => {
 const stats = [
   { value: 'Minutos', label: 'para analisar um edital que levaria 3 a 5 dias manualmente' },
   { value: 'R$ 9,9k', label: 'de custo financeiro identificado por contrato de R$ 300k' },
-  { value: '200+', label: 'artigos da Lei 14.133/2021 verificados' },
+  { value: '194', label: 'artigos da Lei 14.133/2021 cobertos na análise' },
   { value: '24/7', label: 'monitoramento do PNCP pelo perfil da empresa' },
 ]
 

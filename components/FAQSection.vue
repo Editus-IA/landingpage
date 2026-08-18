@@ -120,7 +120,7 @@ const props = defineProps<{
 const { track } = useUmami()
 
 const faqCTAText = computed(() => {
-  if (props.ctaCopyVariant === 'benefit') return 'Começar agora, é grátis'
+  if (props.ctaCopyVariant === 'benefit') return 'Quero o acesso gratuito'
   if (props.ctaCopyVariant === 'action') return 'Reservar minha vaga'
   return 'Entrar na lista de acesso'
 })

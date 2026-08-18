@@ -35,10 +35,9 @@
             1. Quem somos (Controlador de Dados)
           </h2>
           <p>
-            Esta política é aplicada pela <strong class="text-white">Editus Tecnologia Ltda</strong>,
-            porém a empresa inteirina nesse primeiro momento será a
-            <strong class="text-white">Joaquim Alves LTDA</strong> inscrita no CNPJ sob o nº
-            <strong class="text-white">49.076.076/0001-90</strong>,
+            O <strong class="text-white">Editus</strong> é um produto operado pela
+            <strong class="text-white">Joaquim Alves LTDA</strong>, inscrita no CNPJ sob o nº
+            <strong class="text-white">49.076.076/0001-90</strong>, que é a controladora
             responsável pelo tratamento dos seus dados pessoais coletados nesta plataforma.
           </p>
           <p class="mt-3">
@@ -116,7 +115,7 @@
             <li><strong class="text-white">Supabase</strong>: banco de dados (armazenamento dos cadastros).</li>
             <li><strong class="text-white">Vercel</strong>: hospedagem da aplicação.</li>
             <li><strong class="text-white">Resend</strong>: envio de e-mails transacionais.</li>
-            <li><strong class="text-white">Plausible Analytics</strong>: analytics sem cookies, sem dados pessoais.</li>
+            <li><strong class="text-white">Umami (Umami Cloud)</strong>: analytics sem cookies, sem dados pessoais identificáveis.</li>
           </ul>
           <p class="mt-3">
             Todos operam em conformidade com o GDPR e fornecem garantias equivalentes à LGPD.
@@ -189,7 +188,7 @@ useHead({
   title: 'Política de Privacidade — Editus',
   meta: [
     { name: 'robots', content: 'noindex, nofollow' },
-    { name: 'description', content: 'Política de Privacidade da Editus Tecnologia — como coletamos, usamos e protegemos seus dados pessoais.' },
+    { name: 'description', content: 'Política de Privacidade do Editus — como coletamos, usamos e protegemos seus dados pessoais.' },
   ],
 })
 </script>

@@ -117,7 +117,7 @@ export default defineNuxtConfig({
             '@id': 'https://editus.com.br/#organization',
             'name': 'Editus',
             'alternateName': 'Editus IA',
-            'legalName': 'Editus Tecnologia',
+            'legalName': 'Joaquim Alves LTDA',
             'url': 'https://editus.com.br',
             'logo': 'https://editus.com.br/logo-symbol-gradient.svg',
             'image': 'https://editus.com.br/og-image.png',
